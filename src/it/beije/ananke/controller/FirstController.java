@@ -25,6 +25,17 @@ public class FirstController {
 		return "index";
 	}
 	
+	@RequestMapping(value = {"/login"}, method = RequestMethod.GET)
+	public String index2(HttpServletRequest request, Model model, Locale locale) {
+		System.out.println("sono nella index2..." + request.getRequestURL() + " - locale " + locale.getDisplayCountry());
+		
+		String saluto = "Buongiorno";
+		model.addAttribute("saluto", saluto);
+		
+		return "index";
+	}
+	
+	
 	@RequestMapping(value = "/hello", method = RequestMethod.GET)
 	public String hello() {
 		System.out.println("sono nella hello...");
