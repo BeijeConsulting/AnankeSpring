@@ -6,6 +6,6 @@
 </head>
 <body>
 <h2>UTENTE GIA REGISTRATO!</h2>
-<a href="login.jsp">Login</a>
+<a href="login">Login</a>
 </body>
 </html>

@@ -4,13 +4,22 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Prima JSP</title>
+<title>Rubrica</title>
 </head>
 <body>
-
-<h1>RUBRICA</h1>
+<h1>WEAPONS E-COMMERCE</h1>
 <br>
-<a href="form.html">FUNZIONI RUBRICA</a>
+<br>
+<form action="registrazione" method="get">
+	<input type="submit" value="REGISTRATI"/>
+		</form>
+<br>
+<br>
+<form action="login" method="get">
+	<input type="submit" value="LOGIN"/>
+		</form>
+
+
 
 </body>
 </html>

@@ -9,7 +9,7 @@
 <body>
 
 	<h3>LOGIN</h3>
-		<form action="./ServletLogin" method="post">
+		<form action="./login" method="post">
  			Email&nbsp;<input type="text" name="email" value="" placeholder=""/><br>
  			Password&nbsp;<input type="text" name="password" value="" placeholder=""/><br/>
 			<br><input type="submit" value="Login"/>
