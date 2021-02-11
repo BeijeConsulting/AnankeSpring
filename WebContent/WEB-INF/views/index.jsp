@@ -19,7 +19,7 @@
 if(u == null){
 %>
 <h1>Benvenuto su Ecommerce</h1>
-<h2>Per registrarti <a href="./regPage">clicca qui</a></h2>
+<h2>Per registrarti <a href="./registrationPage">clicca qui</a></h2>
 <h2>Per accedere <a href="./loginPage">clicca qui</a></h2>
 <% } else{
 %>

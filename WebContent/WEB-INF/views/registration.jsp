@@ -12,21 +12,16 @@
 </head>
 <body>
 <div class="container">
-<form action="./registrationServlet" method="post">
+<form action="./registration" method="post">
 <label for="email">First Name:</label><br>
   <input type="text" id="fname" name="fname"><br>
   <label for="email">Last Name:</label><br>
   <input type="text" id="lname" name="lname"><br>
   <label for="email">Email:</label><br>
   <input type="email" id="email" name="email"><br>
-  <%
-  String present = (String)request.getAttribute("present");
-  if(present == null){
-	  
-  }else if(present == "true"){
-  %>
-  <h5>Attenzione, l'email è già presente. Riprova</h5>
-  <%} %>
+ 
+  <span>${error}</br></span>
+
   <label for="email">Password:</label><br>
   <input type="password" id="psw" name="password">
   <p><input type="submit" class="btn btn-dark" value="Registrati"></p>
