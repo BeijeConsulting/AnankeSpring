@@ -30,5 +30,13 @@ public class FirstController {
 		System.out.println("sono nella hello...");
 		return "hello";
 	}
+	
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	public String Test(Model model) {
+		System.out.println("sono in test");
+		String saluto = "We";
+		model.addAttribute("saluto", saluto );
+		return "test";
+	}
 
 }
