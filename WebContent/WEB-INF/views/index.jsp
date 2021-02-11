@@ -13,13 +13,14 @@
 <body>
 <%@ include file = "navbar.jsp"%>
 <div class = "container">
+
 <%
 
 if(u == null){
 %>
 <h1>Benvenuto su Ecommerce</h1>
-<h2>Per registrarti <a href="registration.jsp">clicca qui</a></h2>
-<h2>Per accedere <a href="./loginpage">clicca qui</a></h2>
+<h2>Per registrarti <a href="./regPage">clicca qui</a></h2>
+<h2>Per accedere <a href="./loginPage">clicca qui</a></h2>
 <% } else{
 %>
 <h1>Benvenuto <%= u.getFirstName() %></h1>

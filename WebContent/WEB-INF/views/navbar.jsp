@@ -41,7 +41,7 @@
          </ul>
         <ul class="navbar-nav mr-auto">
          <li class="nav-item">
-          <a class="nav-link" href="products.jsp">Logout</a>
+          <a class="nav-link" href="./logout">Logout</a>
         </li>
         </ul>
         <%} %>

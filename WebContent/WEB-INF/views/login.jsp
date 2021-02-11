@@ -14,7 +14,7 @@
 
 
 <div class="container">
-<form action="authServlet" method="post">
+<form action="./auth" method="post">
 <label for="email">Email:</label><br>
   <input type="text" id="fname" name="email"><br>
   <label for="email">Password:</label><br>

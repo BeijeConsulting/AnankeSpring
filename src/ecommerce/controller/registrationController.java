@@ -1,0 +1,16 @@
+package ecommerce.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+@Controller
+public class registrationController {
+
+	
+	@RequestMapping(value ="regPage", method = RequestMethod.GET)
+	public String regPage() {
+		
+		return "registration";
+	}
+}
