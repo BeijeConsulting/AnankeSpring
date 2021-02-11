@@ -37,7 +37,7 @@ public class LoginController {
 			return "index";
 			
 		} else {
-		System.out.println("Sono prima del dispatcher");
+		model.addAttribute("error", "Email o Password sbagliate, riprova")
 			
 			return "login";
 			
