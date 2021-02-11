@@ -5,6 +5,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Welcome to Ecommerce Project</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <link rel="stylesheet" href="bootstrap.min.css"/> 
 <link href="style.css" rel="stylesheet">        
 <script src="bootstrap.min.js"></script>  
@@ -18,7 +19,7 @@ if(u == null){
 %>
 <h1>Benvenuto su Ecommerce</h1>
 <h2>Per registrarti <a href="registration.jsp">clicca qui</a></h2>
-<h2>Per accedere <a href="login.jsp">clicca qui</a></h2>
+<h2>Per accedere <a href="./loginpage">clicca qui</a></h2>
 <% } else{
 %>
 <h1>Benvenuto <%= u.getFirstName() %></h1>
