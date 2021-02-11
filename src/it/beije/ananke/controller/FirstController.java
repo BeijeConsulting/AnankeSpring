@@ -43,11 +43,13 @@ public class FirstController {
 //		return "dati";
 //	}
 	
-	@RequestMapping(value = {"/postContact"}, method = RequestMethod.POST)
-	public String setString(@RequestParam String nome, @RequestParam String cognome , Model model) {
+	@RequestMapping(value = "/form", method = { RequestMethod.GET, RequestMethod.POST })
+	public String getData(@RequestParam String nome, @RequestParam String cognome , Model model) 
+	{
 		model.addAttribute("nome", nome);
 		model.addAttribute("cognome", cognome);
+		System.out.println("post method called.....");
 		
-		return null;
+		return "dati";
 	}
 }
