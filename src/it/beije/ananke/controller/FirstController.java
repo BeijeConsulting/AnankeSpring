@@ -19,8 +19,22 @@ import it.beije.ananke.model.Contatto;
 
 @Controller
 public class FirstController {
-
-	@RequestMapping(value = {"/", "index", "pippopluto"}, method = RequestMethod.GET)
+	
+	
+	@RequestMapping(value = {"/", "home", "pippopluto"}, method = RequestMethod.GET)
+	public String home(HttpServletRequest request, Model model, Locale locale) {
+		return "Home";
+	}
+	
+	@RequestMapping(value = "/registrazione", method = RequestMethod.GET)
+	public String Reg(HttpServletRequest request, Model model, Locale locale) {
+		return "Registrazione";
+	}
+	@RequestMapping(value = "/log", method = RequestMethod.GET)
+	public String log(HttpServletRequest request, Model model, Locale locale) {
+		return "Log";
+	}
+	@RequestMapping(value = { "index", "pippopluto"}, method = RequestMethod.GET)
 	public String index(HttpServletRequest request, Model model, Locale locale) {
 		System.out.println("sono nella index..." + request.getRequestURL() + " - locale " + locale.getDisplayCountry());
 		
@@ -30,7 +44,7 @@ public class FirstController {
 		return "index";
 	}
 	
-	@RequestMapping(value = "/hello", method = RequestMethod.GET)
+	@RequestMapping(value = { "/hello"}, method = RequestMethod.GET)
 	public String hello() {
 		System.out.println("sono nella hello...");
 		return "hello";
