@@ -1,0 +1,30 @@
+@charset "ISO-8859-1";
+.container{
+	text-align: center;
+}
+/* table{ */
+/* 	border-collapse: collapse; */
+/* 	overflow: hidden; */
+/* 	box-shadow: 0 0 20px rgba(0,0,0,0.1); */
+/* } */
+
+
+thead{
+	color:red;
+}
+
+tr:hover {background-color: white;}
+
+.form{
+	font-size:1.4em;
+}
+.dbtable{
+	font-size:1.4em;
+}
+.widthcard{
+	width:2em;
+}
+
+h5{
+	color:red;
+}
