@@ -25,6 +25,11 @@ public class FirstController {
 		return "index";
 	}
 	
+	@RequestMapping(value = "/home", method = RequestMethod.GET)
+	public String home(HttpServletRequest request) {
+		return "home";
+	}
+	
 	@RequestMapping(value = "/hello", method = RequestMethod.GET)
 	public String hello() {
 		System.out.println("sono nella hello...");

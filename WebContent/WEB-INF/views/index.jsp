@@ -8,5 +8,6 @@
 </head>
 <body>
 ${saluto} ANANKE :-)
+<a href="home.jsp">home</a>
 </body>
 </html>
