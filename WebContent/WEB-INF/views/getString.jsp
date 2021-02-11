@@ -8,7 +8,7 @@
 </head>
 <body>
 <h1>hello to getString file</h1>
- ${prova} 
+ ${list.size()} 
 
 </body>
 </html>
