@@ -27,7 +27,6 @@ public final class DbManager {
 			return list;
 		
 	}
-
 		@SuppressWarnings("unchecked")
 		public static List<Carrello> getCarrello(int idUtente) {
 			
@@ -39,6 +38,22 @@ public final class DbManager {
 			list = query.getResultList();
 		
 			return list;
+			
+		}
+		
+		@SuppressWarnings("unchecked")
+		public static Prodotto getProdotto(int idProdotto) {
+			
+			List<Prodotto> list = new ArrayList<>();
+			EntityManager entityManager = JPAEntityManager.getEntityManager();
+			String jpqlSelect = "SELECT p FROM Prodotto as p WHERE id =" + idProdotto;
+					  
+			
+			Query query = entityManager.createQuery(jpqlSelect);
+			list = query.getResultList();
+			Prodotto p = list.get(0);
+		
+			return p;
 			
 		}
 	

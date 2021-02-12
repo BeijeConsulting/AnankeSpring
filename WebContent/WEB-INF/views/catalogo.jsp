@@ -19,7 +19,7 @@ if(list == null){
 	htmlCode += "NESSUN PRODOTTO NEL CATALOGO";
 }else{
 	htmlCode += "<h2>CATALOGO<h2><br>";
-	htmlCode += "<form action=\"./ServletAggiungiCarrello\" method=\"post\">";
+	htmlCode += "<form action=\"./aggiungiAlCarrello\" method=\"post\">";
 	
 	for(Prodotto p : list){
 
@@ -30,7 +30,7 @@ if(list == null){
 	}
 
 	htmlCode += "<br><input type=\"submit\" value=\"AGGIUNGI AL CARRELLO\"/></form><br>";
-	htmlCode += "<form action=\"./ServletVisualizzaCarrello\" method=\"post\">";
+	htmlCode += "<form action=\"visualizzaCarrello\" method=\"post\">";
 	htmlCode += "<br><input type=\"submit\" value=\"VISUALIZZA CARRELLO\"/></form><br>";
 
 }
