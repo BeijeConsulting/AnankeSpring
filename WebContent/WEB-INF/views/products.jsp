@@ -16,7 +16,7 @@
 <body>
 <%@ include file = "navbar.jsp" %>
 <div class="container">
-<form action="orderServlet" method="post">
+
 
 <div class="card-group " >
 <% List<Product> products = JPAManager.getAllProducts();
@@ -27,17 +27,25 @@ for(Product p: products){
    <h5 class="card-title"><%= p.getName()%></h5>
    <p class="card-text"><%= p.getDesc() %></p>
    <p> <%= p.getPrice() %> Euro</p>
-   <label for="number">Quantità</label>
-   <input id="number" type="number" name ="quantity<%= p.getId() %>" value="0"><br>
-   <label for="product">Seleziona</label>
-   <input type="checkbox" id="product" name="product<%= p.getId() %>" value="<%= p.getId() %>">
+   <form action="./addCart" method="post"> 
+   <input type="number" name="quantity" value="0">
+   <input type="hidden" name="id" value="<%=p.getId()%>">
+   <p><input type="submit" value="Scegli"></p>
+  </form>
    </div>
 </div>
 <%} %>
-
 </div>
-<p><input type="submit" class="btn btn-dark" value="procedi"></p>
-</form>
+<p><a href="./viewCart"><button>Visualizza il carrello</button></a></p>
+
+<% Cart cart = (Cart) request.getAttribute("cart"); 
+if(cart == null){
+} else{
+for(Cart_Item ci : cart.getItems()){
+%>
+<p><%= ci.getP().getId() %></p>
+<p><%= ci.getP().getName() %></p>
+<%}} %>
 </div>
 </body>
 </html>

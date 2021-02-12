@@ -37,7 +37,7 @@ public class LoginController {
 			return "index";
 			
 		} else {
-		model.addAttribute("error", "Email o Password sbagliate, riprova")
+		model.addAttribute("error", "Email o Password sbagliate, riprova oppure");
 			
 			return "login";
 			

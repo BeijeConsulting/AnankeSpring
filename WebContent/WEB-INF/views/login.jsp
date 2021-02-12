@@ -19,11 +19,10 @@
   <input type="text" id="fname" name="email"><br>
   <label for="email">Password:</label><br>
   <input type="password" id="lname" name="password">
-  <p><input type="submit" class="btn btn-dark" value="Accedi"></p>
-</form>
+  
 <% 
-String state = (String)request.getAttribute("state");
-if(state == null){
+
+if(request.getAttribute("error") == null){
 	
 
 %>
@@ -32,10 +31,11 @@ if(state == null){
 <%
 } else{
 %>
-<h5>Le credenziali sono sbagliate. Riprova oppure <a href="registration.jsp">registrati</a></h5>
+<h5>${error } <a href="./registrationPage">registrati</a></h5>
 
 <% } %>
-
+<p><input type="submit" class="btn btn-dark" value="Accedi"></p>
+</form>
 </div>
 </body>
 </html>

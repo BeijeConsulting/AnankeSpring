@@ -25,10 +25,12 @@ if(u == null){
 %>
 <h1>Benvenuto <%= u.getFirstName() %></h1>
 
+
+<%
+if(u.getEmail().equals("admin@admin.it") ){%>
+<h2>Per aggiungere prodotti <a href="">clicca qui</a></h2>
 <%} %>
-
-
-
+<%} %>
 
 
 

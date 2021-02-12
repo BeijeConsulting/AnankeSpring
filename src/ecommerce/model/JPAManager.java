@@ -83,6 +83,16 @@ public class JPAManager {
 		return products;
 	}
 	
+	public static Product getProduct(int id) {
+		List<Product> products = getAllProducts();
+		for(Product p : products) {
+			if(p.getId() == id) {
+				return p;
+			}
+		}
+		return null;
+	}
+	
 	public static void insertProduct(Product p) {
 		EntityManager em = EntityManagerGenerator.getEntityManager();
 		EntityTransaction t = em.getTransaction();

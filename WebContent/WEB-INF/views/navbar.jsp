@@ -36,8 +36,13 @@
         
         %>
         <li class="nav-item">
-          <a class="nav-link" href="products.jsp">Prodotti</a>
+          <a class="nav-link" href="./productsPage">Prodotti</a>
         </li>
+        <%if(u.getEmail().equals("admin@admin.it")){ %>
+         <li class="nav-item">
+          <a class="nav-link" href="./dashboard">Administration Panel</a>
+        </li>
+        <%} %>
          </ul>
         <ul class="navbar-nav mr-auto">
          <li class="nav-item">

@@ -19,8 +19,12 @@
   <input type="text" id="lname" name="lname"><br>
   <label for="email">Email:</label><br>
   <input type="email" id="email" name="email"><br>
- 
+ <% if(request.getAttribute("error") == null){
+	 
+ }else{
+  %>
   <span>${error}</br></span>
+  <%} %>
 
   <label for="email">Password:</label><br>
   <input type="password" id="psw" name="password">
