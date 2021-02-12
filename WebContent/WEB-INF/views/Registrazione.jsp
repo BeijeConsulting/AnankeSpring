@@ -15,7 +15,7 @@
 </style>
 <body>
 
-<form action="./RegistrazioneServlet" method = "post">
+<form action="./inserimentoUtente" method = "post">
 <div class = "sfondoDiv">
 <h1>Registrazione:</h1>
 </div>

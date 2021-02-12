@@ -47,8 +47,7 @@
 		<table>
 
 			<tr>
-				<td><a href="ListaProdotti.jsp" class="nolink">Acquisti
-						on-line</a></td>
+				<td><form action = "./lista1"> <input type = "submit" value = "Compra online"></form></td>
 			</tr>
 			<tr>
 				<td><a href="" class="nolink">Ordini</a></td>

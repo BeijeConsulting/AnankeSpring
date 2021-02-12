@@ -27,6 +27,6 @@
 <input type = "submit" value = "Sign-in">
 </form>
 <br>
-Se non sei registrato,  <a href= "Registrazione.html">click here</a>
+Se non sei registrato,  <form action="./registrazione"><input type = "submit" value = "click here"></form>
 </body>
 </html>

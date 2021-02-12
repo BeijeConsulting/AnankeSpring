@@ -1,5 +1,6 @@
 package it.beije.ananke.controller;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import it.beije.ananke.model.Contatto;
+import it.beije.ananke.model.JPAmanager;
+import it.beije.ananke.model.Product;
+
 
 
 @Controller
@@ -29,6 +33,26 @@ public class FirstController {
 	@RequestMapping(value = "/registrazione", method = RequestMethod.GET)
 	public String Reg(HttpServletRequest request, Model model, Locale locale) {
 		return "Registrazione";
+	}
+	@RequestMapping(value = "/lista", method = RequestMethod.GET)
+	public String Lista(HttpServletRequest request, Model model, Locale locale) {
+		JPAmanager<?> jpa = new JPAmanager();
+		ArrayList<Product> list = (ArrayList<Product>)jpa.getList("Product");
+		model.addAttribute("listaprodotti", list);
+		return "ListaProdotti";
+	}
+	
+
+	@RequestMapping(value = "/check", method = RequestMethod.GET)
+	public void check(HttpServletRequest request, Model model, Locale locale) {
+		System.out.println(request.getParameter("id"));
+	}
+	
+	
+	@RequestMapping(value = "/lista1", method = RequestMethod.GET)
+	public String Lista() {
+		
+		return "ListaProdotti";
 	}
 	@RequestMapping(value = "/log", method = RequestMethod.GET)
 	public String log(HttpServletRequest request, Model model, Locale locale) {
@@ -59,8 +83,17 @@ public class FirstController {
 	}
 
 	@RequestMapping(value = "/form", method = RequestMethod.GET)
-	public String form() {
-		System.out.println("get form...");
+	public String form(HttpServletRequest request, Model model, Locale locale) {
+		 String password = request.getParameter("password");
+	        String email = request.getParameter("email");
+	        String first_name = request.getParameter("first_name");
+	        String second_name = request.getParameter("second_name");
+	        System.out.println("email = " + email);
+	        System.out.println("password = " + password);
+	        System.out.println("nome = " + first_name);
+	        System.out.println("cognome = " + second_name);
+	        JPAmanager<?> j = new JPAmanager<>();
+	        j.inserimento(email, password, first_name, second_name);
 		return "form";
 	}
 
