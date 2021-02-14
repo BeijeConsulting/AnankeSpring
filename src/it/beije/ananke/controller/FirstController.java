@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import it.beije.ananke.model.Contatto;
 import it.beije.ananke.model.JPAmanager;
 import it.beije.ananke.model.Product;
+import it.beije.ananke.model.User;
 
 
 
@@ -25,8 +26,9 @@ import it.beije.ananke.model.Product;
 public class FirstController {
 	
 	
-	@RequestMapping(value = {"/", "home", "pippopluto"}, method = RequestMethod.GET)
-	public String home(HttpServletRequest request, Model model, Locale locale) {
+	@RequestMapping(value = {"/", "home"}, method = RequestMethod.GET)
+	public String home(Model model) {
+		model.addAttribute("visible", "none");
 		return "Home";
 	}
 	
@@ -36,16 +38,43 @@ public class FirstController {
 	}
 	@RequestMapping(value = "/lista", method = RequestMethod.GET)
 	public String Lista(HttpServletRequest request, Model model, Locale locale) {
-		JPAmanager<?> jpa = new JPAmanager();
+		JPAmanager<?> jpa = new JPAmanager<>();
+		@SuppressWarnings("unchecked")
 		ArrayList<Product> list = (ArrayList<Product>)jpa.getList("Product");
 		model.addAttribute("listaprodotti", list);
 		return "ListaProdotti";
 	}
 	
+	@RequestMapping(value = "/sign", method = RequestMethod.POST)
+	public String sign(@RequestParam String email, @RequestParam String password, Model model, HttpSession session) {
+		JPAmanager<?> jpa = new JPAmanager<>();
+		ArrayList<User> list = (ArrayList<User>) jpa.getList("User");
+		System.out.println("WEEEEEEE");
+		for(User s: list) {
+			if(s.getEmail().equals(email) && s.getPassword().equals(password)) {
+			    session.setAttribute("utente", s);
+				model.addAttribute("visible", "block");
+				System.out.println(session.getAttribute("utente"));
+				return "Home";
+			}
+		}
+		return "Home";
+	}
 
-	@RequestMapping(value = "/check", method = RequestMethod.GET)
-	public void check(HttpServletRequest request, Model model, Locale locale) {
-		System.out.println(request.getParameter("id"));
+	
+	@RequestMapping(value = "/preleva/{id}", method = RequestMethod.GET)
+	public String preleva(@PathVariable Integer id, Model model) {
+		JPAmanager<?> jpa = new JPAmanager<>();
+		@SuppressWarnings("unchecked")
+		ArrayList<Product> list = (ArrayList<Product>)jpa.getList("Product");
+		for(Product p : list ) {
+			if(p.getId() == id) {
+				System.out.println("elemento trovato");
+				model.addAttribute("el", p);
+				return "acquistaProdotto";
+			}
+		}
+		return null;
 	}
 	
 	
@@ -54,9 +83,24 @@ public class FirstController {
 		
 		return "ListaProdotti";
 	}
+	
+	@RequestMapping(value = "/out", method = RequestMethod.GET)
+	public String out(HttpSession session, Model model) {
+		session.invalidate();
+		System.out.println(session.getId());
+		model.addAttribute("visible", "none");
+		return "Home";
+	}
 	@RequestMapping(value = "/log", method = RequestMethod.GET)
 	public String log(HttpServletRequest request, Model model, Locale locale) {
 		return "Log";
+	}
+	@RequestMapping(value = "/addorder {id}", method = RequestMethod.GET)
+	public String addorder(Model model, @RequestParam String numero, @PathVariable Integer id) {
+		System.out.println(id +  " "  + Integer.valueOf(numero));
+		JPAmanager<?> jpa = new JPAmanager<>();
+		//jpa.inOrder(id, 2, Integer.valueOf(numero));
+		return "ListaProdotti";
 	}
 	@RequestMapping(value = { "index", "pippopluto"}, method = RequestMethod.GET)
 	public String index(HttpServletRequest request, Model model, Locale locale) {
@@ -133,6 +177,8 @@ public class FirstController {
 		
 		return "dati";
 	}
+	
+	
 	
 	
 	@RequestMapping(value = "/contatto", method = RequestMethod.POST)

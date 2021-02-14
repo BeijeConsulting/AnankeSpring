@@ -1,5 +1,7 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+  
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,10 +20,10 @@
 <h1>Autenticazione</h1>
 </div>
 <br>
-<form action = "./AccessoServlet" method = "post">
+<form action = "./sign" method ="post">
 <table>
-<tr><td>Email:</td><td> <input type = "text" name = "email" placeholder = "@mail"></td></tr>
-<tr><td>Password:</td><td> <input type = "text" name = "psw" placeholder = "*****"></td></tr>
+<tr><td>Email:</td><td> <input type = "email" name = "email" placeholder = "@mail"></td></tr>
+<tr><td>Password:</td><td> <input type = "text" name = "password" placeholder = "*****"></td></tr>
 </table>
 <br>
 <input type = "submit" value = "Sign-in">

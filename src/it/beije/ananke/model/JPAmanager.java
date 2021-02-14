@@ -22,13 +22,37 @@ public class JPAmanager<T> {
 	}
 
 
-	public void inOrder(int id) {
+	public void inOrder(int Productid, int orderID, int q) {
 		entityManager = RubricaEntityManager.getEntityManager();
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
-		Product pr = entityManager.find(Product.class, id);
-		Order or = new Order();
+		ArrayList<Order_items> listItems = (ArrayList<Order_items>)getList("order_items");
+		ArrayList<Product> listaProduct = (ArrayList<Product>)getList("Product");
+		Product p = null;
+		for(Product pr : listaProduct) {
+			if(pr.getId()== Productid) {
+				p = pr;
+			}
+		}
+		boolean b = false;
 
+		Order_items or = new Order_items();
+		for(Order_items ord : listItems) {
+			if(ord.getProduct_id() == Productid && orderID == ord.getOrder_id())
+				b = true;
+			or = ord;
+		}
+
+		if(b) {
+			int quantita = or.getQuantity() + q;
+			or.setId(orderID);
+			or.setAmount(quantita);
+
+		}else {
+			or.setQuantity(q);
+			or.setOrder_id(orderID);
+			or.setProduct_id(Productid);
+		}
 		entityManager.persist(or);
 		entityTransaction.commit();
 		entityManager.close();
@@ -47,11 +71,13 @@ public class JPAmanager<T> {
 	}
 
 	public void inserimento(String email,String password,String name, String surname) {
+		@SuppressWarnings("unchecked")
 		ArrayList<User> utenti = (ArrayList<User>) getList("User");
 		boolean b = false;
 		for (User str : utenti) {
 			if(str.getEmail().equals(email)) {
 				b=true;
+				break;
 			}
 		}
 		if (b == false) {
