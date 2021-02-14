@@ -49,7 +49,6 @@ public class FirstController {
 	public String sign(@RequestParam String email, @RequestParam String password, Model model, HttpSession session) {
 		JPAmanager<?> jpa = new JPAmanager<>();
 		ArrayList<User> list = (ArrayList<User>) jpa.getList("User");
-		System.out.println("WEEEEEEE");
 		for(User s: list) {
 			if(s.getEmail().equals(email) && s.getPassword().equals(password)) {
 			    session.setAttribute("utente", s);
@@ -87,7 +86,6 @@ public class FirstController {
 	@RequestMapping(value = "/out", method = RequestMethod.GET)
 	public String out(HttpSession session, Model model) {
 		session.invalidate();
-		System.out.println(session.getId());
 		model.addAttribute("visible", "none");
 		return "Home";
 	}
@@ -99,7 +97,6 @@ public class FirstController {
 	public String addorder(Model model, @RequestParam String numero, @PathVariable Integer id) {
 		System.out.println(id +  " "  + Integer.valueOf(numero));
 		JPAmanager<?> jpa = new JPAmanager<>();
-		//jpa.inOrder(id, 2, Integer.valueOf(numero));
 		return "ListaProdotti";
 	}
 	@RequestMapping(value = { "index", "pippopluto"}, method = RequestMethod.GET)
