@@ -15,7 +15,6 @@ import it.beije.ananke.model.User;
 
 @Controller
 public class CommerceController {
-	JPAmanager m = new JPAmanager();
 	
 	@RequestMapping(value = {"/", "home"}, method = RequestMethod.GET)
 	public String home() {
@@ -29,7 +28,13 @@ public class CommerceController {
 	}
 	
 	
-	@RequestMapping(value = {"signUp"}, method = RequestMethod.POST)
+	@RequestMapping(value = {"login"}, method = RequestMethod.GET)
+	public String login() {
+		return "login";
+	}
+	
+	
+/*	@RequestMapping(value = {"signUp"}, method = RequestMethod.POST)
 	public String registrazione(@RequestParam String email, @RequestParam String password, @RequestParam String name_param , @RequestParam String surname_param , HttpServletRequest request, Model model) {
 		User user = m.login(email);
 		if(user == null) {
@@ -41,10 +46,6 @@ public class CommerceController {
 	}
 	
 	
-	@RequestMapping(value = {"login"}, method = RequestMethod.GET)
-	public String login() {
-		return "login";
-	}
 	
 	
 	@RequestMapping(value = {"verificaLogin"}, method = RequestMethod.POST)
@@ -72,4 +73,4 @@ public class CommerceController {
 		
 		return "carrello";
 	}
-}
+*/}
