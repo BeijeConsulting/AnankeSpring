@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html>
 	<head>
@@ -9,7 +10,7 @@
 	</head>
 	<body>
 		<h3>Registrati</h3>
-		<form action="./ServletSignUp" method="post">
+		<form action="signUp" method="post">
 			NAME:&nbsp;<input type="text" name="name_param" value=""/><br/>
 			SURNAME:&nbsp;<input type="text" name="surname_param" value=""/><br>
  			EMAIL:&nbsp;<input type="text" name="email" value=""/><br>

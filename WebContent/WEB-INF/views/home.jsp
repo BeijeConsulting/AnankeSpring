@@ -11,7 +11,7 @@
 		<form action="./login" method="get">
 			<input type ="submit" value = "Accedi">
 		</form>
-		<form action="./signup" method="get">
+		<form action="./signup" method="post">
 			<input type = "submit" value = "Registrati">
 		</form>
 	</body>

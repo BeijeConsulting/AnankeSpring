@@ -40,12 +40,13 @@ public class JPAmanager {
 	}
 	
 	
-	public User login(String email, String pswd) {
+	public User login(String email) {
+		EntityManager em = CommerceEntityManager.getEntityManager();
 		List<User> list = new ArrayList<>();
 		String jqlSelect = "SELECT u FROM User as u WHERE email = '" + email +"'";
-		EntityManager em = CommerceEntityManager.getEntityManager();
 		Query query = em.createQuery(jqlSelect);
 		list = query.getResultList();
+		em.close();
 		if(list.size() == 0) {
 			return null;
 		}else {
@@ -55,9 +56,9 @@ public class JPAmanager {
 	
 	
 	public List<Product> letturaProdotti(){
+		EntityManager em = CommerceEntityManager.getEntityManager();
 		List<Product> list = new ArrayList<>();
 		String jqlSelect = "SELECT p FROM Product as p";
-		EntityManager em = CommerceEntityManager.getEntityManager();
 		Query query = em.createQuery(jqlSelect);
 		list = query.getResultList();
 		return list;

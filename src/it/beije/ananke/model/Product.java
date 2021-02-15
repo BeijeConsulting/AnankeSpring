@@ -46,12 +46,12 @@ public class Product {
 	}
 	
 	
-	public String getDesc() {
+	public String getDescrip() {
 		return descrip;
 	}
 	
 	
-	public void setDesc(String desc) {
+	public void setDescrip(String desc) {
 		this.descrip = desc;
 	}
 	

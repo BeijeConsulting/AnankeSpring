@@ -20,7 +20,7 @@ import it.beije.ananke.model.Contatto;
 @Controller
 public class FirstController {
 
-	@RequestMapping(value = {"/", "index", "pippopluto"}, method = RequestMethod.GET)
+/*	@RequestMapping(value = {"index", "pippopluto"}, method = RequestMethod.GET)
 	public String index(HttpServletRequest request, Model model, Locale locale) {
 		System.out.println("sono nella index..." + request.getRequestURL() + " - locale " + locale.getDisplayCountry());
 		
@@ -88,5 +88,5 @@ public class FirstController {
 		
 		return "datiContatto";
 	}
-
+*/
 }

@@ -14,7 +14,7 @@ public class CommerceEntityManager {
 	public static EntityManager getEntityManager() {
 		if (entityManagerFactory == null || !entityManagerFactory.isOpen()) {
 			System.out.print("CIAO");
-			entityManagerFactory = Persistence.createEntityManagerFactory("rubrica");
+			entityManagerFactory = Persistence.createEntityManagerFactory("AnankeSpring");
 			System.out.print("WIIII");
 		}
 		
