@@ -1,6 +1,6 @@
-package it.beije.ananke.ecommerce;
+package it.beije.ananke;
 
-import javax.persistence.EntityManager;
+
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
@@ -9,17 +9,17 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-public class EcommerceEntityManager {
+public class JpaEntityManager {
 	
 	private static EntityManagerFactory emfactory = null;
 
-	private EcommerceEntityManager() {}
+	private JpaEntityManager() {}
 	
 	@Bean(name = "entityManagerFactory")	
 	public static synchronized EntityManagerFactory getInstance() {
 		try {
 			if (emfactory == null) {
-				emfactory = Persistence.createEntityManagerFactory("AnankeSpring");
+				emfactory = Persistence.createEntityManagerFactory("AnankeRubrica");
 			}
 			return emfactory;
 		} catch(Exception e) {
