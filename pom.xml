@@ -25,6 +25,7 @@
     </plugins>
   </build>
   <dependencies>
+  <dependency> <groupId>org.springframework.data</groupId> <artifactId>spring-data-jpa</artifactId> <version>2.2.0.RELEASE</version> </dependency> 
    <dependency>
 			<groupId>org.eclipse.persistence</groupId>
 			<artifactId>eclipselink</artifactId>
