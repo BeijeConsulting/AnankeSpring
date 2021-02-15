@@ -6,7 +6,7 @@
 </head>
 <body>
 	
-<form action="./logUser" method = "post">
+<form action="./logUsers" method = "post">
 		
 <table>
 <tr><td>EMAIL:</td><td> <input type = "text" name = "email" placeholder = "@mail"></td></tr>

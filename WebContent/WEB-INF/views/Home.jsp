@@ -27,25 +27,25 @@
 <body>
 	<div class="bordi-arrotondati">
 		<h1 align="center">HOME</h1>
-		<div class="bordodestro">
-			<a href="Login.html" class="nolink">Sign-in</a><br><br>
-			<a href="/Registrazione" class="nolink">Sign-up</a>
-			
-		</div>
+		
 	</div>
 	<br>
 	<br>
 	<div align="center">
 		<table>
 			<tr>
-				<td><a href="ListaProdotti.jsp" class="nolink">Acquisti
-						on-line</a></td>
+				<td>
+				<form action="./buy" method = "post">
+					<input type = "submit" value = "acquista">
+				</form>
 			</tr>
 			<tr>
 				<td><a href="" class="nolink">Ordini</a></td>
 			</tr>
 			<tr>
-				<td><a href="" class="nolink">Modifca profilo</a></td>
+				<form action="./mod" method = "post">
+					<input type = "submit" value = "modifica profilo">
+				</form>
 			</tr>
 			<tr>
 				<td><a href="tizio?id=" class="nolink">Esci</a></td>

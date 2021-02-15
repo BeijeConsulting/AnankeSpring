@@ -1,5 +1,6 @@
 package it.beije.ananke.controller;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import it.beije.ananke.model.Contatto;
 import it.beije.ananke.model.JPAmanager;
+import it.beije.ananke.model.Product;
 import it.beije.ananke.model.User;
 
 @Controller
@@ -95,25 +97,73 @@ public class FirstController {
 	}
 
 	@RequestMapping(value = "/RegistrazioneUser", method = RequestMethod.POST)
-	public String registraUser(@RequestParam String name, @RequestParam String surname,@RequestParam String email, @RequestParam String password,User u, Model model, HttpServletRequest request) {
+	public String registraUser(@RequestParam String first_name, @RequestParam String second_name,@RequestParam String email, @RequestParam String password,User u, Model model, HttpServletRequest request) {
 		System.out.println("User da inserire : " + u);
 		JPAmanager<?> j  = new JPAmanager<>();
-		j.inserimento(email, password, name, surname);
-		return "Home";
+		if(j.isValidEmail(email)) {
+		j.inserimento(email, password, first_name, second_name);
+		return "LogUser";
+		}
+		else {
+			model.addAttribute("Errore", false);
+			return "RegistrazioneUser";
+		}
 	}
 
-	@RequestMapping(value = "/logUser", method = RequestMethod.POST)
-	public String LoginUser(User u, Model model, HttpServletRequest request) {
+	@RequestMapping(value = "/logUsers", method = RequestMethod.POST)
+	public String LoginUser(Model model, HttpServletRequest request) {
+		JPAmanager<?> j = new JPAmanager<>();
 		String email = request.getParameter("email");
 		String password= request.getParameter("password");
 		System.out.println("email = " + email);
 		System.out.println("password = " + password);
-
-		return "Home";
+		if(j.isRegister(email, password)) {
+			User u = j.searchEmail(email);
+			HttpSession session = request.getSession();
+			session.setAttribute("Utente", u);
+			return "Home";
+		}
+		else
+			return "LogUser";
 	}
+	
 	@RequestMapping(value = "/Reg", method = RequestMethod.POST)
-	public String LoginUser(HttpServletRequest request) {
+	public String LoginUser(HttpServletRequest request, Model model) {
+		model.addAttribute("Errore", true);
 		return "RegistrazioneUser";
 	}
-
+	
+	@RequestMapping(value = "/log", method = RequestMethod.POST)
+	public String AccessoUser(HttpServletRequest request) {
+		return "LogUser";
+	}
+	
+	@RequestMapping(value = "/buy", method = RequestMethod.POST)
+	public String acquista(HttpServletRequest request, User u, Model model) {
+//		JPAmanager<?> j = new JPAmanager<>();
+//		ArrayList<Product> p = (ArrayList<Product>) j.getList("Product");
+//		for (Product product : p) {
+//			model.addAttribute("ListaProdotti", p);
+//		}
+//		model.addAttribute("ListaProdotti", p);
+		return "Prodotti";
+	}
+	
+	@RequestMapping(value = "/mod", method = RequestMethod.POST)
+	public String updateUser(HttpServletRequest request) {
+		return "updateUser";
+	}
+	
+	@RequestMapping(value = "/updateUsers", method = RequestMethod.POST)
+	public String update(HttpSession session, @RequestParam String first_name, @RequestParam String second_name,@RequestParam String password, HttpServletRequest request) {
+		JPAmanager<?> j = new JPAmanager<>();
+		User u;
+		u= (User) session.getAttribute("Utente");
+		j.update(first_name, second_name, password, u.getEmail());
+		return "Home";
+	}
+	@RequestMapping(value = "/annullaUpdate", method = RequestMethod.POST)
+	public String noUpdate(HttpServletRequest request) {
+		return "Home";
+	}
 }

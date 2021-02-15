@@ -20,7 +20,7 @@ public class JPAmanager <T>{
         @SuppressWarnings("unchecked")
         List<T> lista = query.getResultList();
         entityManager.close();
-        System.out.println(lista);
+//        System.out.println(lista);
         return lista; 
     }
 	
@@ -66,9 +66,25 @@ public class JPAmanager <T>{
 		}
 		}
 		
-	public boolean isRegister(String email) {
-		
+	public boolean isRegister(String email, String psw){
+		entityManager = RubricaEntityManager.getEntityManager();
+		ArrayList<User> elenco = (ArrayList<User>) getList("User");
+		for(User s : elenco) {
+			if(s.getEmail().equals(email) && s.getPassword().equals(psw)) {
+				return true;
+			}
+		}
 		return false;
+	}
+	public boolean isValidEmail(String email){
+		entityManager = RubricaEntityManager.getEntityManager();
+		ArrayList<User> elenco = (ArrayList<User>) getList("User");
+		for(User s : elenco) {
+			if(s.getEmail().equals(email)) {
+				return false;
+			}
+		}
+		return true;
 	}
 	
 	public void doOrderItems(int id){
@@ -107,7 +123,7 @@ public class JPAmanager <T>{
 		
 	
 
-	public void update(String email,String nome, String cognome, String telefono) {
+	public void update(String nome, String cognome, String password,String email) {
 		ArrayList<User> user = stampaUser();
 		entityManager = RubricaEntityManager.getEntityManager();
 		EntityTransaction entityTransaction = entityManager.getTransaction();
@@ -122,19 +138,19 @@ public class JPAmanager <T>{
 				u1=entityManager.find(User.class, indice);	
 				u1.setFirst_name(nome);
 				u1.setSecond_name(cognome);
-				u1.setPassword(telefono);
+				u1.setPassword(password);
 				if(u1.getEmail().trim().equals("")) {
 					b=false;
 					entityTransaction.rollback(); //se non voglio salvare la modifica	
 				}
 				else {
 					b=true;
+					System.out.println("Modifica effettuata");
 					entityManager.persist(u1);
 					entityTransaction.commit(); //Se voglio applicare i cambiamenti
 				}
 			}
 		}
-	
 		entityManager.close();
 	}
 
