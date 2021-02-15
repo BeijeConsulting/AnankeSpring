@@ -18,22 +18,28 @@
 	margin-left: auto;
 }
 
-.bordodestro {
-	width: 100px;
+.bordosinistro {
+    margin-top: 20px;
+	align: right
 }
 
 .nolink {
 	text-decoration: none;
 }
 
-
+.elencoImmagini {
+	align : right;
+	width: 25%;
+   
+}
 .flex {
 	max-width: 25%;
    
 }
 
 .visible {
-   margin-top: 50px;
+   margin-top: 25px;
+   align : right;
    display:${visible};
 
 }
@@ -43,18 +49,17 @@
 	<div class="bordi-arrotondati">
 		<h1 align="center">HOME</h1>
 		</div>
-		<div class="bordodestro">
-			<form action="./registrazione">
+		<div align = "right">
+		<form action="./registrazione">
 				<input type="submit" value="Registrati">
 			</form>
-			<br>
+			
 			<form action="./log">
 				<input type="submit" value="Login">
 			</form>
 		</div>
-	<br>
-	<br>
-	<div align="right" class="visible">
+		<div class="bordosinistro">
+	<div class="visible">
 		<table>
 
 			<tr>
@@ -80,8 +85,8 @@
 
 		</table>
 	</div>
-	
-	<div class = "visual">
+		</div>
+	<div align = "right">
 	<table>
 	<tr>
 	<td>        <img

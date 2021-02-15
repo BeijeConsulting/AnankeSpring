@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import it.beije.ananke.model.Contatto;
 import it.beije.ananke.model.JPAmanager;
+import it.beije.ananke.model.Order_items;
 import it.beije.ananke.model.Product;
 import it.beije.ananke.model.User;
 
@@ -57,7 +58,8 @@ public class FirstController {
 				return "Home";
 			}
 		}
-		return "Home";
+		model.addAttribute("error", true);
+		return "Log";
 	}
 
 	
@@ -94,9 +96,15 @@ public class FirstController {
 		return "Log";
 	}
 	@RequestMapping(value = "/addorder {id}", method = RequestMethod.GET)
-	public String addorder(Model model, @RequestParam String numero, @PathVariable Integer id) {
+	public String addorder(Model model, @RequestParam String numero, @PathVariable Integer id, HttpSession session) {
 		System.out.println(id +  " "  + Integer.valueOf(numero));
 		JPAmanager<?> jpa = new JPAmanager<>();
+		User s = (User) session.getAttribute("utente");
+		jpa.inOrder(s.getId(), id, Integer.valueOf(numero));
+		
+		ArrayList<Order_items> lista = (ArrayList<Order_items>) jpa.getList("Order_items");
+		
+		model.addAttribute("ordine", lista );
 		return "ListaProdotti";
 	}
 	@RequestMapping(value = { "index", "pippopluto"}, method = RequestMethod.GET)

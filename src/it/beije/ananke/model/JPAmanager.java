@@ -5,6 +5,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 
 public class JPAmanager<T> {
@@ -21,41 +22,53 @@ public class JPAmanager<T> {
 		return lista; 
 	}
 
-
-	public void inOrder(int Productid, int orderID, int q) {
+	public boolean isExsistOrder(int utenteID) {
+		ArrayList<Order> listaordini = new ArrayList<>();
+		for(Order or: listaordini) {
+			if(or.getUser_id() == utenteID) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public int getIDorder(int userID) {
+		ArrayList<Order> listaordini = new ArrayList<>();
+		for(Order or: listaordini) {
+			if(or.getUser_id() == userID)
+				return or.getId();
+		}
+        return -1;
+	}
+	
+	public void inOrder(int userID, int productID, int q) {
 		entityManager = RubricaEntityManager.getEntityManager();
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
-		ArrayList<Order_items> listItems = (ArrayList<Order_items>)getList("order_items");
-		ArrayList<Product> listaProduct = (ArrayList<Product>)getList("Product");
-		Product p = null;
-		for(Product pr : listaProduct) {
-			if(pr.getId()== Productid) {
-				p = pr;
-			}
-		}
-		boolean b = false;
-
 		Order_items or = new Order_items();
-		for(Order_items ord : listItems) {
-			if(ord.getProduct_id() == Productid && orderID == ord.getOrder_id())
-				b = true;
-			or = ord;
-		}
-
-		if(b) {
-			int quantita = or.getQuantity() + q;
-			or.setId(orderID);
-			or.setAmount(quantita);
-
-		}else {
+		if(isExsistOrder(userID)) {
+			int id = getIDorder(userID);
+			or.setOrder_id(id);
+			or.setProduct_id(productID);
 			or.setQuantity(q);
-			or.setOrder_id(orderID);
-			or.setProduct_id(Productid);
+			entityManager.persist(or);
+			entityTransaction.commit();
+		}else {
+			Order ord = new Order();
+			ord.setUser_id(userID);
+			ord.setState("attivo");
+			entityManager.persist(ord);
+			entityTransaction.commit();
+			int id = getIDorder(userID);
+			or.setOrder_id(id);
+			or.setProduct_id(productID);
+			or.setQuantity(q);
+			entityManager.persist(or);
+			entityTransaction.commit();
 		}
-		entityManager.persist(or);
-		entityTransaction.commit();
+		
 		entityManager.close();
+		
 	}
 
 	@SuppressWarnings("unchecked")

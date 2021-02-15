@@ -45,5 +45,11 @@
 			<% } %>
 		</table>
 		</div>
+		
+		<div>
+		<c:forEach var = "i" items= "${lista}" >
+       Prodotto:<c:out value = " ${i.name}"/><p>
+        </c:forEach>
+		</div>
 </body>
 </html>

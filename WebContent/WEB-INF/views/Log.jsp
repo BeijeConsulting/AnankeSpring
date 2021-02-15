@@ -21,9 +21,12 @@
 </div>
 <br>
 <form action = "./sign" method ="post">
+<c:if test="${error}">
+<c:out value="Credenziali errate"></c:out>
+</c:if>
 <table>
 <tr><td>Email:</td><td> <input type = "email" name = "email" placeholder = "@mail"></td></tr>
-<tr><td>Password:</td><td> <input type = "text" name = "password" placeholder = "*****"></td></tr>
+<tr><td>Password:</td><td> <input type = "password" name = "password" placeholder = "*****"></td></tr>
 </table>
 <br>
 <input type = "submit" value = "Sign-in">
