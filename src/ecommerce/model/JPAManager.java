@@ -123,7 +123,7 @@ public class JPAManager {
 		return orders;
 	}
 	
-	public static void insertOrder(Order o) {
+	public static int insertOrder(Order o) {
 		EntityManager em = EntityManagerGenerator.getEntityManager();
 		EntityTransaction t = em.getTransaction();
 		
@@ -131,6 +131,7 @@ public class JPAManager {
 		em.persist(o);
 		t.commit();
 		em.close();
+		return o.getId();
 	}
 	
 	public static boolean deleteOrders(Order o) {

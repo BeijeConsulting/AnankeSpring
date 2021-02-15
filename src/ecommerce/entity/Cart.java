@@ -35,6 +35,10 @@ public class Cart{
 	public void setItems(List<Cart_Item> items) {
 		this.items = items;
 	}
+
+	public double getAmount() {
+		return amount;
+	}
 	
 	
 	

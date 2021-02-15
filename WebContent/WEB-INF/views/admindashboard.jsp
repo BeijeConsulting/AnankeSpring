@@ -12,8 +12,10 @@
 <%
 List<User> u = (ArrayList<User>)request.getAttribute("users");
 List<Product> p = (ArrayList<Product>)request.getAttribute("products");
+
 %>
 <h2> Ci sono <%= u.size() %> utenti registrati</h2><br>
 <h2> Ci sono <%= p.size() %> prodotti disponibili</h2>
+<h2><a href="./addProductPage">Aggiungi prodotto</a></h2>
 </body>
 </html>

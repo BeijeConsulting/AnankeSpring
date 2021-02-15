@@ -36,7 +36,7 @@ for(Product p: products){
 </div>
 <%} %>
 </div>
-<p><a href="./viewCart"><button>Visualizza il carrello</button></a></p>
+<p><a href="./cartView"><button>Visualizza il carrello</button></a></p>
 
 <% Cart cart = (Cart) request.getAttribute("cart"); 
 if(cart == null){
@@ -45,7 +45,12 @@ for(Cart_Item ci : cart.getItems()){
 %>
 <p><%= ci.getP().getId() %></p>
 <p><%= ci.getP().getName() %></p>
-<%}} %>
+
+<%} %>
+<%= cart.getAmount() %>
+<p><a href="./completeOrder"><button>Acquista</button></a></p>
+<%} %>
+
 </div>
 </body>
 </html>
