@@ -8,7 +8,7 @@
 	<body>
 		<h3>Inserisci i dati</h3>
 		<div>
-		<form action="./Login" method="post">
+		<form action="./login" method="post">
 			<div style="margin:10px; padding:2px;">
 				<div style="margin:5px;">
 					<label for="email">Email</label>

@@ -11,9 +11,9 @@
 	<h1>DONUTINC.</h1>
 	<div class="topnav">
  		<a class="active" href="index.jsp">Home</a>
-  		<a href="register.jsp">Registrati</a>
- 		<a href="login.html">Accedi</a>
- 		<a href="./productServlet">Prodotti</a>
+  		<a href="./register">Registrati</a>
+ 		<a href="./login">Accedi</a>
+ 		<a href="./showProducts">Prodotti</a>
 	</div>
 	
 </body>
