@@ -9,7 +9,7 @@
 <body>
 	<div>
 		<h3>Benvenuto nel form di registrazione</h3>
-		<p>Inserisci i tuoi dati per poterti <br> registrare al nostro sio di e-commerce</p>
+		<p>Inserisci i tuoi dati per poterti <br> registrare al nostro sito di e-commerce</p>
 	</div>
 	
 	<form action="./registration" method = "post">

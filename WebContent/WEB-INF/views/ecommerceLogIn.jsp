@@ -12,7 +12,7 @@
 		<p>Inserisci email e password</p>
 	</div>
 	
-	<form action="./ecommerce/logIn" method = "post">
+	<form action="./ecommerce/homePage" method = "post">
   		<label for="second_name">Email:</label><br>
   		<input type="text" id="email" name="email"><br><br>
   		<label for="second_name">Password:</label><br>

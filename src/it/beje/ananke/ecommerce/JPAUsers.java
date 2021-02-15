@@ -57,6 +57,28 @@ public class JPAUsers {
 		return true;
 		
 	}
+	
+	public static boolean logInUser(User user) {
+		
+		if(userIsRegisted(user)) {
+			
+			EntityManager entityManager = JPAEntityManager.getEntityManager();
+			String jpqlSelect = "SELECT u FROM User as u WHERE u.email := email";
+			Query query = entityManager.createQuery(jpqlSelect);
+			query.setParameter("email", user.getEmail());
+			List<User> users = query.getResultList();
+			
+			User userDB = users.get(0);
+			
+			if(user.getPassword().equals(userDB.getPassword()))
+				return true;
+			
+			
+		}
+		
+		return false;
+		
+	}
 
 	
 }

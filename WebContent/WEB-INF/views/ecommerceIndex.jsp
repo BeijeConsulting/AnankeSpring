@@ -8,7 +8,7 @@
 </head>
 <body>
 	<h2>BENVENUTO!</h2>
-	<form action="./ecommerce/logIn">
+	<form action="./ecommerce/logIn" method = "get">
 		<label>Accedi o registrati al nostro portale</label><br><br>
 		<input type= "submit" value = "ACCEDI"></input>
 	</form>
