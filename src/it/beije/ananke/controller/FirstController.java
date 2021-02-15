@@ -20,15 +20,15 @@ import it.beije.ananke.model.Contatto;
 @Controller
 public class FirstController {
 
-	@RequestMapping(value = {"/", "index", "pippopluto"}, method = RequestMethod.GET)
-	public String index(HttpServletRequest request, Model model, Locale locale) {
-		System.out.println("sono nella index..." + request.getRequestURL() + " - locale " + locale.getDisplayCountry());
-		
-		String saluto = "Buongiorno";
-		model.addAttribute("saluto", saluto);
-		
-		return "index";
-	}
+//	@RequestMapping(value = {"/", "index", "pippopluto"}, method = RequestMethod.GET)
+//	public String index(HttpServletRequest request, Model model, Locale locale) {
+//		System.out.println("sono nella index..." + request.getRequestURL() + " - locale " + locale.getDisplayCountry());
+//		
+//		String saluto = "Buongiorno";
+//		model.addAttribute("saluto", saluto);
+//		
+//		return "index";
+//	}
 	
 	@RequestMapping(value = "/hello", method = RequestMethod.GET)
 	public String hello() {

@@ -11,13 +11,15 @@
 
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
-	<context:component-scan base-package="it.beije.ananke" />
+	<context:component-scan base-package="it.beije.ananke.controller" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
+		
 	</beans:bean>
-
+	
+ 
 </beans:beans>
