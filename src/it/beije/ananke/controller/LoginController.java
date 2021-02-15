@@ -17,7 +17,7 @@ public class LoginController {
 	
 	JPAManager managerJPA = new JPAManager();
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = {"/", "home"}, method = RequestMethod.GET)
 	public String index(HttpServletRequest request, Model model, Locale locale) {
 		
 		System.out.println("Index page" + request.getRequestURL() + " - locale " + locale.getDisplayCountry());

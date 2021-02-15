@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
+import it.beije.ananke.entity.Product;
 import it.beije.ananke.entity.User;
 
 
@@ -52,6 +53,18 @@ public class JPAManager {
 		}
 		
 		return valid;
+	}
+	
+	public List<Product> getProducts() {
+		
+		String jpqlSelect = "SELECT p FROM Product as p";
+		
+		Query query = entityManager.createQuery(jpqlSelect);
+		
+		List<Product> products = query.getResultList();
+		
+		return products;
+		
 	}
 
 }

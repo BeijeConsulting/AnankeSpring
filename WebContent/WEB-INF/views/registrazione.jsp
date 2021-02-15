@@ -25,6 +25,7 @@
  			PASSWORD:&nbsp;<input type="text" name="password" value=""/><br>
 			<br><input type="submit" value="REGISTRATI"/>
 		</form>
+		
 		</div>
 	</body>
 </html>

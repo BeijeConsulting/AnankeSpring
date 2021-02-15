@@ -9,7 +9,7 @@
 
 Benvenuto ${nome}<br>
 
-
+<a href="./prodotti">Prodotti</a>
 
 </body>
 </html>

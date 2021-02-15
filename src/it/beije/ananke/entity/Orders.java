@@ -8,8 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "order")
-public class Order {
+@Table(name = "orders")
+public class Orders {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -27,11 +27,11 @@ public class Order {
 	private String state;
 	
 	
-	public Order() {
+	public Orders() {
 		
 	}
 
-	public Order(int userId, double amount, String state) {
+	public Orders(int userId, double amount, String state) {
 		super();
 		this.userId = userId;
 		this.amount = amount;

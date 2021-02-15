@@ -3,7 +3,7 @@
 	
 	<persistence-unit name="AnankeSpring">
 	
-		<class>it.beije.ananke.entity.Order</class>
+		<class>it.beije.ananke.entity.Orders</class>
 		<class>it.beije.ananke.entity.OrderItem</class>
 		<class>it.beije.ananke.entity.Product</class>
 		<class>it.beije.ananke.entity.User</class> 
