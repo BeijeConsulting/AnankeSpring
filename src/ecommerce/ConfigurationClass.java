@@ -1,4 +1,4 @@
-package it.beije.ananke;
+package ecommerce;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(value = {"it.beije.ananke.repository"})
+@EnableJpaRepositories(value = {"ecommerce.repository"})
 public class ConfigurationClass {
 	
     @Primary

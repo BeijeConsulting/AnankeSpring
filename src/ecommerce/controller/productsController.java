@@ -2,6 +2,7 @@ package ecommerce.controller;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,11 +10,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ecommerce.entity.*;
-import ecommerce.model.JPAManager;
+
+import ecommerce.repository.OrderRepository;
+import ecommerce.repository.Order_ItemRepository;
+import ecommerce.repository.ProductRepository;
 
 @Controller
 public class productsController {
-public Cart cart;
+	@Autowired
+	private ProductRepository product_rep;
+	@Autowired
+	private OrderRepository order_rep;
+	@Autowired Order_ItemRepository order_item_rep;
+	public Cart cart;
 	
 	@RequestMapping(value = "productsPage", method = RequestMethod.GET)
 	public String productsPage() {
@@ -47,9 +56,11 @@ public Cart cart;
 		o.setAmount(cart.getAmount());
 		o.setState("closed");
 		o.setUser_id(u.getId());
-		int order_id = JPAManager.insertOrder(o);
+		order_rep.save(o);
+		int order_id = o.getId();
 		for(Cart_Item ci : cart.getItems()) {
-			JPAManager.insertOrder_Item(ci.getOrder_Item(order_id));
+			order_item_rep.save(ci.getOrder_Item(order_id));
+			
 		}
 		return "index";
 	}
@@ -67,7 +78,8 @@ public Cart cart;
 	p.setName(name);
 	p.setPrice(price);
 	System.out.println(price);
-	JPAManager.insertProduct(p);
+	product_rep.save(p);
+	
 	model.addAttribute("state","done");
 	return "admindashboard";
 	}

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,10 +18,13 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import ecommerce.entity.User;
 import ecommerce.model.JPAManager;
+import ecommerce.repository.UserRepository;
 
 @Controller
 public class LoginController {
-
+	
+@Autowired
+private UserRepository user_rep;
 	
 	@RequestMapping(value ="loginPage", method = RequestMethod.GET)
 	public String loginPage() {
@@ -30,8 +34,9 @@ public class LoginController {
 	
 	@RequestMapping(value ="auth", method = RequestMethod.POST)
 	public String auth(@RequestParam String email, @RequestParam String password, Model model, HttpServletRequest request, HttpServletResponse response ) {
-	if(JPAManager.isUser(email, password)) {
-			User u = JPAManager.getUser(email, password);
+		User u = user_rep.findByEmailAndPassword(email, password);
+		if( u != null) {
+			 
 			HttpSession session = request.getSession();
 			session.setAttribute("user", u);
 			return "index";
