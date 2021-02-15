@@ -1,33 +1,26 @@
 package it.beije.ananke.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
+import java.io.IOException;
+import java.sql.SQLException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import it.beije.ananke.dao.UserManager;
+import it.beije.ananke.dao.UsersInJpaManager;
+import it.beije.ananke.model.User;
+
 
 @Controller
 public class FirstController {
 
-	@RequestMapping(value = {"/"}, method = RequestMethod.GET)
-	public String getString(HttpServletRequest request, Model model, Locale locale) {
-		System.out.println("getString method called...");
-		List <String> list = new ArrayList<>();
-		  list.add("abc");
-		  list.add("xyz");
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String getString() {
+		
 		  
-			  model.addAttribute("list", list);
-		  
-		return "getString";
+		return "mainPage";
 	}
 	
 //	@RequestMapping(value = "/form", method = RequestMethod.POST)
@@ -43,13 +36,15 @@ public class FirstController {
 //		return "dati";
 //	}
 	
-	@RequestMapping(value = "/form", method = { RequestMethod.GET, RequestMethod.POST })
-	public String getData(@RequestParam String nome, @RequestParam String cognome , Model model) 
-	{
-		model.addAttribute("nome", nome);
-		model.addAttribute("cognome", cognome);
-		System.out.println("post method called.....");
+	@RequestMapping(value = "registration", method =  RequestMethod.POST )
+	public String setData(@RequestParam String firstName, @RequestParam String lastName ,
+			@RequestParam String email, @RequestParam String password ,Model model) throws IOException, SQLException {
 		
-		return "dati";
+		System.out.println("post method called.....");
+		 User user = new User(firstName,lastName,email,password);
+		  UserManager userManager = new UsersInJpaManager();
+		  userManager.setUser(user);	
+		return "done";
 	}
+	
 }
