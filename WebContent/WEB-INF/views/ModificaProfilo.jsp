@@ -1,35 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Autenticazione</title>
+<title>Modifica Profilo</title>
 </head>
-<style type="text/css">
-.sfondoDiv {
-	Background-color: cyan;
-	height : 50px;
-	width: 50%;
-	}
-</style>
 <body>
-
-<form action="./inserimentoUtente" method = "post">
-<div class = "sfondoDiv">
-<h1>Registrazione:</h1>
-</div>
-<br>
+<form action="/modificauser">
 <table>
-<tr><td>Email:</td><td> <input type = "text" name = "email" placeholder = "@mail"></td></tr>
 <tr><td>First name:</td><td> <input type = "text" name = "first_name" placeholder = "Mario"></td></tr>
 <tr><td>Second name:</td><td> <input type = "text" name = "second_name" placeholder = "Rossi"></td></tr>
 <tr><td>password:</td><td> <input type = "password" name = "password" placeholder = "*********"></td></tr>
 </table>
-<br>
-<input type = "submit" value = "Sign-up">
-<c:out value="${error}"></c:out>
+<input type = "submit">
 </form>
 </body>
 </html>

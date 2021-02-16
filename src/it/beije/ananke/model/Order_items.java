@@ -12,7 +12,7 @@ public class Order_items {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
-	private int id;
+	private Integer id;
 	@Column(name="order_id")
 	private int order_id;
 	@Column(name="product_id")
@@ -23,7 +23,7 @@ public class Order_items {
 	private int amount;
 	
 	
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 	public void setId(int id) {
