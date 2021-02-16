@@ -1,4 +1,4 @@
-package it.beje.ananke.ecommerce;
+package it.beije.ananke.ecommerce.jpa;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

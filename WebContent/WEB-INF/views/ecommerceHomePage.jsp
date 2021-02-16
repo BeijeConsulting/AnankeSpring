@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    
+<%@page import ="it.beije.ananke.ecommerce.beans.*" %>    
+<%@page import ="it.beije.ananke.ecommerce.repositories.*" %> 
+<%@page import="java.time.LocalDateTime"%>
+<%@page import ="java.util.*" %>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 
@@ -18,34 +26,33 @@
 <title>Anank-E-Commerce</title>
 </head>
 <body>
-	<!-- qui metto il nome del tipo -->
-	<h2>Caio Tipo!</h2>
+
+	<h2>Ciao ${firstName} !</h2>
 	<form action = "" method = "get">
 		<input type = "submit" value = "LOGOUT">
 	</form>
-
+	
 	<table>
-		<caption>
-			<p>I NOSTRI PRODOTTI</p>
-		</caption>
-		<thead>
-			<tr><th>PRODOTTO</th><th>PREZZO</th><th></th></tr>
-		</thead>
-		<!-- 
-		<tfoot>
-			<tr><td>Totale 1</td><td>Totale 2</td></tr>
-		</tfoot>
-		-->
-		<tbody>
-			<tr><td>prodotto 1</td><td>prezzo</td></tr>
-			<tr><td>prodotto 2</td><td>prezzo</td></tr>
-			<tr><td>prodotto 3</td><td>prezzo</td></tr>
-		</tbody>
+		<tr>
+			<th>Nome</th>
+			<th>Descrizione</th>
+			<th>Prezzo</th>
+		</tr>
+		<c:forEach var = "product" items="${products}">
+			 
+			<tr>
+			<td><c:out value = "${product.name}"/><p></td>
+			<td><c:out value = "${product.desc}"/><p></td>
+			<td><c:out value = "${product.price} $"/><p></td>
+			<td>
+				<form action = "./addProduct?id=${product.id}" method = "post">
+					<input type = "submit" value = "ACQUISTA">
+				</form>
+			</td>
+			</tr>
+			
+		</c:forEach>
 	</table>
 	
-<!-- mostriamo nel modo più facile i prodotti. 
-	 il carrello sarà un label visibile da qualche parte nella stessa pagina che si aggiorna
-	 con i prodotti man mano che venogono aggiunti
-	 poi appena ci sarà questa cosa più "semplice" si pensa a qualche pagina in più -->
 </body>
 </html>

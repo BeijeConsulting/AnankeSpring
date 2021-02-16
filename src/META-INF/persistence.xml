@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
 	<persistence-unit name="AnankeSpring">
-		<class>it.beje.ananke.ecommerce.Orders</class>
-		<class>it.beje.ananke.ecommerce.OrderItem</class>
-		<class>it.beje.ananke.ecommerce.Product</class>
-		<class>it.beje.ananke.ecommerce.User</class>
+		<class>it.beije.ananke.model.Contatto</class>
+		<class>it.beije.ananke.ecommerce.beans.OrderItem</class>
+		<class>it.beije.ananke.ecommerce.beans.Orders</class>
+		<class>it.beije.ananke.ecommerce.beans.Product</class>
+		<class>it.beije.ananke.ecommerce.beans.User</class>
 	
 	<exclude-unlisted-classes>true</exclude-unlisted-classes>
 	

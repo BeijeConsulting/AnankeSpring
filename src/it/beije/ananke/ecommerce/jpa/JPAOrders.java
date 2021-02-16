@@ -1,7 +1,9 @@
-package it.beje.ananke.ecommerce;
+package it.beije.ananke.ecommerce.jpa;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+
+import it.beije.ananke.ecommerce.beans.Orders;
 
 public class JPAOrders {
 	

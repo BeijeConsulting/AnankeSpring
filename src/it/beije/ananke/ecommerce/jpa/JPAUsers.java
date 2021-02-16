@@ -1,10 +1,12 @@
-package it.beje.ananke.ecommerce;
+package it.beije.ananke.ecommerce.jpa;
 
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
+
+import it.beije.ananke.ecommerce.beans.User;
 
 public class JPAUsers {
 

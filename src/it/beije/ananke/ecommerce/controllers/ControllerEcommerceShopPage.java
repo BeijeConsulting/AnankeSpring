@@ -1,9 +1,15 @@
-package it.beije.ananke.controller;
+package it.beije.ananke.ecommerce.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+
+import it.beije.ananke.repository.ContattoRepository;
 
 @Controller
 public class ControllerEcommerceShopPage {
+	
+	@Autowired
+	private ContattoRepository contattoRepository;
 	
 	//lui si occupa di mandare e aggiornare la pagina dello shop
 	//visualizzare i prodotti

@@ -12,10 +12,10 @@
 		<p>Inserisci email e password</p>
 	</div>
 	
-	<form action="./ecommerce/homePage" method = "post">
-  		<label for="second_name">Email:</label><br>
+	<form action="./homePage" method = "post">
+  		<label for="email">Email:</label><br>
   		<input type="text" id="email" name="email"><br><br>
-  		<label for="second_name">Password:</label><br>
+  		<label for="password">Password:</label><br>
   		<input type="text" id="password" name="password"><br><br>
   		<input type="submit" value="ACCEDI">
 	</form>

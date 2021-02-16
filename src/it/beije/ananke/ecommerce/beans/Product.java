@@ -1,4 +1,4 @@
-package it.beje.ananke.ecommerce;
+package it.beije.ananke.ecommerce.beans;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +14,7 @@ public class Product {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
-	private int id;
+	private Integer id;
 	
 	@Column(name="name")
 	private String name;
@@ -23,14 +23,14 @@ public class Product {
 	private String desc;
 	
 	@Column(name="price")
-	private double price;
+	private Double price;
 	
 	
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 	
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	
@@ -53,11 +53,11 @@ public class Product {
 	}
 	
 	
-	public double getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 	
-	public void setPrice(double price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 	
