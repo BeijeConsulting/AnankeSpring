@@ -4,7 +4,6 @@
 <%@page import="it.beije.ananke.ecommerce.Product"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
-<%@page import="it.beije.ananke.ecommerce.JPAmanager"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -17,7 +16,7 @@
 <body>
 	<h3>Products</h3>
 	 <jsp:useBean id="userBean" class="it.beije.ananke.ecommerce.User" scope="session"/>
-	<jsp:setProperty property="email" name="userBean" param="email"/>
+	<jsp:setProperty property="id" name="userBean" param="id"/>
 	<jsp:useBean id="orderBean" class="it.beije.ananke.ecommerce.Order" scope="session"/> 
 	
 	<c:forEach var = "product" items="${products}">

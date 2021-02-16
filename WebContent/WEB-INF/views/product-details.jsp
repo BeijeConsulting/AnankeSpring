@@ -1,7 +1,6 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="it.beije.ananke.ecommerce.Product"%>
 <%@page import="java.util.List"%>
-<%@page import="it.beije.ananke.ecommerce.JPAmanager"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
