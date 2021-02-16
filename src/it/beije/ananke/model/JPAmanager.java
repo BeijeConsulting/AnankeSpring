@@ -39,8 +39,8 @@ public class JPAmanager <T>{
 		return null;
 	}
 	public void inOrder(Product p) {
-		
 	}
+	
 	public void inserimento(String email,String password,String name, String surname) {
 		ArrayList<User> utenti = (ArrayList<User>) getList("User");
 		boolean b = false;

@@ -13,7 +13,7 @@ public class User {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
-	private int id;
+	private Integer id;
 	@Column(name="email")
 	private String email;
 	@Column(name="first_name")
@@ -23,10 +23,10 @@ public class User {
 	@Column(name="password")
 	private String password;
 	
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public String getEmail() {

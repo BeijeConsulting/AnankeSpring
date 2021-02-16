@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,9 +20,18 @@ import it.beije.ananke.model.Contatto;
 import it.beije.ananke.model.JPAmanager;
 import it.beije.ananke.model.Product;
 import it.beije.ananke.model.User;
+import it.beije.ananke.repository.ContattoRepository;
+import it.beije.ananke.repository.ProductRepository;
+import it.beije.ananke.repository.UserRepository;
 
 @Controller
 public class FirstController {
+	@Autowired
+	private UserRepository userRepository;
+	@Autowired
+	private ContattoRepository contattoRepository;
+	@Autowired
+	private ProductRepository productRepository;
 
 	@RequestMapping(value = {"/", "index", "pippopluto"}, method = RequestMethod.GET)
 	public String index(HttpServletRequest request, Model model, Locale locale) {
@@ -90,6 +100,8 @@ public class FirstController {
 	@RequestMapping(value = "/contatto", method = RequestMethod.POST)
 	public String postContatto(Contatto c, Model model) {
 		System.out.println("postContatto : " + c);
+		
+		contattoRepository.save(c);
 
 		model.addAttribute("contatto", c);
 
@@ -97,12 +109,18 @@ public class FirstController {
 	}
 
 	@RequestMapping(value = "/RegistrazioneUser", method = RequestMethod.POST)
-	public String registraUser(@RequestParam String first_name, @RequestParam String second_name,@RequestParam String email, @RequestParam String password,User u, Model model, HttpServletRequest request) {
-		System.out.println("User da inserire : " + u);
+	public String registraUser(@RequestParam String first_name, @RequestParam String second_name,@RequestParam String email, @RequestParam String password,Model model, HttpServletRequest request) {
 		JPAmanager<?> j  = new JPAmanager<>();
-		if(j.isValidEmail(email)) {
-		j.inserimento(email, password, first_name, second_name);
-		return "LogUser";
+		if(userRepository.findByEmail(email)==null) {
+			User u = new User();
+			u.setEmail(email);
+			u.setFirst_name(first_name);
+			u.setSecond_name(second_name);
+			u.setPassword(password);
+			//if(j.isValidEmail(email)) {
+			//		j.inserimento(email, password, first_name, second_name);
+			userRepository.save(u);
+			return "LogUser";
 		}
 		else {
 			model.addAttribute("Errore", false);
@@ -126,34 +144,34 @@ public class FirstController {
 		else
 			return "LogUser";
 	}
-	
+
 	@RequestMapping(value = "/Reg", method = RequestMethod.POST)
 	public String LoginUser(HttpServletRequest request, Model model) {
 		model.addAttribute("Errore", true);
 		return "RegistrazioneUser";
 	}
-	
+
 	@RequestMapping(value = "/log", method = RequestMethod.POST)
 	public String AccessoUser(HttpServletRequest request) {
 		return "LogUser";
 	}
-	
+
 	@RequestMapping(value = "/buy", method = RequestMethod.POST)
 	public String acquista(HttpServletRequest request, User u, Model model) {
-//		JPAmanager<?> j = new JPAmanager<>();
-//		ArrayList<Product> p = (ArrayList<Product>) j.getList("Product");
-//		for (Product product : p) {
-//			model.addAttribute("ListaProdotti", p);
-//		}
-//		model.addAttribute("ListaProdotti", p);
+		//		JPAmanager<?> j = new JPAmanager<>();
+		//		ArrayList<Product> p = (ArrayList<Product>) j.getList("Product");
+		//		for (Product product : p) {
+		//			model.addAttribute("ListaProdotti", p);
+		//		}
+		//		model.addAttribute("ListaProdotti", p);
 		return "Prodotti";
 	}
-	
+
 	@RequestMapping(value = "/mod", method = RequestMethod.POST)
 	public String updateUser(HttpServletRequest request) {
 		return "updateUser";
 	}
-	
+
 	@RequestMapping(value = "/updateUsers", method = RequestMethod.POST)
 	public String update(HttpSession session, @RequestParam String first_name, @RequestParam String second_name,@RequestParam String password, HttpServletRequest request) {
 		JPAmanager<?> j = new JPAmanager<>();
