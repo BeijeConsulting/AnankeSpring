@@ -17,13 +17,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import it.beije.ananke.model.Contatto;
 import it.beije.ananke.repository.ContattoRepository;
+import it.beije.ananke.service.RubricaService;
 
 
 @Controller
 public class FirstController {
 	
 	@Autowired
-	private ContattoRepository contattoRepository;
+	private RubricaService rubricaService;
 	
 
 /*	@RequestMapping(value = {"index", "pippopluto"}, method = RequestMethod.GET)
@@ -90,11 +91,17 @@ public class FirstController {
 	public String postContatto(Contatto c, Model model) {
 		System.out.println("postContatto : " + c);
 		
-		contattoRepository.save(c);
-		
+		try {
+			rubricaService.checkAndSave(c);
+			
+		} catch (Exception e) {
+			model.addAttribute("errore", e.getMessage());
+			return "dati"; 
+		}
+
 		model.addAttribute("contatto", c);
 		
-		return "datiContatto";
+		return "datiContatto"; 
 	}
 */
 }
