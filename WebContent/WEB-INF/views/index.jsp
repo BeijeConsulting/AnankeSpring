@@ -1,7 +1,8 @@
 <%@page import="org.hibernate.internal.build.AllowSysOut"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,20 +17,41 @@
 <%@ include file = "navbar.jsp"%>
 <div class = "container">
 
-<c:if test="${username == null }">
+<c:if test="${user.firstName == null }">
 <h1>Benvenuto su Ecommerce</h1>
-<h2>Per registrarti <a href="./registrationPage">clicca qui</a></h2>
-<h2>Per accedere <a href="./loginPage">clicca qui</a></h2>
+
+<img alt="" src="./resources/images/sfondo.png" style="width:75%">
+<div class="row row-cols-1 row-cols-md-2 " style="margin-top:0.5em;">
+<div class="col mb-4">
+<div class="card text-center border-0">
+<img src="./resources/images/registration.svg" class="card-img-top rounded mx-auto d-block" alt="..." style ="widht:100px; height:100px" >
+  <div class="card-body">
+   <h5 class="card-title">Registrati</h5>
+   <p class="card-text"><a href="./registrationPage">Clicca qui</a></p>
+   </div>
+   </div>
+   </div>
+   <div class="col mb-4">
+<div class="card text-center border-0">
+<img src="./resources/images/loginicon.svg" class="card-img-top rounded mx-auto d-block" alt="..." style ="widht:100px; height:100px">
+  <div class="card-body">
+   <h5 class="card-title">Accedi</h5>
+   <p class="card-text"><a href="./loginPage">Clicca qui</a></p>
+   </div>
+   </div>
+   </div>
+   </div>
+
 </c:if>
-<c:if test="${username != null }">
-<h1>Benvenuto ${username}</h1>
+<c:if test="${user.firstName != null }">
+<h1>Benvenuto ${user.firstName}</h1>
 
 
 
-
+<c:if test="${user.email eq 'admin@admin.it'}">
 <h2>Per aggiungere prodotti <a href="">clicca qui</a></h2>
 </c:if>
-
+</c:if>
 
 
 

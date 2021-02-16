@@ -16,36 +16,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ecommerce.entity.User;
 import ecommerce.model.JPAManager;
 import ecommerce.repository.UserRepository;
+import ecommerce.services.UserService;
 
 @Controller
 public class registrationController {
 @Autowired
-private UserRepository user_rep;
+private UserService user_serv;
 	
 	@RequestMapping(value = "registrationPage", method = RequestMethod.GET)
 	public String regPage() {
-		
-		System.out.println("registraion");
 		return "registration";
 	}
 	
 	@RequestMapping(value = "registration", method = RequestMethod.POST)
 	public String registration(@RequestParam String fname, @RequestParam String lname , @RequestParam String email, @RequestParam String password, Model model) {
-		User u = user_rep.findByEmail(email);
-		if(u != null) {
-			
-		
-			model.addAttribute("error","L'email è già stata inserita");
-			return "registration";
-		}else {
-			u = new User();
-			u.setName(fname);
-			u.setLastName(lname);
-			u.setEmail(email);
-			u.setPassword(password);
-			user_rep.save(u);
-			
-			return "login";
-		}
+    if(user_serv.addUser(fname, lname, email, password)) {
+    return "login";
+	}else {
+		model.addAttribute("state", "Attenzione, l'email è già stata inserita");
+		return "registration";
+	}
 	}
 }

@@ -18,11 +18,13 @@ public class Cart{
 	public void addItem(int id, int quantity) {
 		Product p = JPAManager.getProduct(id);
 		if(p!= null) {
+			if(!isItem(id, quantity)) {
 		Cart_Item ci = new Cart_Item();
 		ci.setP(p);
 		ci.setQuantity(quantity);
 		items.add(ci);
 		amount += p.getPrice() * quantity;
+			}
 	}
 		
 		
@@ -36,6 +38,24 @@ public class Cart{
 		this.items = items;
 	}
 
+	public boolean isItem(int id, int quantity) {
+	int index = getItem(id);
+	if(index <0) {
+		return false;
+	}
+	int oldquantity = items.get(index).getQuantity();
+	items.get(index).setQuantity(oldquantity + quantity);
+	return true;
+	}
+	
+	public int getItem(int id) {
+		for(Cart_Item ci : this.items) {
+	if(ci.getP().getId() == id) {
+		return items.indexOf(ci);
+	}
+	}
+		return -1;
+	}
 	public double getAmount() {
 		return amount;
 	}

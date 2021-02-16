@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+   
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +12,9 @@
 <script src="./resources/js/bootstrap.min.js"></script> 
 </head>
 <body>
+<%@ include file = "navbar.jsp"%>
 <div class="container">
+ 
 <h2>Aggiungi un nuovo prodotto</h2>
 <form action="./insertProduct" method="post">
 <label for="email">Name</label><br>
@@ -20,7 +23,10 @@
   <input type="text" id="desc" name="desc" style="height:2em;"><br>
   <label for="email">Price:</label><br>
   <input type="number" id="price" name="price" step="0.1"><br>
-  <p><input type="submit" value="Aggiungi"></p>
+  <p><input type="submit" class="btn btn-dark buttonform" value="Aggiungi"></p>
+  <c:if test="${state != null }">
+  <span>${state}</span>
+  </c:if>
   </div>
 </body>
 </html>

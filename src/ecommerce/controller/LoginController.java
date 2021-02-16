@@ -19,12 +19,13 @@ import org.springframework.web.bind.support.SessionStatus;
 import ecommerce.entity.User;
 import ecommerce.model.JPAManager;
 import ecommerce.repository.UserRepository;
+import ecommerce.services.UserService;
 
 @Controller
 public class LoginController {
 	
 @Autowired
-private UserRepository user_rep;
+private UserService user_service;
 	
 	@RequestMapping(value ="loginPage", method = RequestMethod.GET)
 	public String loginPage() {
@@ -34,12 +35,11 @@ private UserRepository user_rep;
 	
 	@RequestMapping(value ="auth", method = RequestMethod.POST)
 	public String auth(@RequestParam String email, @RequestParam String password, Model model, HttpServletRequest request, HttpServletResponse response ) {
-		User u = user_rep.findByEmailAndPassword(email, password);
+		User u = user_service.findByEmailAndPassword(email, password);
 		if( u != null) {
 			 
 			HttpSession session = request.getSession();
-			session.setAttribute("username", u.getFirstName());
-			session.setAttribute("useremail",u.getEmail());
+			session.setAttribute("user", u);
 			System.out.println(u.getEmail());
 			return "index";
 			
@@ -52,6 +52,7 @@ private UserRepository user_rep;
 	}
 	@RequestMapping(value ="logout", method = RequestMethod.GET)
 	public String logout(HttpSession session) {
+		
 		session.invalidate();
 		return "index";
 	}

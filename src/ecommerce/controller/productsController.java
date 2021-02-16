@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,14 +17,18 @@ import ecommerce.model.JPAManager;
 import ecommerce.repository.OrderRepository;
 import ecommerce.repository.Order_ItemRepository;
 import ecommerce.repository.ProductRepository;
+import ecommerce.services.OrderService;
+import ecommerce.services.Order_ItemService;
+import ecommerce.services.ProductService;
 
 @Controller
 public class productsController {
 	@Autowired
-	private ProductRepository product_rep;
+	private ProductService product_service;
 	@Autowired
-	private OrderRepository order_rep;
-	@Autowired Order_ItemRepository order_item_rep;
+	private OrderService order_service;
+	@Autowired 
+	private Order_ItemService order_item_service;
 	public Cart cart;
 	
 	@RequestMapping(value = "productsPage", method = RequestMethod.GET)
@@ -31,18 +36,22 @@ public class productsController {
 		if(cart == null) {
 			cart = new Cart();
 		}
-		List<Product> products = product_rep.findAll();
+		List<Product> products = product_service.findAll();
 		model.addAttribute("products", products );
 		return "products";
 	}
 	
 	@RequestMapping(value = "addCart", method = RequestMethod.POST)
-	public String addCart_Item(@RequestParam int quantity, @RequestParam int id, Model model) {
+	public String addCart_Item(@RequestParam int quantity, @RequestParam int id, Model model,HttpSession session) {
 		if( quantity <= 0) {
 			model.addAttribute("state", "La quantità deve essere almeno 1");
 			return "products";
 		} else {
 			cart.addItem(id, quantity);
+			List<Product> products = product_service.findAll();
+			model.addAttribute("products", products );
+			List<Cart_Item> cart_item = cart.getItems();
+			session.setAttribute("cart_item", cart_item);
 			
 			return "products";
 		}
@@ -59,16 +68,9 @@ public class productsController {
 	@RequestMapping(value = "completeOrder", method = RequestMethod.GET)
 	public String completeOrder(HttpSession session) {
 		User u = (User) session.getAttribute("user");
-		Order o = new Order();
-		o.setAmount(cart.getAmount());
-		o.setState("closed");
-		o.setUser_id(u.getId());
-		order_rep.save(o);
-		int order_id = o.getId();
-		for(Cart_Item ci : cart.getItems()) {
-			order_item_rep.save(ci.getOrder_Item(order_id));
-			
-		}
+		int id = order_service.addOrder(u, cart);
+		order_item_service.addOrder_Item(id, cart);
+		cart.getItems().clear();
 		return "index";
 	}
 	
@@ -79,18 +81,14 @@ public class productsController {
 	}
 	
 	@RequestMapping(value = "insertProduct", method = RequestMethod.POST)
-	public String addProduct(@RequestParam String name, @RequestParam String desc, @RequestParam double price, Model model) {
-	Product p = new Product();
-	p.setDesc(desc);
-	System.out.println(desc);
-	p.setName(name);
-	System.out.println(name);
-	p.setPrice(price);
-	System.out.println(price);
-	product_rep.save(p);
-	
-	model.addAttribute("state","done");
+	public String addProduct(@RequestParam String name, @RequestParam String desc, @RequestParam Double price, Model model) {
+	String state = product_service.addProduct(name, desc, price);
+	model.addAttribute("state", state);
 	return "index";
 	}
 	
+	@GetMapping(value="cartPage")
+	public String cartPage() {
+		return "cart";
+	}
 }

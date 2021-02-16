@@ -28,3 +28,17 @@ tr:hover {background-color: white;}
 h5{
 	color:red;
 }
+.buttonform{
+	margin-top: 0.5em;
+}
+.navbar-custom{
+	background-color: #59abe3;
+	color: white;
+}
+  .navbar-nav > li {
+    float: none;
+    display: inline-block;
+  }
+.navbar-nav > li.navbar-right {
+    float: right !important;
+  }

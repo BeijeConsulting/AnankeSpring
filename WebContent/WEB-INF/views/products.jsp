@@ -20,9 +20,7 @@
 
 
 <div class="row row-cols-1 row-cols-md-3">
-<c:catch>
 
-</c:catch>
 <c:forEach items = "${products}" var = "item" > 
 <div class="col mb-4">
 <div class="card text-center">
@@ -33,28 +31,14 @@
    <form action="./addCart" method="post"> 
    <input type="number" name="quantity" value="0">
    <input type="hidden" name="id" value="${item.id}">
-   <p><input type="submit" value="Scegli"></p>
+   <p><input type="submit" class = "btn btn-dark buttonform" value="Scegli"></p>
   </form>
    </div>
    </div>
 </div>
 </c:forEach>
 </div>
-<p><a href="./cartView"><button>Visualizza il carrello</button></a></p>
-
- 
-
-
-<c:if test="${cart != null }">
-<c:forEach items="${cart_item}" var="item">
-<p>${item.p.id}</p>
-<p>${item.p.name}</p>
-</c:forEach>
-<h2>${cart.amount}</h2>
-
-<p><a href="./completeOrder"><button>Acquista</button></a></p>
-
-</c:if>
+<p><a href="./cartPage"><button class = "btn btn-dark buttonform">Visualizza il carrello</button></a></p>
 </div>
 </body>
 </html>

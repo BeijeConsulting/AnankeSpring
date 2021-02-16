@@ -14,42 +14,46 @@
 <script src="./resources/js/bootstrap.min.js"></script>  
 </head>
 <body>
-<% String username = (String)session.getAttribute("username");
-String usermail = (String)session.getAttribute("useremail");%>
+<% User user = (User)session.getAttribute("user"); %>
 
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light navbar-custom">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Ecommerce Project</a>
+    <a class="navbar-brand" href="./index">Ecommerce Project</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="index.jsp">Home</a>
+          <a class="nav-link active" aria-current="page" href="./index">Home</a>
         </li>
           <li class="nav-item">
           <a class="nav-link" href="contacts.html">Contatti</a>
         </li>
         
         
-         <c:if test="${username != null}">
+         <c:if test="${user.email != null}">
         <li class="nav-item">
           <a class="nav-link" href="./productsPage">Prodotti</a>
         </li>
 
-        <c:if test="${usermail eq 'admin@admin.it'}">
+        <c:if test="${user.email eq 'admin@admin.it'}">
          <li class="nav-item">
           <a class="nav-link" href="./dashboard">Administration Panel</a>
         </li>
    		</c:if>
          </ul>
-        <ul class="navbar-nav mr-auto">
+        <ul class="navbar-nav ms-auto">
+        <c:if test="${cart_item != null }">
+        <li class="nav-item">
+        <a href="#" class="nav-link" data-toggle="dropdown" role="button" aria-expanded="false"> <img src="./resources/images/shopping-cart.png" style="width:16px;">${cart_item.size()} - Items</a>
+        <span></span>
+        </li>
+        </c:if>
          <li class="nav-item">
           <a class="nav-link" href="./logout">Logout</a>
         </li>
-        </ul>
         </c:if>
       
       

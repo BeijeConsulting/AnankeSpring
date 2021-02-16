@@ -36,9 +36,9 @@ public class dashboardController {
 		List<Product> p = product_rep.findAll();
 		List<Order> o = order_rep.findAll();
 		List<User> u = user_rep.findAll();
-		model.addAttribute("products", p);
-		model.addAttribute("orders", o);
-		model.addAttribute("users", u);
+		model.addAttribute("products", p.size());
+		model.addAttribute("orders", o.size());
+		model.addAttribute("users", u.size());
 	}
 	
 }

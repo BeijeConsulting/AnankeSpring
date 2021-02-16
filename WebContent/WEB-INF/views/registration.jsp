@@ -11,6 +11,7 @@
 <script src="./resources/js/bootstrap.min.js"></script>  
 </head>
 <body>
+<%@ include file = "navbar.jsp"%>
 <div class="container">
 <form action="./registration" method="post">
 <label for="email">First Name:</label><br>
@@ -19,16 +20,12 @@
   <input type="text" id="lname" name="lname"><br>
   <label for="email">Email:</label><br>
   <input type="email" id="email" name="email"><br>
- <% if(request.getAttribute("error") == null){
-	 
- }else{
-  %>
-  <span>${error}</br></span>
-  <%} %>
-
-  <label for="email">Password:</label><br>
+ 	<label for="email">Password:</label><br>
   <input type="password" id="psw" name="password">
-  <p><input type="submit" class="btn btn-dark" value="Registrati"></p>
+  <p><input type="submit" class="btn btn-dark buttonform" value="Registrati"></p>
+  <c:if test="${state != null}">
+<span>${state}</span>
+</c:if>
 </form>
 </div>
 </body>
