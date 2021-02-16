@@ -7,7 +7,7 @@
 	</head>
 	<body>
 		<h3>Registered successfully!</h3><br>
-		<a href ="mainPage.jsp">Click to go to main page</a>
+		<a href ="start">Click to go to main page</a>
 		
 	</body>
 </html>
