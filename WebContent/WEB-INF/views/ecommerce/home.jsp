@@ -11,17 +11,21 @@
 <body>
 	<h1>DONUTINC.</h1>
 	<div class="topnav">
- 		<a class="active" href="index.jsp">Home</a>
+ 		<a class="active" href="home.jsp">Home</a>
  		<c:choose>
 	 		<c:when test = "${userId == null}">
 		 		<a href="./login">Login</a>
 	 		</c:when>
-	  		<c:when test = "${userId != null}">
+	 		<c:when test = "${title.equals(\"admin\")}">
+		 		<a href="./logout">Logout</a>
+		 		<a href="./newProduct">Insert new product</a>
+	 		</c:when>
+	 		<c:when test = "${title == null}">
 		 		<a href="./logout">Logout</a>
 		 		<a href="./orders">Orders</a>
 	 		</c:when>
  		</c:choose>
- 		<a href="./showProducts">Products</a>
+ 		<a href="./products">Products</a>
 	</div>
 	
 </body>

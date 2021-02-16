@@ -1,6 +1,9 @@
 package it.beije.ananke.ecommerce.controller;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +32,11 @@ public class LoginController {
 			if(u.getPassword().equals(password)) {
 				System.out.println("Welcome " + u.getFirstName());
 				session = request.getSession();
+				System.out.println(session == null);
 				session.setAttribute("user", u);
+				if(email.contains("admin.com")) {
+					model.addAttribute("title", "admin");
+				}
 				return "home";
 			}
 		}
@@ -43,9 +50,15 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value = "/logout", method = RequestMethod.POST)
-	public String logout (HttpSession session) {
+	public void logout (HttpSession session, HttpServletResponse response) throws IOException {
 		System.out.println("get logout...");
-		session.removeAttribute("user");
+		session.invalidate();
+		response.sendRedirect("home.jsp");
+	}
+	
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logout () {
+		System.out.println("get logout...");
 		return "home";
 	}
 

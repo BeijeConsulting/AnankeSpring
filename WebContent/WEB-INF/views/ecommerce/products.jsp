@@ -1,3 +1,4 @@
+<%@page import="org.hibernate.internal.build.AllowSysOut"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -35,8 +36,9 @@
 				<c:choose>
 		 			<c:when test = "${userId != null}">
 					<td>
-						<form action="./addToChart" method="post">
+						<form action="./products" method="post">
 							<input type="hidden" name="id" value="${products.id}"/>
+							<input type="hidden" name="price" value="${products.price}"/>
 				 			<input type="number" name="quantity"/>
 							<input type="submit" value="Add to chart"/>
 						</form>
