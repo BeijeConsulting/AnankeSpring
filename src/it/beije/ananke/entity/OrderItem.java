@@ -66,7 +66,7 @@ public class OrderItem {
 	}
 
 	public double getAmount() {
-		return amount;
+		return amount*(this.getQuantity());
 	}
 
 	public void setAmount(double amount) {

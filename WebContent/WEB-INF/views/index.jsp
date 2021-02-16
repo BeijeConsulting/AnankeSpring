@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="java.time.LocalDateTime"%>
 <%@page import ="it.beije.ananke.entity.*" %>
 <%@page import ="it.beije.ananke.model.*" %>
@@ -26,17 +27,17 @@ table, th, td {
 
 <%if(session.getAttribute("user")==null){%>
 <div class="topnav">
-  <a class="active" href="index.jsp">Home</a>
+  <a class="active" href="./index">Home</a>
   <a href="./register">Registrati</a>
   <a href="./login">Accedi</a>
-  <a href="./productServlet">Prodotti</a>
 </div><%}else{ %><div class="topnav">
   <a class="active" href="index.jsp">Home</a>
-  <a href="registration_form.jsp">Registrati</a>
+  <a href="./register">Registrati</a>
   <a href="./logout">Logout</a>
-  <a href="./productServlet">Prodotti</a>
+  <a href="./orderHistory">Ordini Effettuati</a>
 </div><%} %>
  
+
  <%List<Product> prodotti = JPAmanager.findAllProduct();%>
  <table>
 	<tr>
@@ -49,7 +50,7 @@ table, th, td {
 	<td><%=prod.getName()%></td>
 	<td><%=prod.getDesc()%></td>
 	<td><%=prod.getPrice() %>&nbsp;$</td>
-	<td><a href="./OrderServlet?id=<%=prod.getId()%>">Acquista</a></td>
+	<td><a href="./purchase/<%=prod.getId()%>">Acquista</a></td>
 	</tr><%} %>
 </table>
 		  

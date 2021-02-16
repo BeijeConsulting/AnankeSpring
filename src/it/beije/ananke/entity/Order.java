@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="order")
+@Table(name="orders")
 public class Order {
 
 	
@@ -20,7 +20,7 @@ public class Order {
 	private int id;
 	
 	@Column(name="user_id")
-	private String user_id;
+	private int userId;
 	
 	@Column(name="amount")
 	private double amount;
@@ -39,12 +39,12 @@ public class Order {
 		this.id = id;
 	}
 
-	public String getUser_id() {
-		return user_id;
+	public int getUserId() {
+		return userId;
 	}
 
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
+	public void setUserId(int user_id) {
+		this.userId = user_id;
 	}
 
 	public double getAmount() {
@@ -66,7 +66,7 @@ public class Order {
 	//ToString
 	@Override
 	public String toString() {
-		return "Order [id=" + id + ", user_id=" + user_id + ", amount=" + amount + ", state=" + state + "]";
+		return "Order [id=" + id + ", user_id=" + userId + ", amount=" + amount + ", state=" + state + "]";
 	}
 	
 }

@@ -17,6 +17,8 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
+import it.beije.ananke.entity.Order;
+import it.beije.ananke.entity.OrderItem;
 import it.beije.ananke.entity.Product;
 import it.beije.ananke.entity.User;
 import it.beije.ananke.model.RubricaEntityManager;
@@ -108,6 +110,74 @@ public class JPAmanager {
 		List<Product> products = query.getResultList();
 		
 		return products;
+	}
+	
+	public static List<Order> findOrderByUser(int userId)
+
+	{
+		EntityManager entityManager = RubricaEntityManager.getEntityManager();
+		
+		String JPASelect = "SELECT c FROM Order as c WHERE user_id="+userId;
+		Query query = entityManager.createQuery(JPASelect);
+		List<Order> orders = query.getResultList();
+		if(!orders.isEmpty())
+		{
+			return orders;
+		}
+		else return orders=null;	
+	}
+	
+	public static Product findProductById(int id)
+
+	{
+		EntityManager entityManager = RubricaEntityManager.getEntityManager();
+		
+		Product user = entityManager.find(Product.class,id);
+		
+		entityManager.close();
+		
+		return user;
+	}
+	
+	public static boolean addOrder(Order order)
+
+	{
+		EntityManager entityManager = RubricaEntityManager.getEntityManager();
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+
+		Order toInsert = order;
+
+			if(toInsert!=null)
+			{
+			// opening the transaction
+			entityTransaction.begin();
+			entityManager.persist(toInsert);
+			entityTransaction.commit();
+			entityManager.close();
+	
+			return true;
+			}
+			else return false;
+	}
+	
+	public static boolean addOrderItem(OrderItem ordIt)
+	{
+		EntityManager entityManager = RubricaEntityManager.getEntityManager();
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+
+		OrderItem toInsert = ordIt;
+
+			if(toInsert!=null)
+			{
+			// opening the transaction
+			entityTransaction.begin();
+			entityManager.persist(toInsert);
+			entityTransaction.commit();
+			entityManager.close();
+	
+			return true;
+			}
+			else return false;
 	}
 //
 //	public static boolean eliminaContatto(Contatto contatto) {
