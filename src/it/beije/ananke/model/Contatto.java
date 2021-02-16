@@ -1,5 +1,6 @@
 package it.beije.ananke.model;
 
+
 public class Contatto {
 	
 	private int id;
