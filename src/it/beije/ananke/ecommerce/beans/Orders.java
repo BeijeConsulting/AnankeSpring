@@ -39,7 +39,7 @@ public class Orders {
 		return userId;
 	}
 	
-	public void setUser_id(Integer userId) {
+	public void setUseId(Integer userId) {
 		this.userId = userId;
 	}
 	

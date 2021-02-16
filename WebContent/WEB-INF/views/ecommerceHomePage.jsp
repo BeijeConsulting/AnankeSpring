@@ -28,7 +28,7 @@
 <body>
 
 	<h2>Ciao ${firstName} !</h2>
-	<form action = "" method = "get">
+	<form action = "../logOut" method = "get">
 		<input type = "submit" value = "LOGOUT">
 	</form>
 	
@@ -45,14 +45,43 @@
 			<td><c:out value = "${product.desc}"/><p></td>
 			<td><c:out value = "${product.price} $"/><p></td>
 			<td>
-				<form action = "./addProduct?id=${product.id}" method = "post">
+				<form action = "./addProduct?productId=${product.id}&quantity=1&amount=${product.price}" method = "post">
 					<input type = "submit" value = "ACQUISTA">
 				</form>
 			</td>
 			</tr>
 			
 		</c:forEach>
+		
 	</table>
+		
+	<c:if test = "${seeCart}">
+		<table>
+		
+			<!-- head della tabella -->
+			<c:forEach var = "item" items="${cart.items}">
+			 
+				 <!-- vorrei poi fare un join tra product e orderItem per mostrare meglio il carrello -->
+				<tr>
+				<td><c:out value = "${item.productId}"/><p></td>
+				<td><c:out value = "${item.quantity}"/><p></td>
+				<td><c:out value = "${item.amount} $"/><p></td>
+				</tr>
+			
+			</c:forEach>
+			<tfoot>
+				<tr>
+				<td>
+					<form action = "./buy" method = "post">
+						<input type = "submit" value = "ACQUISTA">
+					</form>
+				</td>
+				<td>Totale:</td>
+				<td>${amount}</td>
+				</tr>
+			</tfoot>
+		</table>
+	</c:if>
 	
 </body>
 </html>

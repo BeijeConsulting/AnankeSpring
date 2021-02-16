@@ -72,6 +72,8 @@ public class OrderItem {
 		this.amount = amount;
 	}
 	
-	
+	public String toString() {
+		return this.id + " " + this.orderId +  " " + this.productId +  " " + this.quantity +  " " + this.amount;
+	}
 
 }

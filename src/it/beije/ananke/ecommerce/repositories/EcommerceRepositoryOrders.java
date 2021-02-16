@@ -8,4 +8,5 @@ import it.beije.ananke.ecommerce.beans.Orders;
 @Repository
 public interface EcommerceRepositoryOrders extends JpaRepository<Orders, Integer>{
 
+
 }
