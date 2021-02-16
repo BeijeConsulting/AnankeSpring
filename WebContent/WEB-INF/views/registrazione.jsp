@@ -20,8 +20,8 @@
 		<h3>Registrati</h3>
 		<form action="./registrazione" method="post">
 			EMAIL:&nbsp;<input type="text" name="email" value=""/><br>
-			NOME:&nbsp;<input type="text" name="name" value=""/><br/>
-			COGNOME:&nbsp;<input type="text" name="surname" value=""/><br>
+			NOME:&nbsp;<input type="text" name="nome" value=""/><br/>
+			COGNOME:&nbsp;<input type="text" name="cognome" value=""/><br>
  			PASSWORD:&nbsp;<input type="text" name="password" value=""/><br>
 			<br><input type="submit" value="REGISTRATI"/>
 		</form>

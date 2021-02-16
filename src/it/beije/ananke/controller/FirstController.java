@@ -4,6 +4,7 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,10 +13,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import it.beije.ananke.model.Contatto;
+import it.beije.ananke.repository.ContattoRepository;
 
 
 @Controller
 public class FirstController {
+	
+	@Autowired
+	private ContattoRepository contattoRepository;
+	
 
 	@RequestMapping(value = {"index", "pippopluto"}, method = RequestMethod.GET)
 	public String index(HttpServletRequest request, Model model, Locale locale) {
@@ -80,6 +86,8 @@ public class FirstController {
 	@RequestMapping(value = "/contatto", method = RequestMethod.POST)
 	public String postContatto(Contatto c, Model model) {
 		System.out.println("postContatto : " + c);
+		
+		contattoRepository.save(c);
 		
 		model.addAttribute("contatto", c);
 		

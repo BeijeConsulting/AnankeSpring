@@ -36,6 +36,9 @@
 			<form action="./login" method="post">
 				
 				${error}<br/>
+				${registrazione}<br/>
+				
+				<br>
 				
 				USERNAME:&nbsp;<input type="text" name="nome" value=""/><br/>
  				PASSWORD:&nbsp;<input type="text" name="password" value=""/><br>			

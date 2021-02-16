@@ -21,12 +21,17 @@ public class JPAManager {
 		
 	}
 	
-	public void inserisciUtenteDb(String nome, String cognome, String password, String email) {
+	public void inserisciUtenteDb(String email, String nome, String cognome, String password) {
 		
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
 		
-		User user = new User(password, nome, cognome, email);
+		User user = new User();
+		
+		user.setEmail(email);
+		user.setFirstName(nome);
+		user.setLastName(cognome);
+		user.setPassword(password);
 		
 		entityManager.persist(user);
 		
