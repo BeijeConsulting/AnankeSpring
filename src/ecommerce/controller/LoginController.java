@@ -38,7 +38,9 @@ private UserRepository user_rep;
 		if( u != null) {
 			 
 			HttpSession session = request.getSession();
-			session.setAttribute("user", u);
+			session.setAttribute("username", u.getFirstName());
+			session.setAttribute("useremail",u.getEmail());
+			System.out.println(u.getEmail());
 			return "index";
 			
 		} else {

@@ -1,5 +1,7 @@
 package ecommerce.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ecommerce.entity.*;
-
+import ecommerce.model.JPAManager;
 import ecommerce.repository.OrderRepository;
 import ecommerce.repository.Order_ItemRepository;
 import ecommerce.repository.ProductRepository;
@@ -25,10 +27,12 @@ public class productsController {
 	public Cart cart;
 	
 	@RequestMapping(value = "productsPage", method = RequestMethod.GET)
-	public String productsPage() {
+	public String productsPage(Model model) {
 		if(cart == null) {
 			cart = new Cart();
 		}
+		List<Product> products = product_rep.findAll();
+		model.addAttribute("products", products );
 		return "products";
 	}
 	
@@ -45,7 +49,10 @@ public class productsController {
 	}
 	@RequestMapping(value = "cartView", method = RequestMethod.GET)
 	public String cartView(Model model) {
+		List<Cart_Item> cart_item = cart.getItems();
 		model.addAttribute("cart",cart);
+		model.addAttribute("cart_item",cart_item);
+	
 		return "products";
 	}
 	
@@ -75,13 +82,15 @@ public class productsController {
 	public String addProduct(@RequestParam String name, @RequestParam String desc, @RequestParam double price, Model model) {
 	Product p = new Product();
 	p.setDesc(desc);
+	System.out.println(desc);
 	p.setName(name);
+	System.out.println(name);
 	p.setPrice(price);
 	System.out.println(price);
 	product_rep.save(p);
 	
 	model.addAttribute("state","done");
-	return "admindashboard";
+	return "index";
 	}
 	
 }

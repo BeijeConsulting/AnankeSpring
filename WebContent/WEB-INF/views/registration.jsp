@@ -6,9 +6,9 @@
 <meta charset="ISO-8859-1">
 <title>Registration Page</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-       <link rel="stylesheet" href="bootstrap.min.css"/> 
-       <link href="style.css" rel="stylesheet">        
-       <script src="bootstrap.min.js"></script>  
+<link rel="stylesheet" href="./resources/css/bootstrap.min.css"/> 
+<link href="./resources/css/style.css" rel="stylesheet">        
+<script src="./resources/js/bootstrap.min.js"></script>  
 </head>
 <body>
 <div class="container">
