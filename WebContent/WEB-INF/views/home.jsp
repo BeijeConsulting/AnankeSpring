@@ -8,10 +8,10 @@
 	</head>
 	<body>
 		<h3>Benvenuto!</h3>
-		<form action="./login" method="get">
+		<form action="login" method="get">
 			<input type ="submit" value = "Accedi">
 		</form>
-		<form action="./signup" method="post">
+		<form action="signup" method="get">
 			<input type = "submit" value = "Registrati">
 		</form>
 	</body>

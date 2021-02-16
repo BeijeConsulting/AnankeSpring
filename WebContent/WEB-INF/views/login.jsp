@@ -9,13 +9,11 @@
 	</head>
 	<body>
 		<h3>Identificati per accedere al sito:</h3>
-		<form action="verificaLogin" method="post">
+		<form action="./verifica" method="post">
 			EMAIL:&nbsp;<input type="text" name="email" value=""/><br/>
  			PASSWORD:&nbsp;<input type="text" name="password" value=""/><br>
 			<br><input type="submit" value="ACCEDI"/>
 		</form>
-		<p>
-		<h3 <c:if test = "${flag == false}"> display </c:if>>Autenticazione fallita</h3>
-		</p>
+		<c:if test="${errore != null}">${errore}</c:if>
 	</body>
 </html>

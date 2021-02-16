@@ -10,7 +10,7 @@
 	</head>
 	<body>
 		<h3>Registrati</h3>
-		<form action="signUp" method="post">
+		<form action="./signUp" method="post">
 			NAME:&nbsp;<input type="text" name="name_param" value=""/><br/>
 			SURNAME:&nbsp;<input type="text" name="surname_param" value=""/><br>
  			EMAIL:&nbsp;<input type="text" name="email" value=""/><br>

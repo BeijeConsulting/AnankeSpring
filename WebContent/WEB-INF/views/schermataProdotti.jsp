@@ -26,7 +26,8 @@
   				<td>${p.descrip}</td>
   				<td>${p.price}</td>
   				<td>
-  					<form action="aggiungi" method="post">
+  					<form action="./aggiungi" method="post">
+  						<input type="hidden" value="${p.id}">
   						<input type="submit" value="ACQUISTA"/>
   					</form>
   				</td>
