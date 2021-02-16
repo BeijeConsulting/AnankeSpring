@@ -21,19 +21,28 @@
 			<th>Product</th>
 			<th>Description</th>
 			<th>Price</th>
-			<th></th>
+			<c:choose>
+	 			<c:when test = "${userId != null}">
+	 				<th></th>
+	 			</c:when>
+ 			</c:choose>
 			</tr>
 			<c:forEach items="${products}" var="products">
 		        <tr>
 				<td>${products.name}</td>
 				<td>${products.description}</td>
 				<td>${products.price} $</td>
-				<td>
-					<form action="./addToChart" method="post">
-						<input type="hidden" name="id" value="${products.id}"/>
-			 			<input type="number" name="quantity"/>
-						<input type="submit" value="Add to chart"/>
-					</form></td>
+				<c:choose>
+		 			<c:when test = "${userId != null}">
+					<td>
+						<form action="./addToChart" method="post">
+							<input type="hidden" name="id" value="${products.id}"/>
+				 			<input type="number" name="quantity"/>
+							<input type="submit" value="Add to chart"/>
+						</form>
+					</td>
+					</c:when>
+				</c:choose>
 				</tr>
 	      	</c:forEach>
 		    

@@ -14,38 +14,38 @@ public class Order {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
-	private int id;
+	private Integer id;
 	
 	@Column(name="user_id")
-	private int userId;
+	private Integer userId;
 	
 	@Column(name="amount")
-	private double amount;
+	private Double amount;
 	
 	@Column(name="state")
 	private String state;
 	
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 	
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	
-	public int getUserId() {
+	public Integer getUserId() {
 		return userId;
 	}
 	
-	public void setUserId(int userId) {
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 	
-	public double getAmount() {
+	public Double getAmount() {
 		return amount;
 	}
 	
-	public void setAmount(double amount) {
+	public void setAmount(Double amount) {
 		this.amount = amount;
 	}
 	

@@ -16,8 +16,12 @@ import it.beije.ananke.ecommerce.model.dao.JpaDao;
 public class OrderController {
 	
 	@RequestMapping(value = "/products", method = RequestMethod.POST)
-	public void addToChart(@RequestParam int id, @RequestParam int quantity, @RequestParam double price) {
+	public void addToChart(@RequestParam int id, @RequestParam int quantity, @RequestParam double price, HttpSession session) {
 		
+		User u = (User) session.getAttribute("user");
+		if(u!=null) {
+			
+		}
 		JpaDao dao = new JpaDao();
 		OrderItem oi = new OrderItem();
 		//....

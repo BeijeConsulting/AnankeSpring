@@ -5,6 +5,7 @@
 		<class>it.beije.ananke.ecommerce.model.OrderItem</class>
 		<class>it.beije.ananke.ecommerce.model.Product</class>
 		<class>it.beije.ananke.ecommerce.model.User</class>
+		<class>it.beije.ananke.ivo.model.Contatto</class>
 		
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		

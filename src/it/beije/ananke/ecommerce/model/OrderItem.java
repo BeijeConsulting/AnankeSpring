@@ -14,57 +14,57 @@ public class OrderItem {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
-	private int id;
+	private Integer id;
 	
 	@Column(name="order_id")
-	private int orderId;
+	private Integer orderId;
 	
 	@Column(name="product_id")
-	private int productId;
+	private Integer productId;
 	
 	@Column(name="quantity")
-	private int quantity;
+	private Integer quantity;
 	
 	@Column(name="amount")
-	private double amount;
+	private Double amount;
 	
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 	
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	
-	public int getOrderId() {
+	public Integer getOrderId() {
 		return orderId;
 	}
 	
-	public void setOrderId(int orderId) {
+	public void setOrderId(Integer orderId) {
 		this.orderId = orderId;
 	}
 	
-	public int getProductId() {
+	public Integer getProductId() {
 		return productId;
 	}
 	
-	public void setProductId(int productId) {
+	public void setProductId(Integer productId) {
 		this.productId = productId;
 	}
 	
-	public int getQuantity() {
+	public Integer getQuantity() {
 		return quantity;
 	}
 	
-	public void setQuantity(int quantity) {
+	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
 	
-	public double getAmount() {
+	public Double getAmount() {
 		return amount;
 	}
 	
-	public void setAmount(double amount) {
+	public void setAmount(Double amount) {
 		this.amount = amount;
 	}
 }

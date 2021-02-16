@@ -6,9 +6,9 @@
 		</style>
 	</head>
 	<body>
-		<h3>Inserisci i dati</h3>
+		<h3 style="text-align:center;">Login</h3>
 		<div>
-		<form action="./login" method="post">
+		<form action="./login" method="post" style="text-align: center;">
 			<div style="margin:10px; padding:2px;">
 				<div style="margin:5px;">
 					<label for="email">Email</label>
@@ -30,6 +30,12 @@
 				<input type="submit" value="INVIO"/>
 			</div>
 		</form>
+		</div>
+		<div style="text-align:center;">
+			OR
+		</div>
+		<div style="margin:5px; text-align:center;">
+			<a href="./register">Register</a>
 		</div>
 	</body>
 </html>

@@ -1,4 +1,4 @@
-package it.beije.ananke;
+package it.beije.ananke.ivo;
 
 
 import javax.persistence.EntityManagerFactory;
@@ -9,17 +9,17 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-public class JpaEntityManager {
+public class IvosJpaEntityManager {
 	
 	private static EntityManagerFactory emfactory = null;
 
-	private JpaEntityManager() {}
+	private IvosJpaEntityManager() {}
 	
 	@Bean(name = "entityManagerFactory")	
 	public static synchronized EntityManagerFactory getInstance() {
 		try {
 			if (emfactory == null) {
-				emfactory = Persistence.createEntityManagerFactory("AnankeRubrica");
+				emfactory = Persistence.createEntityManagerFactory("AnankeSpring");
 			}
 			return emfactory;
 		} catch(Exception e) {
