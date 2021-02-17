@@ -34,12 +34,9 @@ public class JPAManager {
 			return false;
 }
 	
-	public static ArrayList<OrderItem> ritornoCarrello(int idUserp, String idItem, String quantity){
-	
-		int idItemp=Integer.parseInt(idItem);
-		int quantita=Integer.parseInt(quantity);
+	public static List<OrderItem> ritornoCarrello(int idUserp){
+
 	EntityManager entityManager = JPASession.getEntityManager();
-	EntityTransaction entityTransaction =entityManager.getTransaction();
 	String SQL="Select o from Order as o where id="+idUserp+" and  state='open'";
 	System.out.println(SQL);
 	Query queryOrder= entityManager.createQuery(SQL);
@@ -49,12 +46,11 @@ public class JPAManager {
 	}
 	else {
 		
-		
 		ArrayList<Order> ordini=(ArrayList<Order>) queryOrder.getResultList();
 		ordine= ordini.get(0);
 		SQL="Select o from OrderItem as o where orderID="+ordine.getId();
 		queryOrder= entityManager.createQuery(SQL);
-		return (ArrayList<OrderItem>) queryOrder.getResultList();
+		return (List<OrderItem>) queryOrder.getResultList();
 
 	}
 
@@ -76,16 +72,16 @@ public class JPAManager {
 		ordine= new Order();
 		ordine.setUserID(idUserp);
 		ordine.setState("open");
-		
+		ordine.setAmount(0);
       entityManager.persist(ordine);
       entityTransaction.commit();
 
 	}
 	else {
-		System.out.println("coadds");
 		
 		ArrayList<Order> ordini=(ArrayList<Order>) queryOrder.getResultList();
 		ordine= ordini.get(0);
+		
 		SQL="Select o from OrderItem as o where orderID="+ordine.getId();
 		queryOrder= entityManager.createQuery(SQL);
 		ArrayList<OrderItem> carrelli=(ArrayList<OrderItem>) queryOrder.getResultList();
@@ -98,6 +94,8 @@ for(OrderItem c: carrelli)
 			return false;
 		c.setAmount(prodotto.getPrice()*c.getQuantity());
 		entityManager.persist(c);
+		ordine.setAmount(ordine.getAmount()+prodotto.getPrice()*c.getQuantity());
+
 		entityTransaction.commit();
 		return true;
 
@@ -162,7 +160,6 @@ for(OrderItem c: carrelli)
 	}
 	
 	public static Product returnProduct(String id) {
-		int idd=Integer.parseInt(id);
 		EntityManager entityManager = JPASession.getEntityManager();
 		String SQL="Select u from Product as u where id="+id;
 		Query query=entityManager.createQuery(SQL);
@@ -176,6 +173,73 @@ for(OrderItem c: carrelli)
 
 }
 
+	public static Product returnProduct(int id) {
+		EntityManager entityManager = JPASession.getEntityManager();
+		
+		String SQL="Select u from Product as u where id="+id;
+		Query query=entityManager.createQuery(SQL);
+		if(query!=null) {
+		List<Product> prodotti=(ArrayList<Product>)query.getResultList();
+		entityManager.close();
+		return prodotti.get(0);
+		}
+		entityManager.close();
+		return null;
+}
+	public static Order returnOrder(int id) {
+		EntityManager entityManager = JPASession.getEntityManager();
+		String SQL="Select u from Order as u where id="+id;
+		Query query=entityManager.createQuery(SQL);
+		if(query!=null) {
+		List<Order> order=(ArrayList<Order>)query.getResultList();
+		entityManager.close();
+		return order.get(0);
+		}
+		entityManager.close();
+		return null;
+
+}
+	
+	
+	
+	public static ArrayList<Order> listaOrdiniUtente(int idUserp) {
+
+		EntityManager entityManager = JPASession.getEntityManager();
+
+
+		String SQL="Select o from Order as o where id="+idUserp;
+		Query query=entityManager.createQuery(SQL);
+		if(query!=null) {
+			ArrayList<Order>  order=(ArrayList<Order>)query.getResultList();
+			entityManager.close();
+			return order;
+
+	
+		}
+		entityManager.close();
+		return null;
+
+}
+	
+	
+	public static void changeStateOrder(int id,String state) {
+
+		EntityManager entityManager = JPASession.getEntityManager();
+		EntityTransaction entityTransaction =entityManager.getTransaction();
+
+		String SQL="Select u from Order as u where id="+id;
+		Query query=entityManager.createQuery(SQL);
+		if(query!=null) {
+		List<Order> order=(ArrayList<Order>)query.getResultList();
+		entityTransaction.begin();
+		Order ordine= order.get(0);
+ordine.setState(state);
+	entityManager.persist(ordine);
+	entityTransaction.commit();
+		entityManager.close();
+		}
+}
+	
 	
 	public static boolean passwordCorretta(String email,String password) {
 		if(existsUser(email)) {

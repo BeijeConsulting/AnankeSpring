@@ -71,7 +71,7 @@ if(!sessione&& !login.equals("ok")){
 	
 %>
             <div id="login"> 
-                <form action="/EcomerceWeb/login" method="post">
+                <form action="./login" method="post">
                     <input type="text" name="email" placeholder="mario@gmail.com" required>     <input type="password" name="password"  required> <button type="submit">login</button>
                 </form>
               
@@ -106,7 +106,7 @@ if(!login.equals("ok"))
 %>
 <h2 align="center"> Registrati| Compila tutti i campi</h2>
 <div id="Content">
-    <form action="/EcomerceWeb/registrazione" method="post">
+    <form action="./registrazione" method="post">
         <input type="text" name="email" placeholder="mario@gmail.com" required>  <br>
         <input type="text" name="name" placeholder="nome" required><br>
         <input type="text" name="surname" placeholder="cognome" required><br>

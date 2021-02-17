@@ -105,37 +105,22 @@ if(login.equals("ok")){
 </div>
 <div id="Content">
 
-<c:if test = "${carrello != null}">
-<table>
-<thead> 
-<tr>
-<th> <th>
-<th> Nome prodotto </th>
-<th> Quantità </th>
-<th> Prezzo prodotto totale </th>
-</tr>
-</thead>
-<tbody>
-<c:forEach var = "i" items="${carrello}">
-<tr>
-<td> </td>
-<!-- <td> <img src="https://picsum.photos/300/300/?blur"> </td> -->
-<td>${i.id}</td>
-<td>${i.quantity}</td>
-<td>${i.amount}</td>
-</tr>
-   
-</c:forEach>
- </tbody>
-    </table>
 
-<form action="./acquista" method="post">
-<input type="hidden" name="idOrdine" >
-<button type="submit"> Acquista!</button>
-</form>
-</c:if>
+  <c:choose>
+    <c:when test = "${ordini != null}">	
+   		<c:forEach var = "i" items=${ordini}>
+     <c:out value = "No. ${id}"/><p>
+</c:forEach>
+   		
+   		
+    </c:when>
+   
+    <c:otherwise>
+        <c:out value="${seconds} is greater than 30"/>
+    </c:otherwise>
+</c:choose>
+  
 
 </div>
-    </div>
 </body>
 </html>
