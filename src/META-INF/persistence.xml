@@ -3,6 +3,7 @@
 	<persistence-unit name="AnankeRubrica">
 
 		<class>it.beije.ananke.model.Contatto</class>
+		<class>it.beije.ananke.model.Telefono</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		
 		<properties>
