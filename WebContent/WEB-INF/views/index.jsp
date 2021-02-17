@@ -45,8 +45,24 @@
 </c:if>
 <c:if test="${user.firstName != null }">
 <h1>Benvenuto ${user.firstName}</h1>
-
-
+<h3>Ordini effettuati</h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Prodotti</th>
+     </tr>
+      <tbody>
+<c:forEach items="${orders}" var ="item">
+<tr>
+ <td>${item.id}</td>
+ <td>${item.amount} Euro</td>
+ <td><a href="./getOrderItem?id=${item.id}">Vedi Prodotti</a></td>
+ </tr>
+</c:forEach>
+</tbody>
+</table>
 
 <c:if test="${user.email eq 'admin@admin.it'}">
 <h2>Per aggiungere prodotti <a href="">clicca qui</a></h2>

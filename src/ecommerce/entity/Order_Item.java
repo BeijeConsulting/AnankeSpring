@@ -25,6 +25,8 @@ public class Order_Item {
 	
 	@Column(name="amount")
 	private double amount;
+	
+	
 
 	public int getId() {
 		return id;
@@ -65,6 +67,8 @@ public class Order_Item {
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
+
+	
 	
 	
 	

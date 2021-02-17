@@ -2,6 +2,7 @@ package ecommerce.controller;
 
 import java.io.IOException;
 import java.net.http.HttpRequest;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -16,16 +17,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 
-import ecommerce.entity.User;
+import ecommerce.entity.*;
 import ecommerce.model.JPAManager;
-import ecommerce.repository.UserRepository;
-import ecommerce.services.UserService;
+
+import ecommerce.services.*;
 
 @Controller
 public class LoginController {
 	
 @Autowired
 private UserService user_service;
+@Autowired
+private OrderService order_service;
+@Autowired
+private Order_ItemService orderitem_service;
 	
 	@RequestMapping(value ="loginPage", method = RequestMethod.GET)
 	public String loginPage() {
@@ -41,6 +46,10 @@ private UserService user_service;
 			HttpSession session = request.getSession();
 			session.setAttribute("user", u);
 			System.out.println(u.getEmail());
+			List<Order> orders = order_service.findAllByUserId(u.getId());
+			
+			session.setAttribute("orders", orders);
+			
 			return "index";
 			
 		} else {

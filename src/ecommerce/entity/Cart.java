@@ -46,6 +46,7 @@ public class Cart{
 	}
 	int oldquantity = items.get(index).getQuantity();
 	items.get(index).setQuantity(oldquantity + quantity);
+	this.amount += items.get(index).getP().getPrice() * quantity; 
 	return true;
 	}
 	

@@ -1,5 +1,6 @@
 package ecommerce.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,17 @@ public class OrderService {
 	
 	public List<Order> findAll(){
 		return order_rep.findAll();
+	}
+	
+	public List<Order> findAllByUserId(Integer id){
+		List<Order> allorders = findAll();
+		List<Order> ordersOfUser = new ArrayList<>();
+		for(Order o: allorders) {
+			if(o.getUser_id() == id) {
+				ordersOfUser.add(o);
+			}
+		}
+		return ordersOfUser;
 	}
 
 	public Order getOne(Integer id) {
