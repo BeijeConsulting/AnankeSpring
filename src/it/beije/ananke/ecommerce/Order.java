@@ -13,7 +13,7 @@ public class Order {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
-	private int id;
+	private Integer id;
 	@Column(name="user_id")
 	private int userId;
 	@Column(name="amount")
@@ -21,10 +21,10 @@ public class Order {
 	@Column(name="state")
 	private String state;
 	
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -9,11 +10,21 @@
 <body>
 	<h3>Order</h3>
 	
-	<%=session.getAttribute("email") %>
-<!-- mi serve id utente
-stato sempre in corso -> confermato quando checkout
-amount += qnt*amount di order-item 
-creo nuovo order item
-serve product id da cui ricavo anche qnt e amount-->
+	<table>
+		<tr>
+			<th>Product</th>
+			<th>Description</th>
+			<th>Price</th>
+			<th>Quantity</th>
+			<th>Amount</th>
+		<tr>
+			<c:forEach var = "orderItem" items="${orderItem}">
+				<td>${orderItem.name}</td>
+				<td>${orderItem.quantity}</td>
+				<td>${orderItem.amount}</td>
+			</c:forEach>		
+		</tr>
+	</table>
+
 </body>
 </html>

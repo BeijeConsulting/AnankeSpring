@@ -13,7 +13,7 @@ public class OrderItem {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
-	private int id;
+	private Integer id;
 	@Column(name="order_id")
 	private int order_id;
 	@Column(name="product_id")
@@ -23,21 +23,21 @@ public class OrderItem {
 	@Column(name="amount")
 	private double amount;
 	
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public int getOrder_id() {
+	public Integer getOrder_id() {
 		return order_id;
 	}
-	public void setOrder_id(int order_id) {
+	public void setOrder_id(Integer order_id) {
 		this.order_id = order_id;
 	}
 	
-	public int getProduct_id() {
+	public Integer getProduct_id() {
 		return product_id;
 	}
-	public void setProduct_id(int product_id) {
+	public void setProduct_id(Integer product_id) {
 		this.product_id = product_id;
 	}
 	
