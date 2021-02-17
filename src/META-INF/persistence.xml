@@ -5,9 +5,8 @@
 	 <provider> org.eclipse.persistence.jpa.PersistenceProvider</provider>  
     <class>it.beije.ananke.model.Product</class>  
 	<class>it.beije.ananke.model.User</class>
-<!-- 	<class>model.Contatto</class> -->
-<!-- 	<class>model.Order</class> -->
-<!-- 	<class>model.OrderItem</class> -->
+ 	<class>it.beije.ananke.model.Order</class>
+    <class>it.beije.ananke.model.OrderItem</class> 
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		
 		<properties>
