@@ -23,7 +23,7 @@ public class OrderItem {
 	 private Integer productId;
 	 
 	 @Column(name="amount")
-	 private Integer amount;
+	 private Double amount;
 
 	@Column(name="quantity")
 	private double quantity;
@@ -33,7 +33,7 @@ public class OrderItem {
 		super();
 	}
 
-	public OrderItem(Integer id, Integer orderId, Integer productId, Integer amount, double quantity) {
+	public OrderItem(Integer id, Integer orderId, Integer productId, double amount, double quantity) {
 		super();
 		this.id = id;
 		this.orderId = orderId;
@@ -66,11 +66,11 @@ public class OrderItem {
 		this.productId = productId;
 	}
 
-	public Integer getAmount() {
+	public double getAmount() {
 		return amount;
 	}
 
-	public void setAmount(Integer amount) {
+	public void setAmount(double amount) {
 		this.amount = amount;
 	}
 

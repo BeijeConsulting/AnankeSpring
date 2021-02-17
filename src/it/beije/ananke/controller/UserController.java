@@ -1,5 +1,8 @@
 package it.beije.ananke.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import it.beije.ananke.model.Product;
 import it.beije.ananke.model.User;
+import it.beije.ananke.service.ProductService;
 import it.beije.ananke.service.UserService;
 
 @Controller
@@ -15,6 +20,9 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private ProductService productService;
 	
 
 	@RequestMapping(value = "/start", method = RequestMethod.GET)
@@ -26,11 +34,14 @@ public class UserController {
 		return "loginForm";
 	}
 	@RequestMapping(value = "/userLoggedIn", method = RequestMethod.POST)
-	public String userLoggedIn(@RequestParam String email, @RequestParam String password) {
+	public String userLoggedIn(@RequestParam String email, @RequestParam String password,Model model) {
 		
 		User user = userService.findByEmail(email);
-		
-	
+		List<Product> allProducts = new ArrayList<Product>();
+		allProducts = productService.findAll();
+		Integer userId = user.getId();
+		model.addAttribute("allProducts", allProducts);
+		model.addAttribute("user", user);
 		if(user!= null && user.getEmail().equalsIgnoreCase(email) && user.getPassword().equalsIgnoreCase(password)) {
 			return "userPersonalPage";
 		}
