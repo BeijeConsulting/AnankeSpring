@@ -71,7 +71,7 @@ public class ControllerEcommerceIdentification {
 		else {
 			
 			if(user.getEmail().length() == 0) {
-			message.append("E' necessario inserire una mail\n");
+				message.append("E' necessario inserire una mail\n");
 			}
 			
 			if(user.getPassword().length() == 0){
@@ -103,7 +103,7 @@ public class ControllerEcommerceIdentification {
 			
 			User userDB = repoUser.findByEmail(user.getEmail());
 			
-			if(userDB.getEmail().length() != 0) {
+			if(userDB != null) {
 				
 				//ho trovato l'user
 				if(user.getPassword().equals(userDB.getPassword())) {

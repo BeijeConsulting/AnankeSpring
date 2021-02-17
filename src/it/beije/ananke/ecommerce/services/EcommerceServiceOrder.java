@@ -1,5 +1,7 @@
 package it.beije.ananke.ecommerce.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -64,4 +66,12 @@ public class EcommerceServiceOrder extends EcommerceService{
 		
 	}
 	
+	
+	public List<Orders> findByUserId(Integer userId){
+		
+		List<Orders> userOrders = repoOrder.findByUserId(userId);
+		
+		return userOrders;
+		
+	}
 }

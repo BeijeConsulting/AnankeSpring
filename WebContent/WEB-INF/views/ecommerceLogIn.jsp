@@ -14,11 +14,13 @@
 	
 	<form action="./homePage" method = "post">
   		<label for="email">Email:</label><br>
-  		<input type="text" id="email" name="email"><br><br>
+  		<input type="text" id="email" name="email" required><br><br>
   		<label for="password">Password:</label><br>
-  		<input type="text" id="password" name="password"><br><br>
+  		<input type="password" placeholder="Enter Password" id="password" name="password" required><br><br>
   		<input type="submit" value="ACCEDI">
 	</form>
+	
+	<p>${message}</p>
 	
 </body>
 </html>

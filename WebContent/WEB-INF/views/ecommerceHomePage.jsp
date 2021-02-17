@@ -28,8 +28,11 @@
 <body>
 
 	<h2>Ciao ${firstName} !</h2>
-	<form action = "../logOut" method = "get">
+	<form action = "./logOut" method = "get">
 		<input type = "submit" value = "LOGOUT">
+	</form>
+	<form action = "./myOrders" method = "get">
+		<input type = "submit" value = "MY ORDERS">
 	</form>
 	
 	<table>

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
 import it.beije.ananke.ecommerce.beans.Cart;
 import it.beije.ananke.ecommerce.beans.OrderItem;
 import it.beije.ananke.ecommerce.beans.Orders;
@@ -75,6 +76,16 @@ public class ControllerEcommerceOrder {
 		session.setAttribute("cart", null);
 		
 		return "ecommerceHomePage";
+	}
+	
+	@RequestMapping(value = "", method = RequestMethod.GET)
+	public String getViewOrders(HttpSession session) {
+		
+		User user = (User) session.getAttribute("user");
+		
+		List<Orders> userOrders = serviceOrder.findByUserId(user.getId());
+		
+		return "ecommerceViewOrders";
 	}
 
 }
