@@ -12,6 +12,8 @@
 <link rel="stylesheet" href="./resources/css/bootstrap.min.css"/> 
 <link href="./resources/css/style.css" rel="stylesheet">        
 <script src="./resources/js/bootstrap.min.js"></script>  
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"> 
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 </head>
 <body>
 <% User user = (User)session.getAttribute("user"); %>
@@ -19,7 +21,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
   <div class="container-fluid">
-    <a class="navbar-brand" href="./index">Ecommerce Project</a>
+    <a class="navbar-brand" href="./index" data-aos="zoom-in">Ecommerce Project</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -63,5 +65,8 @@
     </div>
   </div>
 </nav>
+<script>
+  AOS.init();
+</script>
 </body>
 </html>

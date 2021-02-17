@@ -11,7 +11,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <link rel="stylesheet" href="./resources/css/bootstrap.min.css"/> 
 <link href="./resources/css/style.css" rel="stylesheet">        
-<script src="./resources/js/bootstrap.min.js"></script>  
+<script src="./resources/js/bootstrap.min.js"></script> 
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"> 
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 </head>
 <body>
 <%@ include file = "navbar.jsp"%>
@@ -20,9 +22,9 @@
 <c:if test="${user.firstName == null }">
 <h1>Benvenuto su Ecommerce</h1>
 
-<img alt="" src="./resources/images/sfondo.png" style="width:75%">
+<img alt="" src="./resources/images/sfondo.png" style="width:75%" data-aos="zoom-in" data-aos-duration="1000">
 <div class="row row-cols-1 row-cols-md-2 " style="margin-top:0.5em;">
-<div class="col mb-4">
+<div class="col mb-4" data-aos="zoom-in">
 <div class="card text-center border-0">
 <img src="./resources/images/registration.svg" class="card-img-top rounded mx-auto d-block" alt="..." style ="widht:100px; height:100px" >
   <div class="card-body">
@@ -31,7 +33,7 @@
    </div>
    </div>
    </div>
-   <div class="col mb-4">
+   <div class="col mb-4" data-aos="zoom-in">
 <div class="card text-center border-0">
 <img src="./resources/images/loginicon.svg" class="card-img-top rounded mx-auto d-block" alt="..." style ="widht:100px; height:100px">
   <div class="card-body">
@@ -72,5 +74,9 @@
 
 
 </div>
+
+<script>
+  AOS.init();
+</script>
 </body>
 </html>
