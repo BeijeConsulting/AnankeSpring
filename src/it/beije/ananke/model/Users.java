@@ -13,7 +13,7 @@ public class Users {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
-private int id; 
+private Integer id; 
 	@Column(name="email")
 private String email;
 	@Column(name="first_name")
@@ -29,10 +29,10 @@ public String getSecondName() {
 	public void setSecondName(String secondName) {
 		this.secondName = secondName;
 	}
-public int getId() {
+public Integer getId() {
 	return id;
 }
-public void setId(int id) {
+public void setId(Integer id) {
 	this.id = id;
 }
 public String getEmail() {

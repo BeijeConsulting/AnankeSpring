@@ -102,25 +102,10 @@ if(login.equals("ok")){
 	<%
 	}}
 %>
-<div id="Content">
-<%
-StringBuilder s= new StringBuilder();
-ArrayList<Product> prodotti=JPAManager.returnProducts();
-int i=0;
-for(Product prodotto:prodotti){
-	s.append("<div class=\"prodotti\">\r\n"
-			+ "    <img src=\"https://picsum.photos/300/300/?blur&random="+i++ +"\" alt=\"\">\r\n"
-			+ "    <p> "+prodotto.getName()+  " </p>\r\n"
-			+ "    <p style=\"color:green\"> "+prodotto.getPrice()+  " &euro;</p>\r\n"
-			+ "    <p><a href=./prodotto?id="+prodotto.getId()+">Acquista</a></p>\r\n"
-			+ "</div>");
-	
-}
-out.print(s.toString());
+<!-- <div id="Content"> -->
 
-%>
 
-</div>
+<!-- </div> -->
     </div>
 </body>
 </html>

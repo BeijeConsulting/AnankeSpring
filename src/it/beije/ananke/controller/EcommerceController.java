@@ -7,6 +7,7 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,12 +16,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import it.beije.ananke.model.*;
+import it.beije.ananke.service.UserService;
 
 
 
 @Controller
 public class EcommerceController {
-
+	
+@Autowired
+	private UserService userService;
 	
 	
 	
@@ -34,9 +38,12 @@ public class EcommerceController {
 		return "index1";
 	}
 	@RequestMapping(value = {"/login"}, method = RequestMethod.POST)
-	public String login(HttpServletRequest request, Model model, Locale locale) {
-		HttpSession session=request.getSession();
-		boolean succes=	JPAManager.passwordCorretta(request.getParameter("email"),request.getParameter("password"));
+	public String login(@RequestParam String email,@RequestParam String password,HttpServletRequest request, Model model,HttpSession session) {
+		System.out.println(email);
+		System.out.println(password);
+		Users utente= userService.findByEmail(email);
+		System.out.println(utente.getFirstNname());
+		boolean succes=utente.getPassword().equals(password)? true:false;
 			 if(succes) {
 				Users users= JPAManager.returnUser(request.getParameter("email"));
 			session.setAttribute("users", users);
@@ -68,7 +75,7 @@ public class EcommerceController {
 			}
 	
 	@RequestMapping(value = {"/registrazione"}, method = RequestMethod.POST)
-	public String registrazione(HttpServletRequest request, Model model, HttpSession session) {
+	public String registrazione(@RequestParam String email, @RequestParam String password,@RequestParam String name,@RequestParam String surname,HttpServletRequest request, Model model, HttpSession session) {
 		boolean successo=JPAManager.addUser(request.getParameter("email"),request.getParameter("name"), request.getParameter("surname"),request.getParameter("password"));
 		if(successo)
 		return "index";
