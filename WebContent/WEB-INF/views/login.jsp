@@ -15,5 +15,6 @@
 			<br><input type="submit" value="ACCEDI"/>
 		</form>
 		<c:if test="${errore != null}">${errore}</c:if>
+		<c:if test="${correct != null}">${correct}</c:if>
 	</body>
 </html>

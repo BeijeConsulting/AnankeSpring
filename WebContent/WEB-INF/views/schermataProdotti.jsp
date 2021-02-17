@@ -10,8 +10,8 @@
 	<title></title>
 </head>
 <body>
-
-	<h1>Benvenuto, <c:out value="${user.firstName}"/> cosa vuoi comprare?</h1>
+<%User user = (User) session.getAttribute("user");  %>
+	<h1>Benvenuto, <%= user.getFirstName() %> cosa vuoi comprare?</h1>
 	<table>
 		<tr>
     		<th>ID</th>
@@ -27,12 +27,16 @@
   				<td>${p.price}</td>
   				<td>
   					<form action="./aggiungi" method="post">
-  						<input type="hidden" value="${p.id}">
-  						<input type="submit" value="ACQUISTA"/>
+  						<input type="hidden" name= "productId" value="${p.id}">
+  						<input type="submit" value="Aggiungi"/>
   					</form>
   				</td>
   			</tr>
   		</c:forEach>
 	</table>
+	<p>
+	<form action="./statoCarrello" method="get">
+		<input type="submit" value="Visualizza il carrello">
+	</form>
 </body>
 </html>
