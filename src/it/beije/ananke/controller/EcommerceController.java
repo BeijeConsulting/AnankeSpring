@@ -16,8 +16,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import it.beije.ananke.model.*;
+import it.beije.ananke.repository.ProductRepository;
+import it.beije.ananke.service.OrderItemService;
+import it.beije.ananke.service.ProductService;
 import it.beije.ananke.service.UserService;
-
+import it.beije.ananke.service.*;
 
 
 @Controller
@@ -26,16 +29,23 @@ public class EcommerceController {
 @Autowired
 	private UserService userService;
 	
-	
+@Autowired
+private OrderItemService orderItemService;
+@Autowired
+private ProductService productService;
+@Autowired
+private OrderService orderService;
 	
 	@RequestMapping(value = {"/", "index"}, method = RequestMethod.GET)
-	public String index(HttpServletRequest request, Model model, Locale locale) {
+	public String index(HttpServletRequest request, Model model) {
+		List<Product> prodotti=productService.returnProducts();
+		model.addAttribute("prodotti", prodotti);
 		return "index1";
 	}
 	@RequestMapping(value = {"logout"}, method = RequestMethod.GET)
 	public String logout(HttpServletRequest request, Model model, Locale locale, HttpSession session) {
 	session.invalidate();
-		return "index1";
+		return index( request,  model);
 	}
 	@RequestMapping(value = {"/login"}, method = RequestMethod.POST)
 	public String login(@RequestParam String email,@RequestParam String password,HttpServletRequest request, Model model,HttpSession session) {
@@ -54,15 +64,15 @@ public class EcommerceController {
 			 session.setAttribute("session", false);
 			}
 			 
-			 return "index1";
+			 return index( request,  model);
 
 			}
 	
 	@RequestMapping(value = {"/prodotto"}, method = RequestMethod.GET)
-	public String prodotto(HttpServletRequest request, Model model, Locale locale) {
-		Product prodotto= JPAManager.returnProduct(request.getParameter("id"));
-		HttpSession session=request.getSession();
-		session.setAttribute("prodotto", prodotto);
+	public String prodotto(@RequestParam int id, HttpServletRequest request, Model model, HttpSession session) {
+Product prodotto= productService.returnProduct(id);
+System.out.println("id prodotto passato "+id+"nome prodotto "+prodotto.getName());
+model.addAttribute("prodotto", prodotto);
 		return "prodotto";
 			}
 	
@@ -76,9 +86,9 @@ public class EcommerceController {
 	
 	@RequestMapping(value = {"/registrazione"}, method = RequestMethod.POST)
 	public String registrazione(@RequestParam String email, @RequestParam String password,@RequestParam String name,@RequestParam String surname,HttpServletRequest request, Model model, HttpSession session) {
-		boolean successo=JPAManager.addUser(request.getParameter("email"),request.getParameter("name"), request.getParameter("surname"),request.getParameter("password"));
+		boolean successo=userService.addUser(email, name, surname, password);
 		if(successo)
-		return "index";
+		return index( request,  model);
 		else {
 			session.setAttribute("registrazione", false);
 		return "registrazione";
@@ -87,15 +97,12 @@ public class EcommerceController {
 		
 	}
 	@RequestMapping(value = {"/carrello"}, method = RequestMethod.POST)
-	public String carrello(HttpServletRequest request, Model model, Locale locale, HttpSession session) {
+	public String carrello(int id,int quan,HttpServletRequest request, Model model, Locale locale, HttpSession session) {
 		Users utente=(Users)session.getAttribute("users");
-		boolean confermato=JPAManager.addOrderItem(utente.getId(),(String)request.getParameter("id"),(String)request.getParameter("quan") );
-		if(confermato) {
-			List<OrderItem> carrello= JPAManager.ritornoCarrello(utente.getId());
+		Order confermato=orderItemService.addOrderItem(utente.getId(), id, quan);
+		if(confermato!=null) {
+			List<OrderItem> carrello= orderItemService.findByOrderID(confermato.getId());
 			model.addAttribute("carrello", carrello);
-			for(OrderItem x : carrello)
-				System.out.println(x.getId());
-//			session.setAttribute("carrello", carrello);
 			return "carrello"; 
 		}
 		else {
@@ -118,11 +125,12 @@ public class EcommerceController {
 	
 
 	@PostMapping("/acquista")
-	public String acquista(@RequestParam int idOrdine, Model model ,HttpSession session ) {
-		JPAManager.changeStateOrder(idOrdine,"CLOSE");
+	public String acquista( Model model ,HttpSession session ) {
 		Users utente=(Users)session.getAttribute("users");
-		ArrayList<Order> ordini=JPAManager.listaOrdiniUtente(utente.getId());
-		model.addAttribute("ordini", ordini);
+	Order c= orderService.findByUserIDAndState(utente.getId(), "open");
+			orderService.changeStateClose(c);
+	List<Order> ordini= orderService.findByUserID(utente.getId());
+	model.addAttribute("ordini", ordini);
 		return "ordini";
 	}
 			

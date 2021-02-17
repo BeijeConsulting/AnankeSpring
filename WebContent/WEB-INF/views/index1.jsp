@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"%>
       <%@page import="it.beije.ananke.model.*"%>
         <%@page import="java.util.*"%>
+          <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -102,10 +103,25 @@ if(login.equals("ok")){
 	<%
 	}}
 %>
-<!-- <div id="Content"> -->
+<div id="Content">
+<c:if test = "${prodotti != null}">
+
+<c:forEach var = "i" items="${prodotti}">
+<div class="prodotti">
+<img src="https://picsum.photos/300/300/?blur?random=${i.id}">
+<p>${i.name} </p>
+<a href="./prodotto?id=${i.id}">Acquista</a>
+
+</div>
+
+</c:forEach>
+
+</c:if>
 
 
-<!-- </div> -->
+
+
+</div>
     </div>
 </body>
 </html>

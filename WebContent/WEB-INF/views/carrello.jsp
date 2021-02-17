@@ -3,6 +3,8 @@
       <%@page import="it.beije.ananke.model.*"%>
         <%@page import="java.util.*"%>
              <%@page import="java.text.*"%>
+             <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+             
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -118,24 +120,21 @@ if(login.equals("ok")){
 <tbody>
 <c:forEach var = "i" items="${carrello}">
 <tr>
-<td> </td>
-<!-- <td> <img src="https://picsum.photos/300/300/?blur"> </td> -->
+<td> <img src="https://picsum.photos/300/300/?blur"> </td>
 <td>${i.id}</td>
 <td>${i.quantity}</td>
-<td>${i.amount}</td>
+<td><c:out value="${i.amount}"/></td>
 </tr>
-   
 </c:forEach>
  </tbody>
     </table>
 
 <form action="./acquista" method="post">
-<input type="hidden" name="idOrdine" >
 <button type="submit"> Acquista!</button>
 </form>
 </c:if>
 
 </div>
-    </div>
+    
 </body>
 </html>

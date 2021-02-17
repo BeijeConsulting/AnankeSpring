@@ -3,6 +3,7 @@
       <%@page import="it.beije.ananke.model.*"%>
         <%@page import="java.util.*"%>
              <%@page import="java.text.*"%>
+                  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -108,15 +109,24 @@ if(login.equals("ok")){
 
   <c:choose>
     <c:when test = "${ordini != null}">	
-   		<c:forEach var = "i" items=${ordini}>
-     <c:out value = "No. ${id}"/><p>
-</c:forEach>
-   		
-   		
+       <table>
+   <tr>
+   <th> Numero ordine</th>
+   <th> Totale ordine </th>
+      <th> Stato ordine </th>
+   		<c:forEach var = "i" items="${ordini}">
+      </tr>
+      <td>${i.id}</td>
+       <td>${i.amount}</td>
+        <td>${i.state}</td>
+      <tr>
+      </tr>
+      </c:forEach>
+   </table>
     </c:when>
-   
+
     <c:otherwise>
-        <c:out value="${seconds} is greater than 30"/>
+      
     </c:otherwise>
 </c:choose>
   

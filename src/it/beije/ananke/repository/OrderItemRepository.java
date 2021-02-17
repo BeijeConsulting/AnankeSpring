@@ -12,8 +12,8 @@ import it.beije.ananke.model.OrderItem;
 public interface OrderItemRepository extends JpaRepository<OrderItem, Integer>  {
 //	public Contatto findBy(String email);
 	
+	public List<OrderItem> findByOrderID(int orderID);
 	
-	
-	
+	public OrderItem findByOrderIDAndProductID(int orderID,int productID);
 	
 }

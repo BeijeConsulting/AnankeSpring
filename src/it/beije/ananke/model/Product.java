@@ -19,6 +19,7 @@ public class Product {
 	private String desc;
 	@Column(name="price")
 	private double price;
+	
 	public Integer getId() {
 		return id;
 	}

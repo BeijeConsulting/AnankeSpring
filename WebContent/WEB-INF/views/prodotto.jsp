@@ -100,20 +100,13 @@ if(login.equals("ok")){
 %>
 </div>
 <div id="Content">
+<div class="prodotti">
+ <img src="https://picsum.photos/300/300/?blur">
+ <p>${prodotto.name}</p>
+ <p>${prodotto.desc}</p>
+  <p style="color:green"> ${prodotto.price} &euro;</p>
+</div>
 <%
-StringBuilder s= new StringBuilder();
-
-
-Product prodotto=(Product)session.getAttribute("prodotto");
-	s.append("<div class=\"prodotti\">\r\n"
-			+ "    <img src=\"https://picsum.photos/300/300/?blur \" alt=\"\">\r\n"
-			+ "    <p> "+prodotto.getName()+  " </p>\r\n"
-			+ "    <p style=\"color:green\"> "+prodotto.getPrice()+  " &euro;</p>\r\n"
-					+ "    <p> "+prodotto.getDesc()+  " </p>\r\n"
-			+ "</div>");
-	
-	out.print(s.toString());
-
 	if(session.getAttribute("login")!=null){
 
 		if(login.equals("ok")){
@@ -123,7 +116,7 @@ Product prodotto=(Product)session.getAttribute("prodotto");
 <div id="acquista">
 <form action="./carrello" method="post">
     <label>Quantit&agrave; </label>
-    <input type="hidden"  name="id" value="<%=prodotto.getId()%>" >
+    <input type="hidden"  name="id" value="${prodotto.id}" >
 <input type="number" name="quan" value="1" > <br> <br>
 <button type="submit">Aggiungi all'ordine</button>
 </form>

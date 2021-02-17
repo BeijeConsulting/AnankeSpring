@@ -15,13 +15,16 @@ public class UserService {
 	}
 public boolean addUser(String email, String name, String surname, String password)
 {
+	if(findByEmail(email)==null) {
 Users c= new Users();
+
 c.setEmail(email);
 c.setFirstNname(name);
 c.setSecondName(surname);
 c.setPassword(password);
  c=usersRepository.save(c);
 return c.getId()!=0;
-
+	} return false;
+	
 }
 }
