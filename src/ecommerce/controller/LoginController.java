@@ -52,7 +52,7 @@ private UserService user_service;
 	}
 	@RequestMapping(value ="logout", method = RequestMethod.GET)
 	public String logout(HttpSession session) {
-		
+		session.removeAttribute("cart_item");
 		session.invalidate();
 		return "index";
 	}

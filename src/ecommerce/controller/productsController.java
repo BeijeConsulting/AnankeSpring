@@ -1,7 +1,9 @@
 package ecommerce.controller;
 
+import java.net.http.HttpRequest;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,14 +58,7 @@ public class productsController {
 			return "products";
 		}
 	}
-	@RequestMapping(value = "cartView", method = RequestMethod.GET)
-	public String cartView(Model model) {
-		List<Cart_Item> cart_item = cart.getItems();
-		model.addAttribute("cart",cart);
-		model.addAttribute("cart_item",cart_item);
 	
-		return "products";
-	}
 	
 	@RequestMapping(value = "completeOrder", method = RequestMethod.GET)
 	public String completeOrder(HttpSession session) {
@@ -88,7 +83,16 @@ public class productsController {
 	}
 	
 	@GetMapping(value="cartPage")
-	public String cartPage() {
+	public String cartPage(Model model) {
+		model.addAttribute("price", cart.getAmount());
+		return "cart";
+	}
+	
+	@GetMapping(value="deleteItem")
+	public String deleteItem(@RequestParam int id,Model model){
+		
+		cart.deleteItem(id);
+		model.addAttribute("price", cart.getAmount());
 		return "cart";
 	}
 }

@@ -47,7 +47,7 @@
         <ul class="navbar-nav ms-auto">
         <c:if test="${cart_item != null }">
         <li class="nav-item">
-        <a href="#" class="nav-link" data-toggle="dropdown" role="button" aria-expanded="false"> <img src="./resources/images/shopping-cart.png" style="width:16px;">${cart_item.size()} - Items</a>
+        <a href="./cartPage" class="nav-link" data-toggle="dropdown" role="button" aria-expanded="false"> <img src="./resources/images/shopping-cart.png" style="width:16px;">${cart_item.size()} - Items</a>
         <span></span>
         </li>
         </c:if>

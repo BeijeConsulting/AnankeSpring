@@ -1,5 +1,6 @@
 package ecommerce.entity;
 
+import java.lang.System.Logger;
 import java.util.*;
 
 import ecommerce.model.JPAManager;
@@ -55,6 +56,18 @@ public class Cart{
 	}
 	}
 		return -1;
+	}
+	
+	
+	public void deleteItem(int id) {
+		int index = getItem(id);
+		Cart_Item ci = this.getItems().remove(index);
+		System.out.println(ci.getP().getPrice());
+		System.out.println(ci.getQuantity());
+		amount -=  (ci.getP().getPrice() * ci.getQuantity());
+		
+		
+		
 	}
 	public double getAmount() {
 		return amount;

@@ -20,11 +20,14 @@
   <div class="card-body">
    <h5 class="card-title">${item.p.name}</h5>
    <p class="card-text">${item.quantity}</p>
+   <a href="./deleteItem?id=${item.p.id}">Cancella</a>
    </div>
    </div>
 </div>
 </c:forEach>
 </div>
+<h2>Totale:</h2>
+<p>${price} Euro</p>
 <p><a href="./completeOrder"><button class = "btn btn-dark buttonform">Acquista</button></a></p>
 </div>
 </body>
