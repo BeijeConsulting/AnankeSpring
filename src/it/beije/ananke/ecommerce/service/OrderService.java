@@ -45,4 +45,8 @@ public class OrderService {
 		order.setAmount(order.getAmount()+orderItem.getAmount());
 		orderRepository.save(order);
 	}
+	
+	public List<Order> findByUserId (Integer userId) {
+		return orderRepository.findByUserId(userId);
+	}
 }

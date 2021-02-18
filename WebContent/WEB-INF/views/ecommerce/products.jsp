@@ -17,6 +17,7 @@
 		</style>
 	</head>
 	<body>
+		<%@ include file="home.jsp"%>
 		<table>
 			<tr>
 			<th>Product</th>
@@ -39,6 +40,8 @@
 						<form action="./products" method="post">
 							<input type="hidden" name="id" value="${products.id}"/>
 							<input type="hidden" name="price" value="${products.price}"/>
+							<input type="hidden" name="name" value="${products.name}"/>
+							<input type="hidden" name="description" value="${products.description}"/>
 				 			<input type="number" name="quantity"/>
 							<input type="submit" value="Add to chart"/>
 						</form>

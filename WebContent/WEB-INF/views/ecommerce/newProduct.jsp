@@ -7,11 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<nav class="navbar navbar-light bg-light">
-  <div class="container-fluid">
-    <span class="navbar-brand mb-0 h1">Navbar</span>
-  </div>
-</nav>
+<%@ include file="home.jsp"%>
 <h3>Insert new product</h3>
 		<div>
 		<form action="./newProduct" method="post">

@@ -10,5 +10,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 
 	public List<Order> findByUserId(Integer id);
 	
-	public Order findByUserIdAndState(Integer id, String state);
+	public Order findByUserIdAndState(Integer userId, String state);
+	
+	
 }

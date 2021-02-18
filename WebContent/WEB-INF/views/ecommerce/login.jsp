@@ -6,6 +6,7 @@
 		</style>
 	</head>
 	<body>
+		<%@ include file="home.jsp"%>
 		<h3 style="text-align:center;">Login</h3>
 		<div>
 		<form action="./login" method="post" style="text-align: center;">
