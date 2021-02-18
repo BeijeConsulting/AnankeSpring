@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,38 +20,37 @@ import it.beije.ananke.entity.Order;
 import it.beije.ananke.entity.OrderItem;
 import it.beije.ananke.entity.Product;
 import it.beije.ananke.entity.User;
-import it.beije.ananke.model.JPAmanager;
-import it.beije.ananke.repository.OrderItemRepository;
-import it.beije.ananke.repository.OrderRepository;
-import it.beije.ananke.repository.ProductRepository;
+import it.beije.ananke.service.OrderItemService;
+import it.beije.ananke.service.OrderService;
+import it.beije.ananke.service.ProductService;
 
 @Controller
 public class OrderController {
 	
 	@Autowired
-	private OrderRepository orderRepository;
+	private OrderService orderService;
 	
 	@Autowired 
-	private ProductRepository productRepository;
+	private ProductService productService;
 	
 	@Autowired 
-	private OrderItemRepository orderItemRepository;
+	private OrderItemService orderItemService;
 
 	@RequestMapping(value ="/orderHistory", method = RequestMethod.GET)
 	public String myOrders(HttpServletRequest request, Model model, HttpSession session)
 	{
 		User utente = (User)session.getAttribute("user");
-		List<Order> orders = orderRepository.findByUserId(utente.getId());/*JPAmanager.findOrderByUser(utente.getId());*/
+		List<Order> orders = orderService.findByUserId(utente.getId());/*JPAmanager.findOrderByUser(utente.getId());*/
 		
 		model.addAttribute("orders",orders);
 		
 		return "my_orders";
 	}
 	
-	@RequestMapping(value = "/purchase/{id}")
+	@GetMapping(value = "/purchase/{id}")
 	public String purchase(@PathVariable Integer id, HttpSession session, Model model )
 	{
-		Product prod = productRepository.findById(id).get(); /*JPAmanager.findProductById(id);*/
+		Product prod = productService.findById(id); /*JPAmanager.findProductById(id);*/
 		User user = (User) session.getAttribute("user");
 		Order order = (Order)session.getAttribute("order");
 		OrderItem ordIt = new OrderItem();
@@ -60,16 +60,18 @@ public class OrderController {
 		order = new Order();
 		order.setState("open");
 		order.setUserId(user.getId());
-		orderRepository.save(order);
+		orderService.save(order);
 		session.setAttribute("order",order);
 		}
 		
-		ordIt = orderItemRepository.findByOrderIdAndProductId(order.getId(), id);
+		ordIt = orderItemService.findByOrderIdAndProductId(order.getId(), id);
 		if(ordIt!=null)
 		{
 			ordIt.setQuantity(ordIt.getQuantity()+1);
 			ordIt.setAmount((ordIt.getQuantity())*(prod.getPrice()));
-			orderItemRepository.save(ordIt);
+			orderItemService.save(ordIt);
+			
+			
 		}
 		else
 		{
@@ -78,34 +80,49 @@ public class OrderController {
 			ordIt.setProductId(id);
 			ordIt.setQuantity(1);
 			ordIt.setAmount(prod.getPrice());
-			orderItemRepository.save(ordIt);
+			orderItemService.save(ordIt);
+			
 		}
 		
-		List<OrderItem> items = orderItemRepository.findAllByOrderId(order.getId());
+		List<OrderItem> items = orderItemService.findAllByOrderId(order.getId());
 		model.addAttribute("items",items);
-		
+		model.addAttribute("amount",orderItemService.totalAmount(order.getId()));
 		 return "purchase_order";
 	}
 	
-	@RequestMapping(value="/continuaAcquisto")
+	@GetMapping(value="/continuaAcquisto")
 	public String continuaAcquisto()
 	{
 		return "index";
 	}
 	
-	@RequestMapping(value="/confermaAcquisto")
-	public String confemaAcquist(HttpSession session)
+	@GetMapping(value="/confermaAcquisto")
+	public String confemaAcquisto(HttpSession session)
 	{
 		Order order = (Order)session.getAttribute("order");
 		
-		Order ord = orderRepository.findById(order.getId()).get();
-		
+		Order ord = orderService.findById(order.getId());
+				
+		ord.setAmount(orderItemService.totalAmount(order.getId()));
 		ord.setState("close");
 		
-		orderRepository.save(ord);
+		orderService.save(ord);
 		
 		session.setAttribute("order",null);
 		
 		return "confermato";
+	}
+	
+	@GetMapping(value="/annullaOrdine")
+	public String annullaOrdine(HttpSession session)
+	{
+		Order order = (Order) session.getAttribute("order");	
+		
+		order.setAmount(orderItemService.totalAmount(order.getId()));
+		orderItemService.deleteByOrderId(order.getId());		
+		orderService.updateStatus(order.getId());
+		session.setAttribute("order",null);
+		
+		return "index";
 	}
 }

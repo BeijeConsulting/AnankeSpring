@@ -27,12 +27,11 @@ table, th, td {
 
 <%if(session.getAttribute("user")==null){%>
 <div class="topnav">
-  <a class="active" href="./index">Home</a>
+  <a class="active" href="index">Home</a>
   <a href="./register">Registrati</a>
   <a href="./login">Accedi</a>
 </div><%}else{ %><div class="topnav">
-  <a class="active" href="index.jsp">Home</a>
-  <a href="./register">Registrati</a>
+  <a class="active" href="index">Home</a>
   <a href="./logout">Logout</a>
   <a href="./orderHistory">Ordini Effettuati</a>
 </div><%} %>
@@ -50,7 +49,8 @@ table, th, td {
 	<td><%=prod.getName()%></td>
 	<td><%=prod.getDesc()%></td>
 	<td><%=prod.getPrice() %>&nbsp;$</td>
-	<td><a href="./purchase/<%=prod.getId()%>">Acquista</a></td>
+	<%if(session.getAttribute("user")!=null) {%><td><a href="./purchase/<%=prod.getId()%>">Acquista</a></td><%} %>
+	<%if(session.getAttribute("user")==null){ %><td><a href="./cantPurchase">Acquista</a></td><%} %>
 	</tr><%} %>
 </table>
 		  

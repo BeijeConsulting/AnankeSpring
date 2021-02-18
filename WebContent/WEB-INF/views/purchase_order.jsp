@@ -32,11 +32,12 @@ table, th, td {
    			<td>${item.quantity}</td>
    			</tr>
 			</c:forEach>
-			<tr><td>Totale:</td></tr>
+			<tr><td>Totale: ${amount }</td></tr>
 	</table><br>
 	
 	<a href="../continuaAcquisto"><button>Continua Acquisti</button></a>
 	<a href="../confermaAcquisto"><button>Conferma Ordine</button></a>
+	<a href="../annullaOrdine"><button>Annulla Ordine</button></a>
 			
 </body>
 </html>

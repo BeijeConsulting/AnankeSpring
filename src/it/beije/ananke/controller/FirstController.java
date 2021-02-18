@@ -15,15 +15,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-//import it.beije.ananke.model.Contatto;
-//import it.beije.ananke.repository.ContattoRepository;
+
+//import it.beije.ananke.service.RubricaService;
+
 
 
 @Controller
 public class FirstController {
-	
-//	@Autowired
+
+
 //	private ContattoRepository contattoRepository;
+
+	@Autowired
+	//private RubricaService rubricaService;
+
 	
 
 //	@RequestMapping(value = {"/", "index"}, method = RequestMethod.GET)
@@ -82,15 +87,23 @@ public class FirstController {
 	}
 	
 	
+
 //	@RequestMapping(value = "/contatto", method = RequestMethod.POST)
 //	public String postContatto(Contatto c, Model model) {
 //		System.out.println("postContatto : " + c);
 //		
-//		contattoRepository.save(c);
-//		
+//		try {
+//			rubricaService.checkAndSave(c);
+//			
+//		} catch (Exception e) {
+//			model.addAttribute("errore", e.getMessage());
+//			return "dati"; 
+//		}
+//
 //		model.addAttribute("contatto", c);
 //		
-//		return "datiContatto";
+//		return "datiContatto"; 
 //	}
+
 
 }

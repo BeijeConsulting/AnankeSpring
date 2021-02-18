@@ -23,9 +23,9 @@ h2{text-align: center;}
 
 <h2>Ordini effettuati</h2>
 
-<c:out value = "${orders }"/>
+
 <c:choose>
-    <c:when test="${orders==null }">
+    <c:when test="${orders.isEmpty() }">
         <h3 style="text-align:center;"> Non hai ancora effettuato ordini</h3>
     </c:when>
     <c:otherwise>
@@ -38,8 +38,8 @@ h2{text-align: center;}
 	<c:forEach items="${orders}" var="ord">
 	<tr>
 	<td>${ord.id}</td>
-	<td>${ord.amount }</td>
-	<td>${ord.state}&nbsp;$</td>
+	<td>${ord.amount }&nbsp;$</td>
+	<td>${ord.state}</td>
 	</tr></c:forEach>
 </table>
     </c:otherwise>
