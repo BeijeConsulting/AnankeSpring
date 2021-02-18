@@ -10,4 +10,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer>{
 	public User findByProductName(String productName);
 
 	public void deleteByProductName(String productName);
+	
+	
+	
 }
