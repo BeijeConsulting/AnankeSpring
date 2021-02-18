@@ -30,5 +30,13 @@ public class EcommerceServiceUser extends EcommerceService{
 		return user;
 		
 	}
+	
+	public User findByEmail(String email) {
+		
+		User user = repoUser.findByEmail(email);
+		
+		return user;
+		
+	}
 
 }

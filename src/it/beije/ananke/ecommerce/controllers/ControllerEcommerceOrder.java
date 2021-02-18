@@ -47,8 +47,15 @@ public class ControllerEcommerceOrder {
 	}
 	
 	@RequestMapping(value = "/ecommerce/buy", method = RequestMethod.POST)
-	public String postBuy(HttpSession session) {
-		//mi manda alla pagina riassuntiva dell'ordine per procedere
+	public String postBuy(HttpSession session, Model model) {
+		//apro l'ordine		
+		User user = (User) session.getAttribute("user");
+		
+		Orders order = serviceOrder.openNewOrder(user);
+		
+		//metto l'ordine nella sessione
+		session.setAttribute("order", order);
+		
 		return "ecommerceConfirmOrder";
 	}
 	
@@ -62,13 +69,13 @@ public class ControllerEcommerceOrder {
 		//		totale da pagare
 		User user = (User) session.getAttribute("user");
 		Cart cart = (Cart) session.getAttribute("cart");
+		Orders order = (Orders) session.getAttribute("order");
 		
-		//inserisco il nuovo ordine nel db Orders
-		Orders order = serviceOrder.saveNewOrder(user, cart);
-		
-		//inserisco tutti gli orderItems ora che ho l'id dell'ordine
+		//inserisco tutti gli orderItems
 		serviceOrder.saveOrderItems(cart, order);
 		
+		order = serviceOrder.confirmOrder(user, cart, order);
+
 		serviceOrder.setAllProductToModel(model);
 		model.addAttribute("firstName", user.getFirstName());
 		model.addAttribute("seeCart", false);
@@ -78,12 +85,14 @@ public class ControllerEcommerceOrder {
 		return "ecommerceHomePage";
 	}
 	
-	@RequestMapping(value = "", method = RequestMethod.GET)
-	public String getViewOrders(HttpSession session) {
+	@RequestMapping(value = "/ecommerce/myOrders", method = RequestMethod.GET)
+	public String getViewOrders(HttpSession session, Model model) {
 		
 		User user = (User) session.getAttribute("user");
 		
 		List<Orders> userOrders = serviceOrder.findByUserId(user.getId());
+		
+		model.addAttribute("orders", userOrders);
 		
 		return "ecommerceViewOrders";
 	}

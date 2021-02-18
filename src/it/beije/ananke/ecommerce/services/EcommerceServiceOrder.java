@@ -1,6 +1,8 @@
 package it.beije.ananke.ecommerce.services;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,14 +43,33 @@ public class EcommerceServiceOrder extends EcommerceService{
 		
 	}
 	
-	public Orders saveNewOrder(User user, Cart cart) {
+	public Orders openNewOrder(User user) {
 		
 		Orders order = new Orders();
+		order.setUserId(user.getId());
+		order.setState("open");
 		
-		order.setUseId(user.getId());
+		order = repoOrder.save(order);
+		
+		return order;
+		
+	}
+	
+	public Orders confirmOrder(User user, Cart cart, Orders order) {
+		
+		Set<OrderItem> items = new HashSet<>(cart.getItems());
+		
+		//order.setUserId(user.getId());
+		
+//		for (OrderItem orderItem : items) {
+//			//setto order_id per tutti gli item
+//			orderItem.setOrderId(order.getId());
+//		}
+		
 		order.setAmount(cart.getAmount());
+		order.setItems(items);
 		order.setState("closed");
-		
+
 		order = repoOrder.save(order);
 		
 		return order;
@@ -74,4 +95,5 @@ public class EcommerceServiceOrder extends EcommerceService{
 		return userOrders;
 		
 	}
+	
 }

@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+   
+<%@page import ="it.beije.ananke.ecommerce.beans.*" %>    
+<%@page import ="it.beije.ananke.ecommerce.repositories.*" %> 
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,33 +15,45 @@
 <body>
 
 	<table>
-		<!-- faccio una riga speciale che collassa qualche colonna per le info dell'ordine => colspan="2"-->
-		<tr>
-			<!-- <th> è per le righe header -->
-			<th>
-				Ordine numero:
-			</th>
-			<th>
-				<!-- su che base numero gli ordini? perché non voglio tirare fuori proprio tutti tutti gli ordini fatti da un utente, ma solo gli ultimi.
-					 d'altro canto... io non posso decidere quali tirare fuori, facendo solo una select sull'userId... avrei bisogno non so di una data
-					 quindi comunque li tirerei fuori tutti per forza dal db e poi ne mostro solo alcuni tipo popolando un'altra lista partendo dalla 
-					 listona di ordini fatti -->
-			</th>
-		</tr>
+	
+		<%! int index = 1; %>
 		
-			<!-- ciclo per ogni prodotto nell'ordine-->
+		<c:forEach var = "order" items="${orders}">
+			<!-- faccio una riga speciale che collassa qualche colonna per le info dell'ordine => colspan="2"-->
 			<tr>
-				<td>prodotto</td>
-				<td>quantità</td>
+				<!-- <th> è per le righe header -->
+				<th>
+					Ordine numero:
+				</th>
+				<th>
+					<% System.out.print(index); %>
+				</th>
 			</tr>
 			
-		<!-- piede dell'ordine con il totale -->
-		<tr>
-			<td>Totale</td>
-			<td>...$</td>
-		</tr>
+			<c:forEach var = "item" items="${orders.items}">
+		
+				<!-- ciclo per ogni prodotto nell'ordine-->
+				<tr>
+					<td>${item.id}</td>
+					<td>${item.quantity}</td>
+				</tr>
+				
+			</c:forEach>
+			
+			<!-- piede dell'ordine con il totale -->
+			<tr>
+				<td>Totale</td>
+				<td>${order.amount} $</td>
+			</tr>
+			
+			<% index++; %>
+			
+		</c:forEach>
 			
 	</table>
 
+	<form action = "./homePage" method = "get">
+		<input type = "submit" value = "LOGOUT">
+	</form>
 </body>
 </html>

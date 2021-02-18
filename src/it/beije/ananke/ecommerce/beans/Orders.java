@@ -1,10 +1,15 @@
 package it.beije.ananke.ecommerce.beans;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -25,7 +30,16 @@ public class Orders {
 	@Column(name="state")
 	private String state;
 	
+	@OneToMany(fetch = FetchType.EAGER)
+	@JoinColumn(name="order_id")
+	private Set<OrderItem> items;
 	
+	public Orders() {
+		
+		this.amount = 0.0;
+		
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -39,7 +53,7 @@ public class Orders {
 		return userId;
 	}
 	
-	public void setUseId(Integer userId) {
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 	
@@ -61,6 +75,12 @@ public class Orders {
 		this.state = state;
 	}
 	
-	
+	public Set<OrderItem> getItems() {
+		return items;
+	}
+
+	public void setItems(Set<OrderItem> items) {
+		this.items = items;
+	}
 
 }

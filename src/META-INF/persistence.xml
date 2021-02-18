@@ -6,10 +6,10 @@
 		<class>it.beije.ananke.ecommerce.beans.Orders</class>
 		<class>it.beije.ananke.ecommerce.beans.Product</class>
 		<class>it.beije.ananke.ecommerce.beans.User</class>
-	
-	<exclude-unlisted-classes>true</exclude-unlisted-classes>
-	
-	
+		<class>it.beije.ananke.model.Telefono</class>
+		
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/ananke?serverTimezone=CET"/>

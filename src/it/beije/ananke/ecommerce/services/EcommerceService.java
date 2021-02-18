@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 
 import it.beije.ananke.ecommerce.beans.Product;
+import it.beije.ananke.ecommerce.beans.User;
 import it.beije.ananke.ecommerce.repositories.EcommerceRepositoryProduct;
 
 public class EcommerceService {
@@ -22,4 +23,5 @@ public class EcommerceService {
 		return model;
 		
 	}
+	
 }

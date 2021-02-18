@@ -24,13 +24,7 @@ import it.beije.ananke.ecommerce.services.EcommerceServiceUser;
 public class ControllerEcommerceIdentification {
 	
 	@Autowired
-	private EcommerceRepositoryUser repoUser;
-	
-	@Autowired
 	private EcommerceServiceUser serviceUser;
-	
-	@Autowired
-	private EcommerceRepositoryProduct repoProduct;
 	
 	@RequestMapping(value = "/ecommerce" , method = RequestMethod.GET)
 	public String indexEcommerce(HttpServletRequest request, Model model, Locale locale) {
@@ -94,6 +88,21 @@ public class ControllerEcommerceIdentification {
 		
 	}
 	
+	@RequestMapping(value = "/ecommerce/homePage", method = RequestMethod.GET)
+	public String getHomePage(User user, Model model, HttpSession session) {
+		
+		serviceUser.setAllProductToModel(model);
+		
+		model.addAttribute("firstName", user.getFirstName());
+		if(session.getAttribute("cart") != null)
+			model.addAttribute("seeCart", true);
+		else
+			model.addAttribute("seeCart", false);
+		
+		return "ecommerceHomePage";
+		
+	}
+	
 	@RequestMapping(value = "/ecommerce/homePage", method = RequestMethod.POST)
 	public String postLogIn(User user, Model model, HttpSession session) {
 		
@@ -101,7 +110,7 @@ public class ControllerEcommerceIdentification {
 		
 		if((user.getEmail().length() != 0) && (user.getPassword().length() != 0)) {
 			
-			User userDB = repoUser.findByEmail(user.getEmail());
+			User userDB = serviceUser.findByEmail(user.getEmail());
 			
 			if(userDB != null) {
 				

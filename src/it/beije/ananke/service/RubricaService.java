@@ -32,8 +32,9 @@ public class RubricaService {
 	}
 	
 	public Contatto checkAndSave(Contatto contatto) throws Exception {
-		if ((contatto.getTelephone() != null && contatto.getTelephone().length() > 0)
-				|| (contatto.getEmail() != null && contatto.getEmail().length() > 0)) {
+//		if ((contatto.getTelephone() != null && contatto.getTelephone().length() > 0)
+//				|| (contatto.getEmail() != null && contatto.getEmail().length() > 0)) {
+		if (contatto.getEmail() != null && contatto.getEmail().length() > 0) {
 			
 			return save(contatto);
 		}
