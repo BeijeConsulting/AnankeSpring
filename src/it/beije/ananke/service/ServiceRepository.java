@@ -109,11 +109,10 @@ public class ServiceRepository {
 			session.setAttribute("ordine", or);
 		}else {
 			oggetto = orderepository.findByProduct_id(or.getId(), idItems);
-			if(!isItemsinCart(or.getId(), idItems)) {
+			if(!isItemsinCart(or.getId(), oggetto.getProduct_id())) {
 				newItems(idItems,quantity);	
 				or.setAmount(amount);
 			} else {
-				//oggetto.setAmount(amount);
 				int quantita = oggetto.getQuantity();
 				quantita = quantita + quantity;
 				double amoutP = quantita * searchProduct(idItems).getPrice();
