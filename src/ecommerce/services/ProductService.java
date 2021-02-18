@@ -28,6 +28,9 @@ public String addProduct (String name, String desc, Double price) {
 	return "Il prodotto è stato aggiunto correttamente.";
 }
 
+public void addProduct(Product p) {
+	product_rep.save(p);
+}
 
 public List<Product> findAll(){
 	return product_rep.findAll();

@@ -31,7 +31,7 @@
           <a class="nav-link active" aria-current="page" href="./index">Home</a>
         </li>
           <li class="nav-item">
-          <a class="nav-link" href="contacts.html">Contatti</a>
+          <a class="nav-link" href="./contacts">Contatti</a>
         </li>
         
         
@@ -65,6 +65,7 @@
     </div>
   </div>
 </nav>
+
 <script>
   AOS.init();
 </script>

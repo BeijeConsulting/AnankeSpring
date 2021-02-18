@@ -34,4 +34,9 @@ private Order_ItemService orderItem_service;
 		return "index";
 	}
 	
+	@GetMapping(value="contacts")
+	public String contactsPage() {
+		return "contacts";
+	}
+	
 }

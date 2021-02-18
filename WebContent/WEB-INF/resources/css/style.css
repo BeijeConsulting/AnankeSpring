@@ -26,7 +26,8 @@ tr:hover {background-color: white;}
 }
 
 h5{
-	color:red;
+	color:black;
+	font-weight:bold;
 }
 .buttonform{
 	margin-top: 0.5em;
@@ -34,6 +35,9 @@ h5{
 .navbar-custom{
 	background-color: #59abe3;
 	color: white;
+}
+.titlecolor{
+	color:black;
 }
   .navbar-nav > li {
     float: none;
