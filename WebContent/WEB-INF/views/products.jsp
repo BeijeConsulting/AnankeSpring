@@ -16,12 +16,12 @@
 <body>
 	<h3>Products</h3>
 	 <jsp:useBean id="userBean" class="it.beije.ananke.ecommerce.User" scope="session"/>
-	<jsp:setProperty property="id" name="userBean" param="id"/>
+	<jsp:setProperty property="id" name="userBean" value="${id}"/>
 	<jsp:useBean id="orderBean" class="it.beije.ananke.ecommerce.Order" scope="session"/> 
 	
 	<c:forEach var = "product" items="${products}">
 		<a href="product-details?id=${product.id}">${product.name}</a><br>
 	</c:forEach>
-
+	
 </body>
 </html>

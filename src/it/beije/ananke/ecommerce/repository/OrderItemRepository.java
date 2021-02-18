@@ -10,6 +10,6 @@ import it.beije.ananke.ecommerce.OrderItem;
 @Repository
 public interface OrderItemRepository extends JpaRepository<OrderItem, Integer>{
 
-	public List<OrderItem> findByOrder(Integer id);
+	public List<OrderItem> findByOrderId(Integer id);
 	
 }

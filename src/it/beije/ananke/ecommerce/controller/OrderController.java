@@ -30,34 +30,11 @@ public class OrderController {
 	private ProductService productService;
 	
 	@RequestMapping(value = "/order", method = RequestMethod.GET)
-	public String order(@RequestParam int id, @RequestParam int qnt, Model model, HttpSession session) {
-		
-		//creo un nuovo ordine o prendo l'ordine in corso
-		Order orderBean = (Order) session.getAttribute("orderBean");
-		User userBean = (User) session.getAttribute("userBean");
-		Integer userId = userBean.getId();
-		orderBean.setUserId(id);
-		orderBean.setState("in progress");
-		Order order = orderService.save(orderBean, userId);
-		
-		//creo l'orderItem
-		Product product = productService.findById(id);
-		OrderItem orderItem = new OrderItem();
-		orderItem.setQuantity(qnt);
-		orderItem.setProduct_id(id);
-		orderItem.setOrder_id(order.getId());
-		orderItem.setAmount(qnt * product.getPrice());
-		orderService.save(orderItem);
-		
-		
-		//TO DO: order.setAmount
-		
-		List<OrderItem> orderItems = orderService.findByOrder(order.getId());
+	public String order(@RequestParam int id, Model model) {	
+		List<OrderItem> orderItems = orderService.findByOrder(id);
+		Order order = orderService.findById(id);
 		model.addAttribute("orderItems", orderItems);
-		//model.addAttribute("product", product);
-		//model.addAttribute("qnt", qnt);
-		//model.addAttribute("orderItem", orderItem);
-		
+		model.addAttribute("total", order.getAmount());
 		return "order";
 	}
 }

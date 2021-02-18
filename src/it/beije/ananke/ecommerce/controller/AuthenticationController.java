@@ -14,6 +14,7 @@ import it.beije.ananke.ecommerce.User;
 import it.beije.ananke.ecommerce.repository.ProductRepository;
 import it.beije.ananke.ecommerce.repository.UserRepository;
 import it.beije.ananke.ecommerce.service.AuthenticationService;
+import it.beije.ananke.ecommerce.service.ProductService;
 
 @Controller
 public class AuthenticationController {
@@ -22,7 +23,7 @@ public class AuthenticationController {
 	private AuthenticationService authService; 
 	
 	@Autowired
-	private ProductRepository productRepository;
+	private ProductService productService;
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(@RequestParam String email, @RequestParam String password, Model model) {
@@ -37,7 +38,7 @@ public class AuthenticationController {
 		User user = authService.findByEmailAndPassword(email, password);
 		if(user != null) {
 			model.addAttribute("id", user.getId());
-			List<Product> products = productRepository.findAll();
+			List<Product> products = productService.findAll();
 			model.addAttribute("products",products);
 			
 			return "products";
@@ -46,7 +47,7 @@ public class AuthenticationController {
 	}
 	
 	@RequestMapping(value = {"/","/login"}, method = RequestMethod.GET)
-	public String index() {		
+	public String login() {		
 		return "login";
 	}
 	

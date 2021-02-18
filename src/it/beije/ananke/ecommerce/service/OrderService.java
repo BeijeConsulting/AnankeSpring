@@ -23,16 +23,7 @@ public class OrderService {
 		return orderRepository.findByUserId(userId);
 	}
 	
-	public Order save(Order order, Integer userId) {
-		List<Order> listOrder = findByUserId(userId);
-		
-		if(!listOrder.isEmpty()) {
-			for(Order ord : listOrder) {
-				if(ord.getState().equals("in progress")) {
-					return ord;
-				}
-			}
-		}
+	public Order save(Order order) {
 		return orderRepository.save(order);
 	}
 	
@@ -42,6 +33,10 @@ public class OrderService {
 	
 
 	public List<OrderItem> findByOrder(Integer id){
-			return orderItemRepository.findByOrder(id);
+			return orderItemRepository.findByOrderId(id);
+	}
+	
+	public Order findById(Integer id) {
+		return orderRepository.findById(id).get();
 	}
 }
