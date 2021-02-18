@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-   <%@page import="it.beije.ananke.model.Product"%>
-   <%@page import="it.beije.ananke.model.JPAmanager"%>
-    <%@page import="java.util.ArrayList"%>
+<%@page import="it.beije.ananke.model.Product"%>
+   
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,43 +12,43 @@
 .table {
 
  border : solid;
- border-collapse : collapse;
+
  width: 500px;
 
 }
-
+.sfondoDiv {
+	Background-color: cyan;
+	height : 40px;
+	width: 50%;
+	}
 
 </style>
 <body>
+    <div  class = "sfondoDiv">
 	<h1>LISTA DEI PRODOTTI:</h1>
-	<%
-	JPAmanager<?> jsp = new JPAmanager<>();
-	ArrayList<Product> listaProdotti = (ArrayList<Product>) jsp.getList("Product");
-	%>
-	<div align = center>
+	</div>
+	<br>
+	<div align = left>
 		<table border= 1 class = "table">
 
 			<th>Nome</th>
 			<th>Descrizione</th>
 			<th>prezzo</th>
 
-			<%
-		for (Product p : listaProdotti) {
-		%>
+		
+		<c:forEach var = "i" items= "${list}" >
+       <p>
 			<tr>
-				<td><%=p.getName()%></td>
-				<td><%=p.getDesc()%></td>
-				<td><%=p.getPrice()%></td>
-				<td align="center"><form action="./preleva/<%=p.getId()%>"><input type = "submit" value = "Guarda"></form></td>
+				<td><c:out value = " ${i.name}"/></td>
+				<td><c:out value = " ${i.desc}"/></td>
+				<td><c:out value = " ${i.price}"/></td>
+				<td align="center"><form action="./preleva ${i.id}" method = "post"><input type = "submit" value = "Guarda"></form></td>
 			</tr>
-			<% } %>
+			</c:forEach>
 		</table>
 		</div>
+		<br>
+		<form action="./viewcart"><input type = "submit" value = "Guarda carrello"></form>
 		
-		<div>
-		<c:forEach var = "i" items= "${lista}" >
-       Prodotto:<c:out value = " ${i.name}"/><p>
-        </c:forEach>
-		</div>
 </body>
 </html>

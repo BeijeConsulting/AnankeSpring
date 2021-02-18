@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,8 +20,7 @@
 }
 
 .bordosinistro {
-    margin-top: 20px;
-	align: right
+	
 }
 
 .nolink {
@@ -28,37 +28,47 @@
 }
 
 .elencoImmagini {
-	align : right;
+	align: right;
 	width: 25%;
-   
 }
+
 .flex {
 	max-width: 25%;
-   
 }
 
 .visible {
-   margin-top: 25px;
-   align : right;
-   display:${visible};
-
+	text-align: left;
+	display: ${visible};
+}
+.visibilita{
+display: ${visibilita};
 }
 </style>
 
 <body>
 	<div class="bordi-arrotondati">
 		<h1 align="center">HOME</h1>
+         <h3 align="center">  <c:out value="${nome}"></c:out> </h3>
+		<div align="right" class ="visibilita">
+			<table>
+				<tr>
+					<td>
+						<form action="./registrazione">
+							<input type="submit" value="Registrati">
+						</form>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<form action="./log">
+							<input type="submit" value="Login">
+						</form>
+					</td>
+				</tr>
+			</table>
 		</div>
-		<div align = "right">
-		<form action="./registrazione">
-				<input type="submit" value="Registrati">
-			</form>
-			
-			<form action="./log">
-				<input type="submit" value="Login">
-			</form>
-		</div>
-		<div class="bordosinistro">
+	</div>
+
 	<div class="visible">
 		<table>
 
@@ -68,12 +78,12 @@
 					</form></td>
 			</tr>
 			<tr>
-				<td><form action="./lista1">
+				<td><form action="./viewcart">
 						<input type="submit" value="Ordini">
 					</form></td>
 			</tr>
 			<tr>
-				<td><form action="./lista1">
+				<td><form action="./pagemodifca">
 						<input type="submit" value="Modifica profilo">
 					</form></td>
 			</tr>
@@ -85,36 +95,7 @@
 
 		</table>
 	</div>
-		</div>
-	<div align = "right">
-	<table>
-	<tr>
-	<td>        <img
-				src="https://www.techwalls.com/wp-content/uploads/2020/10/iPhone-12-mini.jpg"
-				class="flex">
-	</td>
-	</tr>
-	<tr>
-	<td>    <img
-				src="https://store.hp.com/ItalyStore/Html/Merch/Images/c06716957_500x367.jpg"
-				class="flex">
-	</td>
-	</tr>
-	<tr>
-	<td><img
-				src="https://images.eprice.it/nobrand/0/hres/445/208962445/DAM208962445-1-147cbe9a-e464-43ad-9041-7e9683a2af03.jpg"
-				class="flex">
-	</td>
-	</tr>
-	<tr>
-	<td> <img
-				src="https://images-na.ssl-images-amazon.com/images/I/71XUx5JUGRL._AC_SX466_.jpg"
-				class="flex">
-	</td>
-	</tr>
+
 	
-	</table>
-	
-	</div>
 </body>
 </html>

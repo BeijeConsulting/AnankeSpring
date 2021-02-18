@@ -52,7 +52,7 @@
 	</c:choose>
 	<h2>Prezzo: <c:out value="${el.price}"></c:out>$</h2>
 	<h3>Descrizione prodotto: <c:out value="${el.desc}"></c:out>. </h3> <br>
-	<form action = "../addorder ${el.id}" method = "get">
+	<form action = "./addorder ${el.id}" method = "post">
 	Quanti ne vuoi acquistare? 
 	<select name = "numero">
 	<option value = "1">1

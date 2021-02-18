@@ -2,12 +2,14 @@ package it.beije.ananke.controller;
 
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
+
 import it.beije.ananke.model.JPAmanager;
+import it.beije.ananke.model.Order;
 import it.beije.ananke.model.Order_items;
 import it.beije.ananke.model.Product;
 import it.beije.ananke.model.User;
@@ -30,6 +34,8 @@ public class FirstController {
 	
 	@Autowired
 	private ServiceRepository service;
+
+
 	
 	
 	@RequestMapping(value = {"/"}, method = RequestMethod.GET)
@@ -44,9 +50,7 @@ public class FirstController {
 	}
 	@RequestMapping(value = "/lista", method = RequestMethod.GET)
 	public String Lista(HttpServletRequest request, Model model, Locale locale) {
-		JPAmanager<?> jpa = new JPAmanager<>();
-		@SuppressWarnings("unchecked")
-		ArrayList<Product> list = (ArrayList<Product>)jpa.getList("Product");
+		ArrayList<Product> list = (ArrayList<Product>)service.getlistaProdotti();
 		model.addAttribute("listaprodotti", list);
 		return "ListaProdotti";
 	}
@@ -57,31 +61,26 @@ public class FirstController {
 		if(!(s.getEmail().equals(null)) && s.getPassword().equals(password)) {
 			    session.setAttribute("utente", s);
 				model.addAttribute("visible", "block");
+				model.addAttribute("visibilita", "none");
+				model.addAttribute("nome", "Home page di " + s.getFirst_name());
 				return "Home";
 		}
 		model.addAttribute("error", true);
      	return "Log";
 	}
 	
-	@RequestMapping(value = "/preleva/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/preleva {id}", method = RequestMethod.POST)
 	public String preleva(@PathVariable Integer id, Model model) {
-		JPAmanager<?> jpa = new JPAmanager<>();
-		@SuppressWarnings("unchecked")
-		ArrayList<Product> list = (ArrayList<Product>)jpa.getList("Product");
-		for(Product p : list ) {
-			if(p.getId() == id) {
-				System.out.println("elemento trovato");
-				model.addAttribute("el", p);
-				return "acquistaProdotto";
-			}
-		}
-		return null;
+		Product p = service.searchProduct(id);
+		model.addAttribute("el", p);
+     	return "acquistaProdotto";
+		
 	}
 	
 	
 	@RequestMapping(value = "/lista1", method = RequestMethod.GET)
-	public String Lista() {
-		
+	public String Lista(Model model, HttpSession session) {
+		model.addAttribute("list", service.getlistaProdotti());
 		return "ListaProdotti";
 	}
 	
@@ -95,11 +94,34 @@ public class FirstController {
 	public String log(HttpServletRequest request, Model model, Locale locale) {
 		return "Log";
 	}
-	
-	
+	@RequestMapping(value = "/deleteitems {id}", method = RequestMethod.GET)
+	public String deleteItems(Model model, HttpSession session, @PathVariable Integer id) {
+		User user = (User)session.getAttribute("utente");
+		Order or = service.getOrder(user.getId());
+		service.deleteFromcart(id, session);
+		model.addAttribute("listacarrello", service.getItemsCart(or));
+		return "Cart";
+	}
+	@RequestMapping(value = "/viewcart", method = RequestMethod.GET)
+	public String viewcart(Model model, HttpSession session) {
+		User user = (User)session.getAttribute("utente");
+		Order or = service.getOrder(user.getId());
+		model.addAttribute("listacarrello", service.getItemsCart(or));
+		return "Cart";
+	}
+	@RequestMapping(value = "/pagemodifca", method = RequestMethod.GET)
+	public String modificauser() {
+		return "ModificaProfilo";
+	}
 	@RequestMapping(value = "/modificauser", method = RequestMethod.GET)
-	public String modificauser(HttpServletRequest request, Model model, Locale locale) {
+	public String modificauser(@RequestParam String first_name, @RequestParam String second_name, @RequestParam String password, Model model, HttpSession session) {
+		User user = (User) session.getAttribute("utente");
+		user.setFirst_name(first_name);
+		user.setSecond_name(second_name);
+		user.setPassword(password);
+	    service.modifyProfile(user);
 		model.addAttribute("visible", "block");
+		model.addAttribute("nome", "Home page di " + user.getFirst_name());
 		return "Home";
 	}
 	
@@ -120,16 +142,12 @@ public class FirstController {
 		}
 		
 	}
-	@RequestMapping(value = "/addorder {id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/addorder {id}", method = RequestMethod.POST)
 	public String addorder(Model model, @RequestParam String numero, @PathVariable Integer id, HttpSession session) {
 		System.out.println(id +  " "  + Integer.valueOf(numero));
-		JPAmanager<?> jpa = new JPAmanager<>();
-		User s = (User) session.getAttribute("utente");
-		jpa.inOrder(s.getId(), id, Integer.valueOf(numero));
+		service.saveorderitems(session, Integer.valueOf(numero), id);
+		model.addAttribute("list", service.getlistaProdotti());
 		
-		ArrayList<Order_items> lista = (ArrayList<Order_items>) jpa.getList("Order_items");
-		
-		model.addAttribute("ordine", lista );
 		return "ListaProdotti";
 	}
 	
@@ -175,17 +193,14 @@ public class FirstController {
 	@RequestMapping(value = "/form", method = RequestMethod.POST)
 	public String form(@RequestParam(required = false) String nome, @RequestParam String cognome, HttpServletRequest request, Model model) {
 		System.out.println("post form...");
-		
-		//String nome = request.getParameter("nome");
-		//String cognome = request.getParameter("cognome");
-		
+
 		model.addAttribute("nome", nome);
 		model.addAttribute("cognome", cognome);
 		
 		return "dati";
 	}
 
-	@RequestMapping(value = "/contatto/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/contatto/{id}", method = RequestMethod.POST)
 	public String getContatto(@PathVariable Integer id, Model model) {
 		System.out.println("getContatto id : " + id);
 		
@@ -210,6 +225,7 @@ public class FirstController {
 	}
 	
 	
+
 	
 //	
 //	@RequestMapping(value = "/contatto", method = RequestMethod.POST)
@@ -222,5 +238,23 @@ public class FirstController {
 //		
 //		return "datiContatto";
 //	}
+
+//	@RequestMapping(value = "/contatto", method = RequestMethod.POST)
+//	public String postContatto(Contatto c, Model model) {
+//		System.out.println("postContatto : " + c);
+//		
+//		try {
+//			rubricaService.checkAndSave(c);
+//			
+//		} catch (Exception e) {
+//			model.addAttribute("errore", e.getMessage());
+//			return "dati"; 
+//		}
+//
+//		model.addAttribute("contatto", c);
+//		
+//		return "datiContatto"; 
+//	}
+
 
 }

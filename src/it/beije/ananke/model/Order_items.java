@@ -20,7 +20,7 @@ public class Order_items {
 	@Column(name="quantity")
 	private int  quantity;
 	@Column(name="amount")
-	private int amount;
+	private double amount;
 	
 	
 	public Integer getId() {
@@ -47,10 +47,10 @@ public class Order_items {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-	public int getAmount() {
+	public double getAmount() {
 		return amount;
 	}
-	public void setAmount(int amount) {
+	public void setAmount(double amount) {
 		this.amount = amount;
 	}
 	
