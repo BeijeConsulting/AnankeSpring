@@ -19,6 +19,10 @@ public class RubricaService {
 		return contattoRepository.save(contatto);
 	}
 
+	public Contatto getOne(Integer id) {
+		return contattoRepository.getOne(id);
+	}
+	
 	public Contatto findByEmail(String email) {
 		return findByEmail(email, false);
 	}
