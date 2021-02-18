@@ -1,5 +1,6 @@
 package it.beije.ananke.controller;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -45,6 +46,9 @@ public class MyRestController {
 		
 		Contatto c = contattoRepository.findById(id).get();
 		System.out.println(c);
+		System.out.println("DataNascita : " + c.getDataNascitaAsString());
+		
+		LocalDate dataNascita = c.getDataNascita();
 		
 		return c;		
 	}
@@ -54,8 +58,9 @@ public class MyRestController {
 	@PostMapping("/contatto")
 	public Contatto insertContatto(@RequestBody Contatto contatto) {
 		System.out.println("api insertContatto contatto : " + contatto);
+		System.out.println("DataNascita : " + contatto.getDataNascitaAsString());
 		
-		contattoRepository.save(contatto);
+		contattoRepository.save(contatto);		
 		
 		return contatto;
 	}
