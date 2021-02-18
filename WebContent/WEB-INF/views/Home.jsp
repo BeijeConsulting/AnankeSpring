@@ -48,7 +48,9 @@
 				</form>
 			</tr>
 			<tr>
-				<td><a href="tizio?id=" class="nolink">Esci</a></td>
+				<td><form action="./out" method = "post">
+					<input type = "submit" value = "ESCI">
+				</form></td>
 			</tr>
 		</table>
 	</div>

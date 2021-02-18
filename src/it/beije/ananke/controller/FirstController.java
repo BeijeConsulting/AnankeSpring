@@ -2,6 +2,7 @@ package it.beije.ananke.controller;
 
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,8 +22,13 @@ import it.beije.ananke.model.JPAmanager;
 import it.beije.ananke.model.Product;
 import it.beije.ananke.model.User;
 import it.beije.ananke.repository.ContattoRepository;
+
 import it.beije.ananke.repository.ProductRepository;
 import it.beije.ananke.repository.UserRepository;
+import it.beije.ananke.service.ProductService;
+import it.beije.ananke.service.RubricaService;
+import it.beije.ananke.service.UtenteService;
+
 
 @Controller
 public class FirstController {
@@ -32,6 +38,11 @@ public class FirstController {
 	private ContattoRepository contattoRepository;
 	@Autowired
 	private ProductRepository productRepository;
+	@Autowired
+	private UtenteService utenteService;
+	@Autowired
+	private ProductService productService;
+
 
 	@RequestMapping(value = {"/", "index", "pippopluto"}, method = RequestMethod.GET)
 	public String index(HttpServletRequest request, Model model, Locale locale) {
@@ -41,11 +52,11 @@ public class FirstController {
 		return "LogUser";
 	}
 
-	@RequestMapping(value = "/hello", method = RequestMethod.GET)
-	public String hello() {
-		System.out.println("sono nella hello...");
-		return "hello";
-	}
+//	@RequestMapping(value = "/hello", method = RequestMethod.GET)
+//	public String hello() {
+//		System.out.println("sono nella hello...");
+//		return "hello";
+//	}
 
 	@RequestMapping(value="/test", method = RequestMethod.GET)
 	public String test(Model model) {
@@ -54,72 +65,75 @@ public class FirstController {
 		return "test";
 	}
 
-	@RequestMapping(value = "/form", method = RequestMethod.GET)
-	public String form() {
-		System.out.println("get form...");
-		return "form";
-	}
+//	@RequestMapping(value = "/form", method = RequestMethod.GET)
+//	public String form() {
+//		System.out.println("get form...");
+//		return "form";
+//	}
 
-	@RequestMapping(value = "/form", method = RequestMethod.POST)
-	public String form(@RequestParam(required = false) String nome, @RequestParam String cognome, HttpServletRequest request, Model model) {
-		System.out.println("post form...");
+//	@RequestMapping(value = "/form", method = RequestMethod.POST)
+//	public String form(@RequestParam(required = false) String nome, @RequestParam String cognome, HttpServletRequest request, Model model) {
+//		System.out.println("post form...");
+//
+//		//String nome = request.getParameter("nome");
+//		//String cognome = request.getParameter("cognome");
+//
+//		model.addAttribute("nome", nome);
+//		model.addAttribute("cognome", cognome);
+//
+//		return "dati";
+//	}
 
-		//String nome = request.getParameter("nome");
-		//String cognome = request.getParameter("cognome");
+//	@RequestMapping(value = "/contatto/{id}", method = RequestMethod.GET)
+//	public String getContatto(@PathVariable Integer id, Model model) {
+//		System.out.println("getContatto id : " + id);
+//
+//		//... SELECT * from Contatto where id = {id}
+//
+//		model.addAttribute("nome", "Pippo");
+//		model.addAttribute("cognome", "Pluto");
+//
+//		return "dati";
+//	}
 
-		model.addAttribute("nome", nome);
-		model.addAttribute("cognome", cognome);
+//	@RequestMapping(value = "/contatto", method = RequestMethod.GET)//contatto?id=5
+//	public String getContatto(@RequestParam int id, Model model) {
+//		System.out.println("getContatto id parametro : " + id);
+//
+//		//... SELECT * from Contatto where id = {id}
+//
+//		model.addAttribute("nome", "Pippo");
+//		model.addAttribute("cognome", "Pluto");
+//
+//		return "dati";
+//	}
 
-		return "dati";
-	}
-
-	@RequestMapping(value = "/contatto/{id}", method = RequestMethod.GET)
-	public String getContatto(@PathVariable Integer id, Model model) {
-		System.out.println("getContatto id : " + id);
-
-		//... SELECT * from Contatto where id = {id}
-
-		model.addAttribute("nome", "Pippo");
-		model.addAttribute("cognome", "Pluto");
-
-		return "dati";
-	}
-
-	@RequestMapping(value = "/contatto", method = RequestMethod.GET)//contatto?id=5
-	public String getContatto(@RequestParam int id, Model model) {
-		System.out.println("getContatto id parametro : " + id);
-
-		//... SELECT * from Contatto where id = {id}
-
-		model.addAttribute("nome", "Pippo");
-		model.addAttribute("cognome", "Pluto");
-
-		return "dati";
-	}
-
-	@RequestMapping(value = "/contatto", method = RequestMethod.POST)
-	public String postContatto(Contatto c, Model model) {
-		System.out.println("postContatto : " + c);
-		
-		contattoRepository.save(c);
-
-		model.addAttribute("contatto", c);
-
-		return "datiContatto";
-	}
+	//	@RequestMapping(value = "/contatto", method = RequestMethod.POST)
+	//	public String postContatto(Contatto c, Model model) {
+	//		System.out.println("postContatto : " + c);
+	//		
+	//
+	//		contattoRepository.save(c);
+	//
+	//		try {
+	//			rubricaService.checkAndSave(c);
+	//			
+	//		} catch (Exception e) {
+	//			model.addAttribute("errore", e.getMessage());
+	//			return "dati"; 
+	//		}
+	//
+	//
+	//		model.addAttribute("contatto", c);
+	//
+	//		return "datiContatto";
+	//
+	//	}
 
 	@RequestMapping(value = "/RegistrazioneUser", method = RequestMethod.POST)
 	public String registraUser(@RequestParam String first_name, @RequestParam String second_name,@RequestParam String email, @RequestParam String password,Model model, HttpServletRequest request) {
-		JPAmanager<?> j  = new JPAmanager<>();
-		if(userRepository.findByEmail(email)==null) {
-			User u = new User();
-			u.setEmail(email);
-			u.setFirst_name(first_name);
-			u.setSecond_name(second_name);
-			u.setPassword(password);
-			//if(j.isValidEmail(email)) {
-			//		j.inserimento(email, password, first_name, second_name);
-			userRepository.save(u);
+		User u = utenteService.insertUser(email, password, first_name, second_name);
+		if(u!=null) {
 			return "LogUser";
 		}
 		else {
@@ -129,14 +143,9 @@ public class FirstController {
 	}
 
 	@RequestMapping(value = "/logUsers", method = RequestMethod.POST)
-	public String LoginUser(Model model, HttpServletRequest request) {
-		JPAmanager<?> j = new JPAmanager<>();
-		String email = request.getParameter("email");
-		String password= request.getParameter("password");
-		System.out.println("email = " + email);
-		System.out.println("password = " + password);
-		if(j.isRegister(email, password)) {
-			User u = j.searchEmail(email);
+	public String LoginUser(@RequestParam String email, @RequestParam String password, Model model, HttpServletRequest request) {
+		User u = utenteService.findByEmailAndPassword(email, password);
+		if (u!=null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("Utente", u);
 			return "Home";
@@ -158,12 +167,7 @@ public class FirstController {
 
 	@RequestMapping(value = "/buy", method = RequestMethod.POST)
 	public String acquista(HttpServletRequest request, User u, Model model) {
-		//		JPAmanager<?> j = new JPAmanager<>();
-		//		ArrayList<Product> p = (ArrayList<Product>) j.getList("Product");
-		//		for (Product product : p) {
-		//			model.addAttribute("ListaProdotti", p);
-		//		}
-		//		model.addAttribute("ListaProdotti", p);
+		model.addAttribute("listaProdotti", utenteService.searchProducts());
 		return "Prodotti";
 	}
 
@@ -174,14 +178,30 @@ public class FirstController {
 
 	@RequestMapping(value = "/updateUsers", method = RequestMethod.POST)
 	public String update(HttpSession session, @RequestParam String first_name, @RequestParam String second_name,@RequestParam String password, HttpServletRequest request) {
-		JPAmanager<?> j = new JPAmanager<>();
-		User u;
-		u= (User) session.getAttribute("Utente");
-		j.update(first_name, second_name, password, u.getEmail());
+	utenteService.updateUser(password, password, first_name, second_name, session);
 		return "Home";
 	}
 	@RequestMapping(value = "/annullaUpdate", method = RequestMethod.POST)
 	public String noUpdate(HttpServletRequest request) {
 		return "Home";
 	}
+	
+	@RequestMapping(value = "/prodottoSpec {id}", method = RequestMethod.POST)
+	public String imagesiD(HttpServletRequest request, Model model, @PathVariable Integer id) {
+		Product p = productService.findById(id);
+		model.addAttribute("immagine", p);
+		return "image";
+	}
+	
+	@RequestMapping(value = "/out", method = RequestMethod.POST)
+	public String logout(HttpServletRequest request, HttpSession session) {
+		session.invalidate();
+		return "LogUser";
+	}
+	@RequestMapping(value = "/acq {id}", method = RequestMethod.POST)
+	public String compra(HttpServletRequest request, HttpSession session, @PathVariable Integer id,@RequestParam int quantita) {		
+		productService.buyProduct(id, quantita);
+		return "Home";
+	}
+	
 }

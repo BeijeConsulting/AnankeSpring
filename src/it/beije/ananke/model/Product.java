@@ -26,7 +26,6 @@ public class Product {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
 	public String getName() {
 		return name;
 	}
@@ -45,5 +44,4 @@ public class Product {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	
 }
