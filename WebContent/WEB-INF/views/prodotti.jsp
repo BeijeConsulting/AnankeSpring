@@ -33,7 +33,25 @@
 
 <body>
 
-<h4> Prodotti </h4>
+<div class = "text-center">
+	<h1>Tutti i Prodotti </h1>
+</div>
+
+<br>
+
+${{conferma}}
+
+<br>
+
+ <a href="./aggiungiProdotto">Inserisci un Prodotto</a>
+ <br>
+ <a href="./eliminaProdotto">Rimuovi un Prodotto</a>
+ 
+ 
+ 
+<br>
+<br>
+
 
 	<table style="width:60%">
 	
@@ -51,8 +69,15 @@
 		<tr>
 			<td>${p.id}</td>
 			<td>${p.name}</td>
-			<td>${p.desc}</td>
+			<td>${p.description}</td>
 			<td>${p.price}</td>
+			<td> 
+				<form action="./aggiungi" method="post"> 
+	  				 <input type="number" name="quantity" value="0">
+	  				 <input type="hidden" name="id" value="${p.id}">
+	   				<p><input type="submit" value="Aggiungi al Carrello"></p>
+   				</form>
+   			<td>
 		</tr>
 			
 	</c:forEach>

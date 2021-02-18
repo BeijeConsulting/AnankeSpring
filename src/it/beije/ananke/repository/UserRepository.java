@@ -8,4 +8,6 @@ import it.beije.ananke.entity.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer>{
 
+	public User findByEmailAndPassword(String nome, String password);
+
 }

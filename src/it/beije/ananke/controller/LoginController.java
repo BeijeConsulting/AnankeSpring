@@ -11,16 +11,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import it.beije.ananke.model.JPAManager;
-import it.beije.ananke.repository.UserRepository;
+import it.beije.ananke.service.UserService;
 
 @Controller
 public class LoginController {
 	
-	JPAManager managerJPA = new JPAManager();
+	// JPAManager managerJPA = new JPAManager();
 	
+	/*
 	@Autowired
 	private UserRepository userRepository;
+	*/
+	
+	@Autowired
+	private UserService userService;
 	
 	@RequestMapping(value = {"/"}, method = RequestMethod.GET)
 	public String index(HttpServletRequest request, Model model, Locale locale) {
@@ -52,7 +56,9 @@ public class LoginController {
 	@RequestMapping(value = "/registrazione", method = RequestMethod.POST)
 	public String registrazione(@RequestParam String email, @RequestParam String nome, @RequestParam String cognome, @RequestParam String password, Model model) {
 		
-		managerJPA.inserisciUtenteDb(email, nome, cognome, password);
+		// managerJPA.inserisciUtenteDb(email, nome, cognome, password);
+		
+		userService.save(email, nome, cognome, password);
 		
 		model.addAttribute("registrazione", "Hai effettutato la registrazione correttamente");
 		
@@ -60,28 +66,15 @@ public class LoginController {
 		
 	}
 	
-	/*
-	@RequestMapping(value = "/form", method = RequestMethod.POST)
-	public String form(@RequestParam(required = false) String nome, @RequestParam String cognome, HttpServletRequest request, Model model) {
-		System.out.println("post form...");
-		
-		//String nome = request.getParameter("nome");
-		//String cognome = request.getParameter("cognome");
-		
-		model.addAttribute("nome", nome);
-		model.addAttribute("cognome", cognome);
-		
-		return "dati";
-	}
-	*/
-	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(@RequestParam String nome, @RequestParam String password, Model model) {
 		
 		model.addAttribute("nome", nome);
 		model.addAttribute("password", password);
 		
-		boolean verifica = managerJPA.verificaUtenteDb(nome, password);
+		// boolean verifica = managerJPA.verificaUtenteDb(nome, password);
+		
+		boolean verifica = userService.verificaUtente(nome, password);
 		
 		model.addAttribute("error", "Email e/o passord errate");
 		
