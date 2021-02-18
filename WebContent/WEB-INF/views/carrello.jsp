@@ -111,7 +111,7 @@ if(login.equals("ok")){
 <table>
 <thead> 
 <tr>
-<th> <th>
+<th> </th>
 <th> Nome prodotto </th>
 <th> Quantità </th>
 <th> Prezzo prodotto totale </th>

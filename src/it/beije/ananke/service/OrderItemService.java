@@ -30,14 +30,18 @@ public Order addOrderItem(Integer idUser, int idProduct, int quantity) {
 		 ordine=orderRepository.save(ordine);
 	
  		}
+	System.out.println(ordine.getAmount());
 OrderItem temp= orderItemRepository.findByOrderIDAndProductID(ordine.getId(), idProduct);
 			if(temp==null) {
 				temp=new OrderItem();
 				temp.setOrderID(ordine.getId());
 				temp.setProductID(idProduct);
+				temp.setQuantity(quantity);
 				temp.setAmount(productRepository.findById(idProduct).get().getPrice()*quantity);
 				ordine.setAmount(ordine.getAmount()+temp.getAmount());
+				ordine=orderRepository.save(ordine);
 				orderItemRepository.save(temp);
+				System.out.println(ordine.getAmount());
 			return ordine;
 			}
 
@@ -45,8 +49,8 @@ OrderItem temp= orderItemRepository.findByOrderIDAndProductID(ordine.getId(), id
 			temp.setAmount(productRepository.findById(idProduct).get().getPrice()*quantity);
 			orderItemRepository.save(temp);
 			ordine.setAmount(ordine.getAmount()+temp.getAmount());
-			orderRepository.save(ordine);
-			
+			ordine=orderRepository.save(ordine);
+			System.out.println(ordine.getAmount());
 			return ordine;
 }
 public List<OrderItem> findByOrderID(int orderID) {
