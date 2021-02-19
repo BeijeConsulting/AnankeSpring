@@ -8,6 +8,7 @@
 		<class>it.beije.ananke.ecommerce.model.Product</class>
 		<class>it.beije.ananke.ecommerce.model.User</class>
 		<class>it.beije.ananke.ivo.model.Contatto</class>
+		<class>it.beije.ananke.model.Telefono</class>
 		
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		
