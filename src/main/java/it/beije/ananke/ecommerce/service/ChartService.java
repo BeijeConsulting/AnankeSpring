@@ -1,15 +1,10 @@
 package it.beije.ananke.ecommerce.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import it.beije.ananke.ecommerce.model.Chart;
-import it.beije.ananke.ecommerce.model.Order;
 import it.beije.ananke.ecommerce.model.OrderItem;
-import it.beije.ananke.ecommerce.model.Product;
-import it.beije.ananke.ecommerce.model.User;
 import it.beije.ananke.ecommerce.repositories.ChartRepository;
 
 @Service

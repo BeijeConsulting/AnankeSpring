@@ -42,7 +42,7 @@
 	      	</c:forEach>
 		</table>
 		<form action="./confirmOrder" method="post">
-			<input type="hidden" name="id" value=""/>
+			<input type="hidden" name="id" value="${orderId}"/>
 			<input type="submit" value="Confirm order"/>
 		</form>
 			

@@ -2,7 +2,7 @@ package it.beije.ananke.ecommerce.model.dao;
 
 import it.beije.ananke.ecommerce.model.User;
 
-public class JpaUser extends JpaDao{
+public class JpaUser extends JpaDao {
 	
 	public boolean authenticate(String email, String password) {
 		User u = (User) super.selectByField(User.class, "email", email).get(0);

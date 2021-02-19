@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import it.beije.ananke.ecommerce.model.Order;
 import it.beije.ananke.ecommerce.model.OrderItem;
 import it.beije.ananke.ecommerce.model.User;
-import it.beije.ananke.ecommerce.repositories.OrderItemRepository;
 import it.beije.ananke.ecommerce.repositories.OrderRepository;
 
 @Service
@@ -21,6 +20,7 @@ public class OrderService {
 	
 	public boolean checkOpenOrder(User user){
 		List<Order> orders = orderRepository.findByUserId(user.getId());
+		System.out.println(orders.toString());
 		if(!orders.isEmpty()) {
 			return true;
 		}
@@ -31,6 +31,13 @@ public class OrderService {
 		Order order;
 		if(checkOpenOrder(user)) {
 			order = orderRepository.findByUserIdAndState(user.getId(), OPEN);
+			if (order == null) {
+				order = new Order();
+				order.setUserId(user.getId());
+				order.setState(OPEN);
+				order.setAmount(0.0);
+				orderRepository.save(order);
+			}
 		} else {
 			order = new Order();
 			order.setUserId(user.getId());

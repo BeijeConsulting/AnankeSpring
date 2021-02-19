@@ -1,7 +1,5 @@
 package it.beije.ananke.ecommerce.model.dao;
 
-import java.util.List;
-
 import it.beije.ananke.ecommerce.model.Product;
 import it.beije.ananke.ecommerce.model.User;
 
@@ -11,7 +9,7 @@ public class DaoTest {
 //		p.setDescription("costoso");
 //		p.setName("Iphone");
 //		p.setPrice(1299.99);
-		JpaDao dao = new JpaDao();
+		it.beije.ananke.ecommerce.model.dao.JpaDao dao = new JpaDao();
 //		dao.persist((Object) p);
 		
 		User u = new User();

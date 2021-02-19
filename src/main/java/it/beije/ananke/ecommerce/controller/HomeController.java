@@ -8,9 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import it.beije.ananke.ecommerce.model.OrderItem;
 import it.beije.ananke.ecommerce.model.User;
-import it.beije.ananke.ecommerce.model.dao.JpaDao;
 
 @Controller
 public class HomeController {

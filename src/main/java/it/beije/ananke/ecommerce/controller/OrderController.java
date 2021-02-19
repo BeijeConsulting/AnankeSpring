@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import it.beije.ananke.ecommerce.model.Chart;
 import it.beije.ananke.ecommerce.model.Order;
 import it.beije.ananke.ecommerce.model.OrderItem;
-import it.beije.ananke.ecommerce.model.Product;
 import it.beije.ananke.ecommerce.model.User;
-import it.beije.ananke.ecommerce.model.dao.JpaDao;
 import it.beije.ananke.ecommerce.repositories.ChartRepository;
 import it.beije.ananke.ecommerce.repositories.OrderItemRepository;
 import it.beije.ananke.ecommerce.repositories.OrderRepository;
@@ -25,7 +23,7 @@ import it.beije.ananke.ecommerce.repositories.ProductRepository;
 import it.beije.ananke.ecommerce.service.ChartService;
 import it.beije.ananke.ecommerce.service.OrderItemService;
 import it.beije.ananke.ecommerce.service.OrderService;
-import it.beije.ananke.ecommerce.service.ProductService;
+import it.beije.ananke.ecommerce.service.UserService;
 
 @Controller
 public class OrderController {
@@ -40,6 +38,9 @@ public class OrderController {
 	ChartService chartService;
 	
 	@Autowired
+	UserService userService;
+	
+	@Autowired
 	OrderItemRepository orderItemRepository;
 	
 	@Autowired
@@ -47,6 +48,9 @@ public class OrderController {
 	
 	@Autowired
 	ChartRepository chartRepository;
+	
+	@Autowired
+	OrderRepository orderRepository;
 
 	@RequestMapping(value = "/products", method = RequestMethod.POST)
 	public String addToChart(@RequestParam Integer id, @RequestParam Integer quantity, @RequestParam Double price,
@@ -64,7 +68,7 @@ public class OrderController {
 			Order order = orderService.openOrder(user);
 			
 			System.out.println(order == null);
-			System.out.println(order.getId());
+			System.out.println("line 74" + order.getId());
 			
 			OrderItem orderItem = orderItemService.addToChart(order.getId(), id, quantity, price);
 			orderService.updatePrice(order, orderItem);
@@ -80,7 +84,9 @@ public class OrderController {
 	public String orders(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
-		
+		if(user == null) {
+			return "home";
+		}
 		List<Order> orders = orderService.findByUserId(user.getId());
 		model.addAttribute("orders", orders);
 		model.addAttribute("userId", user.getId());
@@ -88,16 +94,17 @@ public class OrderController {
 		return "orders";
 	}
 	
-//	@RequestMapping(value = "/orderItems", method = RequestMethod.POST)
-//	public String orderItems(@RequestParam Integer id, HttpServletRequest request, Model model) {
-//		HttpSession session = request.getSession();
-//		User user = (User) session.getAttribute("user");
-//		
-//		List<Product> orderItems = orderItemService.showOrderItems(id);
-//		model.addAttribute("orderItems", orderItems);
-//		model.addAttribute("userId", user.getId());
-//		return "orderItems";
-//	}
+	@RequestMapping(value = "/confirmOrder", method = RequestMethod.POST)
+	public String confirmOrder(@RequestParam Integer id, HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
+		model.addAttribute("userId", user.getId());
+		Order order = orderRepository.findById(id).get();
+		order.setState("close");
+		orderRepository.save(order);
+//		chartRepository.deleteByOrderId(id);
+		return "orders";
+	}
 
 
 	
