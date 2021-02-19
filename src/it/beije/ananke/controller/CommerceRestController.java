@@ -17,12 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 import it.beije.ananke.model.Cart;
 import it.beije.ananke.model.Order;
 import it.beije.ananke.model.OrderItem;
+import it.beije.ananke.model.Product;
 import it.beije.ananke.model.User;
 import it.beije.ananke.repository.OrderItemRepository;
 import it.beije.ananke.repository.OrderRepository;
 import it.beije.ananke.repository.ProductRepository;
 import it.beije.ananke.repository.UserRepository;
 import it.beije.ananke.service.CartService;
+import it.beije.ananke.service.UserService;
 
 @RestController
 @RequestMapping("/commerce")
@@ -73,7 +75,7 @@ public class CommerceRestController {
 	
 	@PostMapping("cart/aggiungi/product/{id}")
 	public Cart addToCart(@PathVariable Integer id, HttpServletRequest request) {
-		HttpSession session = request.getSession();
+//		HttpSession session = request.getSession();
 //		User user = (User) session.getAttribute("user");
 		User user = userRepository.getOne(1);
 		
@@ -81,6 +83,16 @@ public class CommerceRestController {
 //		Cart cart =  cartService.addToCart(1 + "", id + "");
 		return cart;
 	}
+	
+	
+//	@PostMapping("cart/aggiungi/product")
+//	public Cart addToCart(@RequestBody Product product) {
+//		
+//		User user = userRepository.getOne(1);
+//		
+//		Cart cart =  cartService.addToCart(user.getId() + "", product.getId() + "");
+//		return cart;
+//	}
 	
 	
 	@PostMapping("cart/rimuovi/orderitem/{id}")
@@ -95,6 +107,25 @@ public class CommerceRestController {
 	}
 	
 	
+	@PostMapping("/users/signup")
+	public User addUser(@RequestBody User user) {
+		User temp = userRepository.findByEmail(user.getEmail());
+		if(temp != null) {
+			return null;
+		}else {
+			userRepository.save(user);
+			return user;
+		}
+	}
 	
+	@GetMapping("/login")
+	public User login(@RequestBody User user) {
+		User temp = userRepository.findByEmail(user.getEmail());
+		if(temp.getPasword().equals(user.getPasword())) {
+			return temp;
+		}else {
+			return null;
+		}
+	}
 	
 }

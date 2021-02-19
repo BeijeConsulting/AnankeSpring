@@ -66,7 +66,6 @@ public class CartService {
 		Product product = productRepository.findById(Integer.valueOf(productId)).get();
 		List<OrderItem> listItems = orderItemRepository.findByOrderId(cart.getOrder().getId());
 		
-		
 		//check item è già presente nel carrello
 		OrderItem item = orderItemRepository.findByOrderIdAndProductId(cart.getOrder().getId(), product.getId());
 		if(item == null) {
@@ -76,7 +75,10 @@ public class CartService {
 			item.setProductId(product.getId());
 			item.setQuantity(1);
 			item.setAmount(product.getPrice()*item.getQuantity());
+			cart.getOrder().setAmount(cart.getOrder().getAmount() + item.getAmount());
+			orderRepository.save(cart.getOrder());
 			orderItemRepository.save(item);
+			
 			listItems.add(item);
 		}else {
 			System.out.println("c'è già");
@@ -87,6 +89,8 @@ public class CartService {
 					System.out.println(o.getQuantity());
 					o.setAmount(product.getPrice()*o.getQuantity());
 					System.out.println(o.getAmount());
+					cart.getOrder().setAmount(cart.getOrder().getAmount() + product.getPrice());
+					orderRepository.save(cart.getOrder());
 					orderItemRepository.save(o);
 				}
 			}

@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import it.beije.ananke.model.Cart;
+import it.beije.ananke.model.Order;
 import it.beije.ananke.model.Product;
 import it.beije.ananke.model.User;
 import it.beije.ananke.repository.UserRepository;
 import it.beije.ananke.service.CartService;
+import it.beije.ananke.service.OrderService;
 import it.beije.ananke.service.UserService;
 import it.beije.ananke.repository.ProductRepository;
 
@@ -28,6 +30,9 @@ public class EcommerceDataController {
 	
 	@Autowired
 	private CartService cartService;
+	
+	@Autowired
+	private OrderService orderService;
 	
 	@Autowired
 	private ProductRepository pr;
@@ -101,6 +106,13 @@ public class EcommerceDataController {
 		User user = (User)request.getSession().getAttribute("user");
 		model.addAttribute("cart", cartService.removeFromCart(user.getId() + "", orderItemId));
 		return "carrello";
+	}
+	
+	@RequestMapping(value = "/visualizzaOrdini", method = RequestMethod.GET)
+	public String listaOrdini(Model model){
+		List<Order> lista = orderService.ordini();
+		model.addAttribute("list", lista);
+		return "listaOrdini";
 	}
 	
 }

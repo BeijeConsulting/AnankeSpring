@@ -38,5 +38,8 @@
 	<form action="./statoCarrello" method="get">
 		<input type="submit" value="Visualizza il carrello">
 	</form>
+	<form action="./visualizzaOrdini" method="get">
+		<input type="submit" value="Visualizza i tuoi ordini">
+	</form>
 </body>
 </html>
