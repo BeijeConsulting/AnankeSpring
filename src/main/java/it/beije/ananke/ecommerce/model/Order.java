@@ -1,12 +1,13 @@
 package it.beije.ananke.ecommerce.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+import javax.persistence.*;
+import java.util.Set;
+
+@JsonInclude(Include.NON_NULL)
 @Entity
 @Table(name="orders")
 public class Order {
@@ -24,7 +25,18 @@ public class Order {
 	
 	@Column(name="state")
 	private String state;
-	
+
+	@OneToMany(mappedBy = "orderId", fetch = FetchType.EAGER)
+	private Set<OrderItem> itemSet;
+
+	public Set<OrderItem> getItemSet() {
+		return itemSet;
+	}
+
+	public void setItemSet(Set<OrderItem> itemSet) {
+		this.itemSet = itemSet;
+	}
+
 	public Integer getId() {
 		return id;
 	}

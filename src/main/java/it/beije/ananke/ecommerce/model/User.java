@@ -1,5 +1,8 @@
 package it.beije.ananke.ecommerce.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Table(name="user")
 public class User {
@@ -24,7 +28,8 @@ public class User {
 	
 	@Column(name="second_name")
 	private String secondName;
-	
+
+	@JsonIgnore
 	@Column(name="password")
 	private String password;
 	
@@ -66,5 +71,14 @@ public class User {
 	
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("ID : " + getId() + "\n");
+		sb.append("First name : " + getFirstName() + "\n");
+		sb.append("Last name : " + getSecondName() + "\n");
+		sb.append("Email : " + getEmail());
+		return sb.toString();
 	}
 }

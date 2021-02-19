@@ -12,7 +12,7 @@ import it.beije.ananke.ecommerce.model.User;
 
 @Controller
 public class HomeController {
-	@RequestMapping(value = "/home", method = RequestMethod.GET)
+	@RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
 	public String home(HttpServletRequest request, Model model) {
 		System.out.println("In home");
 		HttpSession session = request.getSession();
@@ -22,6 +22,8 @@ public class HomeController {
 			if(user.getEmail().endsWith("admin.com")) {
 				model.addAttribute("title","admin");
 			}
+		} else {
+			return "home";
 		}
 		return "home";
 	}

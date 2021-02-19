@@ -1,5 +1,7 @@
 package it.beije.ananke.ecommerce.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Table(name="product")
 public class Product {

@@ -1,5 +1,8 @@
 package it.beije.ananke.ecommerce.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,21 +10,25 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Table(name="chart")
 public class Chart {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@JsonIgnore
 	@Column(name="id")
 	private Integer id;
-	
+
+	@JsonIgnore
 	@Column(name="order_id")
 	private Integer orderId;
-	
+
+	@JsonIgnore
 	@Column(name="user_id")
 	private Integer userId;
-	
+
 	@Column(name="name")
 	private String name;
 
@@ -33,7 +40,8 @@ public class Chart {
 	
 	@Column(name="amount")
 	private Double amount;
-	
+
+	@JsonIgnore
 	@Column(name="product_id")
 	private Integer productId;
 

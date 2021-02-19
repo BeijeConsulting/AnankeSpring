@@ -1,6 +1,7 @@
 package it.beije.ananke.ecommerce.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -63,7 +64,9 @@ public class OrderController {
 		
 		System.out.println(user==null);
 		System.out.println(user.getEmail());
-		
+		if(user == null) {
+			return "home";
+		}
 		if(user!=null) {
 			Order order = orderService.openOrder(user);
 			
@@ -71,6 +74,9 @@ public class OrderController {
 			System.out.println("line 74" + order.getId());
 			
 			OrderItem orderItem = orderItemService.addToChart(order.getId(), id, quantity, price);
+			Set<OrderItem> items = order.getItemSet();
+			items.add(orderItem);
+			order.setItemSet(items);
 			orderService.updatePrice(order, orderItem);
 			System.out.println("here");
 			Chart chart = chartService.addToChart(orderItem, name, description, user.getId());
@@ -98,6 +104,9 @@ public class OrderController {
 	public String confirmOrder(@RequestParam Integer id, HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
+		if(user == null) {
+			return "home";
+		}
 		model.addAttribute("userId", user.getId());
 		Order order = orderRepository.findById(id).get();
 		order.setState("close");

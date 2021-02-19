@@ -1,5 +1,6 @@
 package it.beije.ananke.ecommerce.service;
 
+import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,20 +33,22 @@ public class OrderService {
 		if(checkOpenOrder(user)) {
 			order = orderRepository.findByUserIdAndState(user.getId(), OPEN);
 			if (order == null) {
-				order = new Order();
-				order.setUserId(user.getId());
-				order.setState(OPEN);
-				order.setAmount(0.0);
-				orderRepository.save(order);
+				order = createOrder(user.getId());
 			}
 		} else {
-			order = new Order();
-			order.setUserId(user.getId());
-			order.setState(OPEN);
-			order.setAmount(0.0);
-			orderRepository.save(order);
+			order = createOrder(user.getId());
 		}
 		return order;	
+	}
+
+	public Order createOrder(Integer userId) {
+		Order order = new Order();
+		order.setUserId(userId);
+		order.setState(OPEN);
+		order.setAmount(0.0);
+		order.setItemSet(new HashSet<>());
+		orderRepository.save(order);
+		return order;
 	}
 	
 	public void updatePrice(Order order, OrderItem orderItem) {
