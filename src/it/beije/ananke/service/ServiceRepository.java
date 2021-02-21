@@ -31,6 +31,10 @@ public class ServiceRepository {
 	private ProductRepository productrepository;
 
 
+	public User findByEmailAndPassword(String email, String password) {
+		return userepository.findByEmailAndPassword(email, password);
+	}
+	
 	public User findByEmail(String email) {
 		return userepository.findByEmail(email);
 	}
@@ -54,7 +58,6 @@ public class ServiceRepository {
 	}
 
 	public double amountProduct(Integer idProduct, int quantity) {
-		
 	   Product p = searchProduct(idProduct);
 	   double price = p.getPrice();
 	   return price * quantity;
@@ -80,53 +83,62 @@ public class ServiceRepository {
 		orderepository.save(oggetto);
 	}
 	
-	public void newItems(Integer idItems, int quantity) {
-		
+	public void newItems(Integer idItems, int quantity, int orid) {
 		Order_items oggetto = new Order_items();
 		oggetto.setProduct_id(idItems);
+		oggetto.setOrder_id(orid);
 		oggetto.setAmount(amountProduct(idItems, quantity));
 		oggetto.setQuantity(quantity);
 		orderepository.save(oggetto);
 	}
-	public boolean isItemsinCart(Integer order_id, Integer product_id) {
-	      Order_items oggetto = orderepository.findByProduct_id(order_id,product_id);
-	      if(oggetto == null) {
-	    	  System.out.println("prodotto nuovo");
+	public boolean isItemsinCart(Integer order_id, Integer idItems) {
+		Order_items oggetto1 = orderepository.findByOrder_idAndProduct_id(order_id, idItems);
+	      if(oggetto1 == null) {
 	    	  return false;
 	      }else {
-	    	  System.out.println("prodotto già presente");
 	    	  return true;
 	      }
 	}
+	
+	public void AggiornaItemsCart(int quantity, int idItems,Order or) {
+		Order_items oggetto = orderepository.findByOrder_idAndProduct_id(or.getId(), idItems);
+		int quantita = quantity + oggetto.getQuantity();
+//		double amoutP = quantity * searchProduct(idItems).getPrice();
+		double amoutP = quantity * oggetto.getAmount();
+		System.out.println("il prezzo aggiornato è: " + amoutP);
+		oggetto.setAmount(amoutP);
+		oggetto.setQuantity(quantita);
+		orderepository.save(oggetto);
+	}
+	
 	public void saveorderitems(HttpSession session, int quantity, int idItems) {
 		User user = (User) session.getAttribute("utente");
 		Integer iduser = user.getId();
-		Order_items oggetto = new Order_items();
 		Order or = ordpository.searchOrderofUser_id(iduser, "on");
 		double amount = amountProduct(idItems, quantity);
 		if(or == null) {
 			newOrderItems(session,quantity,idItems);
 			session.setAttribute("ordine", or);
 		}else {
-			oggetto = orderepository.findByProduct_id(or.getId(), idItems);
-			if(!isItemsinCart(or.getId(), oggetto.getProduct_id())) {
-				newItems(idItems,quantity);	
-				or.setAmount(amount);
-			} else {
-				int quantita = oggetto.getQuantity();
-				quantita = quantita + quantity;
-				double amoutP = quantita * searchProduct(idItems).getPrice();
-				oggetto.setAmount(amoutP);
-				oggetto.setQuantity(quantita);
-				double amountOrder = or.getAmount();
-				amountOrder = amountOrder + amoutP;
-				or.setAmount(amountOrder);
-				orderepository.save(oggetto);
+			if(!isItemsinCart(or.getId(), idItems)){
+				newItems(idItems,quantity,or.getId());	
+				or.setAmount(amount+ SommaCarrello(session));
+				ordpository.save(or);
+			}else {
+				AggiornaItemsCart(quantity,idItems,or);
+				or.setAmount(amount + SommaCarrello(session));
+				ordpository.save(or);
 			}
 			
 		}
-	}
 	
+	}
+
+	public double SommaCarrello(HttpSession session) {
+		User user = (User)session.getAttribute("utente");
+		Order or =  ordpository.searchOrderofUser_id( user.getId(), "on");
+		return or.getAmount();
+	}
 	
 	public void deleteFromcart(Integer idProduct, HttpSession session) {
 		User user = (User) session.getAttribute("utente");

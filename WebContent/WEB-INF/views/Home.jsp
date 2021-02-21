@@ -6,6 +6,10 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Home</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<link rel="stylesheet" href="./resources/css/bootstrap.min.css"/>       
+<script src="./resources/js/bootstrap.min.js"></script>
+
 </head>
 <style type="text/css">
 .bordi-arrotondati {

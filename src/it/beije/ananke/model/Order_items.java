@@ -14,7 +14,7 @@ public class Order_items {
 	@Column(name="id")
 	private Integer id;
 	@Column(name="order_id")
-	private int order_id;
+	private Integer order_id;
 	@Column(name="product_id")
 	private int product_id;
 	@Column(name="quantity")
@@ -26,13 +26,13 @@ public class Order_items {
 	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
-	public int getOrder_id() {
+	public Integer getOrder_id() {
 		return order_id;
 	}
-	public void setOrder_id(int order_id) {
+	public void setOrder_id(Integer order_id) {
 		this.order_id = order_id;
 	}
 	public int getProduct_id() {

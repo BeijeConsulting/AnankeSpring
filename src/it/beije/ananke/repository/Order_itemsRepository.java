@@ -19,8 +19,7 @@ public interface Order_itemsRepository extends JpaRepository <Order_items, Integ
 	@Query(nativeQuery = true, value = "delete from order_items WHERE product_id = id")
 	public void delete(@Param("id") Integer id);
 	
-	@Query(nativeQuery = true, value = "SELECT * FROM order_items WHERE order_id = order_id AND product_id = product_id")
-	public Order_items findByProduct_id(@Param("order_id") Integer order_id, @Param("product_id") Integer product_id);
-	
+	@Query(nativeQuery = true, value = "SELECT * FROM order_items WHERE order_id = :order_id AND product_id = :product_id")
+	public Order_items findByOrder_idAndProduct_id(@Param("order_id") Integer order_id, @Param("product_id") Integer product_id);
 	
 }

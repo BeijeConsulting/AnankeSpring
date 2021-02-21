@@ -35,18 +35,16 @@ public class FirstController {
 	@Autowired
 	private ServiceRepository service;
 
-
-	
-	
 	@RequestMapping(value = {"/"}, method = RequestMethod.GET)
 	public String home(Model model) {
 		model.addAttribute("visible", "none");
-		return "Home";
+		//return "Home";
+		return "LogBoot";
 	}
 	
 	@RequestMapping(value = "/registrazione", method = RequestMethod.GET)
 	public String Reg(HttpServletRequest request, Model model, Locale locale) {
-		return "Registrazione";
+		return "RegistrationBoot";
 	}
 	@RequestMapping(value = "/lista", method = RequestMethod.GET)
 	public String Lista(HttpServletRequest request, Model model, Locale locale) {
@@ -57,16 +55,16 @@ public class FirstController {
 	
 	@RequestMapping(value = "/sign", method = RequestMethod.POST)
 	public String sign(@RequestParam String email, @RequestParam String password, Model model, HttpSession session) {
-		User s = service.findByEmail(email);
-		if(!(s.getEmail().equals(null)) && s.getPassword().equals(password)) {
+		User s = service.findByEmailAndPassword(email, password);
+		if(s != null) {
 			    session.setAttribute("utente", s);
 				model.addAttribute("visible", "block");
 				model.addAttribute("visibilita", "none");
 				model.addAttribute("nome", "Home page di " + s.getFirst_name());
-				return "Home";
+				return "HomeBoot";
 		}
 		model.addAttribute("error", true);
-     	return "Log";
+     	return "LogBoot";
 	}
 	
 	@RequestMapping(value = "/preleva {id}", method = RequestMethod.POST)
@@ -88,7 +86,7 @@ public class FirstController {
 	public String out(HttpSession session, Model model) {
 		session.invalidate();
 		model.addAttribute("visible", "none");
-		return "Home";
+		return "LogBoot";
 	}
 	@RequestMapping(value = "/log", method = RequestMethod.GET)
 	public String log(HttpServletRequest request, Model model, Locale locale) {
@@ -100,6 +98,7 @@ public class FirstController {
 		Order or = service.getOrder(user.getId());
 		service.deleteFromcart(id, session);
 		model.addAttribute("listacarrello", service.getItemsCart(or));
+		model.addAttribute("totcarrello", service.SommaCarrello(session));
 		return "Cart";
 	}
 	@RequestMapping(value = "/viewcart", method = RequestMethod.GET)
@@ -116,29 +115,34 @@ public class FirstController {
 	@RequestMapping(value = "/modificauser", method = RequestMethod.GET)
 	public String modificauser(@RequestParam String first_name, @RequestParam String second_name, @RequestParam String password, Model model, HttpSession session) {
 		User user = (User) session.getAttribute("utente");
+		if(first_name.equals("") ||second_name.equals("") || password.equals("")) {
+			model.addAttribute("error", "Riempire tutti i campi");
+			return "ModificaProfilo";
+		}
 		user.setFirst_name(first_name);
 		user.setSecond_name(second_name);
 		user.setPassword(password);
 	    service.modifyProfile(user);
 		model.addAttribute("visible", "block");
 		model.addAttribute("nome", "Home page di " + user.getFirst_name());
-		return "Home";
+		return "HomeBoot";
 	}
 	
 	@RequestMapping(value = "/inserimentoUtente", method = RequestMethod.POST)
 	public String insertUtente(HttpServletRequest request, Model model,@RequestParam String email, @RequestParam String password, @RequestParam String first_name, @RequestParam String second_name) {
-		if(service.findByEmail(email)== null) {
+		if(service.findByEmail(email) == null) {
 			User s = new User();
 			s.setEmail(email);
 			s.setFirst_name(first_name);
 			s.setPassword(password);
 			s.setSecond_name(second_name);
 			service.save(s);
-			return "Log";
+			return "LogBoot";
 			
 		} else {
-			model.addAttribute("error", "utente già registrato!");
-			return "Registrazione";
+			
+			model.addAttribute("error", true);
+			return "RegistrationBoot";
 		}
 		
 	}

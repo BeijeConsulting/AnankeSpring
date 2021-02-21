@@ -2,18 +2,18 @@ package it.beije.ananke.dto;
 
 public class Message {
 	
-	private String message;
+	private static String message;
 	
 	public Message(String message) {
-		this.message = message;
+		Message.message = message;
 	}
 
-	public String getMessage() {
+	public static String getMessage() {
 		return message;
 	}
 
-	public void setMessage(String message) {
-		this.message = message;
+	public static void setMessage(String message) {
+		Message.message = message;
 	}
 
 }

@@ -8,6 +8,9 @@
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing 
 		infrastructure -->
+    <annotation-driven/>
+	<resources location="/WEB-INF/resources/" mapping="/resources/**">
+	</resources>
 
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />

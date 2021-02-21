@@ -39,5 +39,7 @@
 
 <br>
 <form action = "./acquista"><input type = "submit" value = "acquista"></form>
+<br>
+TOT carrello: <c:out value="${totcarrello}"></c:out>
 </body>
 </html>
