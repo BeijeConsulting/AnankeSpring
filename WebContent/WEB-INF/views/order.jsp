@@ -5,12 +5,36 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+#order {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#order td, #order th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#order tr:nth-child(even){background-color: #f2f2f2;}
+
+#order tr:hover {background-color: #ddd;}
+
+#order th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #00b3b3;
+  color: white;
+}
+</style>
 <meta charset="ISO-8859-1">
 <title>Order</title>
 </head>
 <body>
 	<h3>Order</h3>
-	<table>
+	<table id="order">
 		<tr>
 			<th>Product</th>
 			<th>Quantity</th>
@@ -27,7 +51,7 @@
 
 <p>Total: </p>${total}
 
-<br><a href="products"><button>Back</button></a>
-<br><a href=""><button>Proceed to payment</button></a>
+<br><br><a href="products"><button>Back</button></a><br>
+<br><a href="success?id=${id}"><button>Proceed to payment</button></a>
 </body>
 </html>

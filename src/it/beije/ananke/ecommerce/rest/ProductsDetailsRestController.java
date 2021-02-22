@@ -1,4 +1,4 @@
-package it.beije.ananke.ecommerce.controller;
+package it.beije.ananke.ecommerce.rest;
 
 import java.util.List;
 
@@ -7,9 +7,13 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import it.beije.ananke.ecommerce.Order;
 import it.beije.ananke.ecommerce.OrderItem;
@@ -19,7 +23,9 @@ import it.beije.ananke.ecommerce.service.OrderService;
 import it.beije.ananke.ecommerce.service.ProductService;
 
 @Controller
-public class ProductsDetailsController {
+@RestController
+@RequestMapping("/api")
+public class ProductsDetailsRestController {
 	
 	@Autowired
 	private ProductService productService;
@@ -27,29 +33,20 @@ public class ProductsDetailsController {
 	@Autowired
 	private OrderService orderService;
 	
-	@RequestMapping(value = "/product-details", method = RequestMethod.GET)
-	public String details(@RequestParam int id, Model model) {
-//		JPAmanager jpa = new JPAmanager();
-//		Product product = new Product();
-//		product = jpa.findProduct(id);
-//		model.addAttribute("product", product);
-//		return "product-details";
+	@GetMapping(value = "/product-details")
+	public Product details(@RequestParam int id) {
 		Product product = productService.findById(id);
-		model.addAttribute("product", product);
-		return "product-details";
+		return product;
 	}
 	
-	@RequestMapping(value = "/product-details", method = RequestMethod.POST)
-	public String details(@RequestParam int id, @RequestParam int qnt, Model model, HttpSession session) {	
+	@PutMapping(value = "/product-details")
+	public Order details(int userId, Order orderBean, int id, int qnt) {	
 		Product product = productService.findById(id);
-		User userBean = (User) session.getAttribute("userBean");
-		Integer userId = userBean.getId();
 		double amount = qnt * product.getPrice();
 		boolean update = false;
 		
 		//creo un nuovo ordine o prendo l'ordine in corso
 
-		Order orderBean = (Order) session.getAttribute("orderBean");
 		List<Order> orderList = orderService.findByUserId(userId);
 
 		for(Order ord : orderList) {
@@ -69,7 +66,7 @@ public class ProductsDetailsController {
 		double orderAmount = orderBean.getAmount();
 		double total = orderAmount += amount;
 		orderBean.setAmount(total);	
-		orderService.save(orderBean);
+		orderBean = orderService.save(orderBean);
 		
 		//non faccio alcuna operazione se la quantità è pari a zero
 		
@@ -98,18 +95,6 @@ public class ProductsDetailsController {
 				orderService.save(orderItem);
 			}		
 		}
-//		orderItems = orderService.findByOrder(order.getId());
-//		model.addAttribute("orderItems", orderItems);
-//		model.addAttribute("totale", totale);
-		
-//		HashSet<Product> products = new HashSet<Product>();
-//		for(OrderItem ord : orderItems) {
-//			products.add(productService.findById(ord.getProductId()));
-//		}
-
-		//model.addAttribute("qnt", qnt);
-		//model.addAttribute("orderItem", orderItem);
-					
-		return "redirect:/order?id=" + orderBean.getId();
+		return orderBean;
 	}
 }

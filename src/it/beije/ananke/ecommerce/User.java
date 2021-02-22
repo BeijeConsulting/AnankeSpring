@@ -7,6 +7,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 @Entity
 @Table(name="user")
 public class User {
@@ -16,6 +20,7 @@ public class User {
 	private Integer id;
 	@Column(name="email")
 	private String email;
+//	@JsonProperty(access = Access.WRITE_ONLY)
 	@Column(name="password")
 	private String password;
 	@Column(name="name")

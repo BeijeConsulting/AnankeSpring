@@ -2,6 +2,8 @@ package it.beije.ananke.ecommerce.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +28,7 @@ public class AuthenticationController {
 	private ProductService productService;
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(@RequestParam String email, @RequestParam String password, Model model) {
+	public String login(@RequestParam String email, @RequestParam String password, Model model, HttpSession session) {
 //		JPAmanager jpa = new JPAmanager();
 //		if (jpa.authentication(email, password)){	
 //			model.addAttribute("email", email);	
@@ -37,10 +39,12 @@ public class AuthenticationController {
 //		User user = userRepository.findByEmailAndPassword(email, password);
 		User user = authService.findByEmailAndPassword(email, password);
 		if(user != null) {
-			model.addAttribute("id", user.getId());
 			List<Product> products = productService.findAll();
-			model.addAttribute("products",products);
-			
+			model.addAttribute("products",products);	
+			User userBean = (User)session.getAttribute("userBean");
+			if (userBean == null) {
+				session.setAttribute("userBean", user);
+			}		
 			return "products";
 		}
 		return "login";

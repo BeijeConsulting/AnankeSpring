@@ -35,6 +35,29 @@ public class OrderController {
 		Order order = orderService.findById(id);
 		model.addAttribute("orderItems", orderItems);
 		model.addAttribute("total", order.getAmount());
+		model.addAttribute("id", id);
 		return "order";
+	}
+	
+//	@RequestMapping(value = "/order", method = RequestMethod.POST)
+//	public String order(@RequestParam int id, HttpSession session) {
+//		Order order = orderService.findById(id);
+//		order.setState("done");
+//		orderService.save(order);
+//		session.removeAttribute("orderBean");
+//		order = (Order) session.getAttribute("orderBean");
+//
+//		return "success";
+//	}
+	
+	@RequestMapping(value = "/success", method = RequestMethod.GET)
+	public String success(@RequestParam int id, HttpSession session) {
+		Order order = orderService.findById(id);
+		order.setState("done");
+		orderService.save(order);
+		session.removeAttribute("orderBean");
+		order = (Order) session.getAttribute("orderBean");
+
+		return "success";
 	}
 }
