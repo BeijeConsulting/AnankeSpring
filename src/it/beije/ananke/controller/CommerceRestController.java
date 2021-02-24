@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,6 +28,7 @@ import it.beije.ananke.service.CartService;
 import it.beije.ananke.service.UserService;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/commerce")
 public class CommerceRestController {
 	
@@ -45,6 +47,9 @@ public class CommerceRestController {
 	@Autowired
 	private CartService cartService;
 	
+	@Autowired 
+	private ProductRepository productRepository;
+	
 	@GetMapping("/users")
 	public List<User> showUsers(){
 		List<User> list = userRepository.findAll();
@@ -53,7 +58,7 @@ public class CommerceRestController {
 	
 	
 	@GetMapping("/orders/user/{id}")
-	public List<Order> showProdcuts(@PathVariable Integer id){
+	public List<Order> showOrders(@PathVariable Integer id){
 		List<Order> list = orderRepository.findByStateAndUserId("open", id);
 		return list;
 	}
@@ -82,6 +87,12 @@ public class CommerceRestController {
 		Cart cart =  cartService.addToCart(user.getId() + "", id + "");
 //		Cart cart =  cartService.addToCart(1 + "", id + "");
 		return cart;
+	}
+	
+	@GetMapping("/listaprodotti")
+	public List<Product> showList(){
+		List<Product> list = productRepository.findAll();
+		return list;
 	}
 	
 	
