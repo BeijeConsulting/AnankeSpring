@@ -2,13 +2,22 @@ package it.beije.ananke.ecommerce.beans;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @Entity
 @Table(name = "order_item")
+@JsonInclude(Include.NON_NULL)
 public class OrderItem {
 	
 	@Id
@@ -28,6 +37,9 @@ public class OrderItem {
 	@Column(name="amount")
 	private Double amount;
 	
+//	@ManyToOne()
+//	@JoinColumn(name="id", insertable = false, updatable = false)
+//	private Product product;
 	
 	public Integer getId() {
 		return id;
@@ -53,6 +65,15 @@ public class OrderItem {
 	public void setProductId(Integer productId) {
 		this.productId = productId;
 	}
+	
+	
+//	public Product getProduct() {
+//		return product;
+//	}
+//	
+//	public void setProduct(Product product) {
+//		this.product = product;
+//	}
 	
 	
 	public Integer getQuantity() {

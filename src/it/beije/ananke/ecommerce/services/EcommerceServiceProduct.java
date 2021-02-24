@@ -7,22 +7,29 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import it.beije.ananke.ecommerce.beans.Product;
+import it.beije.ananke.ecommerce.beans.User;
 import it.beije.ananke.ecommerce.repositories.EcommerceRepositoryProduct;
 
 @Service
-public class EcommerceService {
-	
+public class EcommerceServiceProduct {
+
 	@Autowired
 	private EcommerceRepositoryProduct repoProduct;
 	
-	public Model setAllProductToModel(Model model){
+	public Product findById(Integer id) {
+		
+		Product product = repoProduct.findById(id).get();
+		
+		return product;
+		
+	}
+	
+	public List<Product> findAll(){
 		
 		List<Product> products = repoProduct.findAll();
 		
-		model.addAttribute("products", products);
-		
-		return model;
+		return products;
 		
 	}
-
+	
 }

@@ -13,18 +13,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import it.beije.ananke.ecommerce.EcommerceException;
+import it.beije.ananke.ecommerce.beans.Orders;
 import it.beije.ananke.ecommerce.beans.Product;
 import it.beije.ananke.ecommerce.beans.User;
 import it.beije.ananke.ecommerce.jpa.JPAUsers;
 import it.beije.ananke.ecommerce.repositories.EcommerceRepositoryProduct;
 import it.beije.ananke.ecommerce.repositories.EcommerceRepositoryUser;
+import it.beije.ananke.ecommerce.services.EcommerceServiceOrder;
 import it.beije.ananke.ecommerce.services.EcommerceServiceUser;
 
 @Controller
-public class ControllerEcommerceIdentification {
+public class EcommerceControllerIdentification {
 	
 	@Autowired
 	private EcommerceServiceUser serviceUser;
+	
+	@Autowired
+	private EcommerceServiceOrder serviceOrder;
 	
 	@RequestMapping(value = "/ecommerce" , method = RequestMethod.GET)
 	public String indexEcommerce(HttpServletRequest request, Model model, Locale locale) {
@@ -124,6 +129,14 @@ public class ControllerEcommerceIdentification {
 					model.addAttribute("firstName", userDB.getFirstName());
 					
 					serviceUser.setAllProductToModel(model);
+					
+					//guardo se l'utente ha un ordine in corso
+					List<Orders> orders = serviceOrder.findOpenOrder(user.getId());
+					//TODO: eh sti cazzi... se ne ho più di uno dovrei mandarlo in qualche altra pagina... 
+					//		dovrei fare in modo che non abbia più di un ordine aperto. 
+					//		però se ogni volta controllo, se lo trovo, gli butto quello e gli dico che deve
+					//		completare quello.
+					
 					model.addAttribute("seeCart", false);
 					
 					return "ecommerceHomePage";
@@ -165,4 +178,5 @@ public class ControllerEcommerceIdentification {
 		
 		return "ecommerceIndex";
 	}
+
 }

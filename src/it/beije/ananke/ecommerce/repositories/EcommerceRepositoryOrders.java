@@ -12,4 +12,6 @@ public interface EcommerceRepositoryOrders extends JpaRepository<Orders, Integer
 
 	public List<Orders> findByUserId(Integer userId);
 
+	public List<Orders> findByUserIdAndState(Integer userId, String state);
+	
 }

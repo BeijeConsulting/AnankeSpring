@@ -43,6 +43,24 @@ public class EcommerceServiceOrder extends EcommerceService{
 		
 	}
 	
+	public Cart removeProductToCart(Cart cart, OrderItem item) {
+		
+		if(cart != null) {
+			
+			cart.removeItem(item);
+			
+			if(cart.getItems().size() == 0)
+				//ho svuotato il carrello
+				cart = null;
+		}
+		
+		//non dovrebbe succedere di avere il carrello vuoti
+		
+		
+		return cart;
+		
+	}
+	
 	public Orders openNewOrder(User user) {
 		
 		Orders order = new Orders();
@@ -52,6 +70,14 @@ public class EcommerceServiceOrder extends EcommerceService{
 		order = repoOrder.save(order);
 		
 		return order;
+		
+	}
+	
+	public List<Orders> findOpenOrder(Integer userId) {
+		
+		List<Orders> orders = repoOrder.findByUserIdAndState(userId, "open");
+		
+		return orders;
 		
 	}
 	

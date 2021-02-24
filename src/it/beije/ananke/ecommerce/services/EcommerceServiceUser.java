@@ -39,4 +39,11 @@ public class EcommerceServiceUser extends EcommerceService{
 		
 	}
 
+	public User findById(Integer userId) {
+		
+		User user = repoUser.findById(userId).get();
+		
+		return user;
+		
+	}
 }

@@ -12,8 +12,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 @Entity
 @Table(name = " orders ")
+@JsonInclude(Include.NON_NULL)
 public class Orders {
 	
 	@Id
@@ -21,6 +26,7 @@ public class Orders {
 	@Column(name="id")
 	private Integer id;
 	
+	@JsonProperty("user_id")
 	@Column(name="user_id")
 	private Integer userId;
 	

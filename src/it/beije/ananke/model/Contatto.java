@@ -1,9 +1,9 @@
 package it.beije.ananke.model;
 
-import java.util.List;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,8 +13,17 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
 
 
+@JsonInclude(Include.NON_NULL)
 @Entity
 @Table(name="contatti")
 public class Contatto {
@@ -36,10 +45,11 @@ public class Contatto {
 	@Column(name="email")
 	private String email;
 	
+	@JsonProperty("numeri_telefono")
 	@OneToMany(fetch = FetchType.EAGER)
 	@JoinColumn(name="id_contatto")
 	private Set<Telefono> numeriTelefono;
-	
+
 	
 	public Integer getId() {
 		return id;
@@ -83,8 +93,33 @@ public class Contatto {
 		this.numeriTelefono = numeriTelefono;
 	}
 	
+	
+	
+	@JsonProperty("data_nascita")
+	@Transient
+	private LocalDate dataNascita = LocalDate.now();
+	
+	public LocalDate getDataNascita() {
+		return dataNascita;
+	}
+	public void setDataNascita(LocalDate dataNascita) {
+		this.dataNascita = dataNascita;
+	}
+
+	@JsonGetter("data_nascita")
+	public String getDataNascitaAsString() {
+		return dataNascita.format(DateTimeFormatter.ISO_LOCAL_DATE);
+	}
+
+	@JsonSetter("data_nascita")
+	public void setDataNascita(String dataNascita) {
+		this.dataNascita = dataNascita != null ?
+				LocalDate.parse(dataNascita, DateTimeFormatter.ofPattern("dd-MM-yyyy"))
+				: null;
+	}
+
+	
 	public String toString() {
-		
 		StringBuilder builder = new StringBuilder("[")
 				.append("id : ").append(id)
 				.append(", name : ").append(name)

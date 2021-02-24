@@ -30,6 +30,36 @@ public class Cart {
 		
 	}
 	
+	public void removeItem(OrderItem item) {
+		
+		int index = -1;
+		boolean empty = false;
+		
+		for (OrderItem orderItem : items) {
+			
+			if(orderItem.getProductId().equals(item.getProductId())) {
+				
+				index = items.indexOf(orderItem);
+				orderItem.setQuantity(orderItem.getQuantity() - item.getQuantity());
+				orderItem.setAmount(orderItem.getAmount() - item.getAmount());
+				if(orderItem.getQuantity() == 0)
+					empty = true;
+				
+			}
+			
+		}
+		
+		if(index >= 0) {
+			
+			amount = amount - item.getAmount();
+			
+			if(empty)
+				items.remove(index);	
+			
+		}
+		
+	}
+	
 	public Double getAmount() {
 		return amount;
 	}

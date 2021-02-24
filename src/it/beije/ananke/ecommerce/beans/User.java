@@ -2,8 +2,14 @@ package it.beije.ananke.ecommerce.beans;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 @Entity
 @Table(name = " user ")
+@JsonInclude(Include.NON_NULL)
 public class User {
 	
 	@Id
@@ -21,6 +27,7 @@ public class User {
 	private String secondName;
 	
 	@Column(name="password")
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private String password;
 	
 	public Integer getId() {

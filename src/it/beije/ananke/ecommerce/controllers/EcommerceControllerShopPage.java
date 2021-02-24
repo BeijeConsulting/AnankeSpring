@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import it.beije.ananke.repository.ContattoRepository;
 
 @Controller
-public class ControllerEcommerceShopPage {
+public class EcommerceControllerShopPage {
 	
 	@Autowired
 	private ContattoRepository contattoRepository;

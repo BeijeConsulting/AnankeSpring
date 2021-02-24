@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,25 +14,28 @@ import java.util.List;
 import it.beije.ananke.ecommerce.beans.Cart;
 import it.beije.ananke.ecommerce.beans.OrderItem;
 import it.beije.ananke.ecommerce.beans.Orders;
+import it.beije.ananke.ecommerce.beans.Product;
 import it.beije.ananke.ecommerce.beans.User;
 import it.beije.ananke.ecommerce.services.EcommerceServiceOrder;
+import it.beije.ananke.ecommerce.services.EcommerceServiceProduct;
 
 @Controller
-public class ControllerEcommerceOrder {
+public class EcommerceControllerOrder {
 	
 	@Autowired
 	private EcommerceServiceOrder serviceOrder;
 	
-	//che richieste fa? 
-	//gestisce l'ordine di un cliente
-	//quindi quando riceve i dati di un prodotto da aggiungere al carrello
-	//prende i dati e li invia 
+	@Autowired
+	private EcommerceServiceProduct serviceProduct;
 	
 	@RequestMapping(value = "/ecommerce/addProduct{productId}{quantity}{amount}", method = RequestMethod.POST)
 	public String postAddProduct(OrderItem item,  Model model, HttpSession session) {
 		
 		User user = (User) session.getAttribute("user");
 		Cart cart = (Cart) session.getAttribute("cart");
+		
+//		Product product = serviceProduct.findById(item.getProductId());
+//		item.setProduct(product);
 		
 		cart = serviceOrder.addProductToCart(cart, item);
 	
@@ -46,6 +50,33 @@ public class ControllerEcommerceOrder {
 		return "ecommerceHomePage";
 	}
 	
+	@RequestMapping(value = "/ecommerce/removeProduct{productId}{quantity}{amount}", method = RequestMethod.POST)
+	public String postRemoveProduct(OrderItem item,  Model model, HttpSession session) {
+		
+		User user = (User) session.getAttribute("user");
+		Cart cart = (Cart) session.getAttribute("cart");
+		
+		cart = serviceOrder.removeProductToCart(cart, item);
+	
+		serviceOrder.setAllProductToModel(model);
+		
+		if(cart != null) {
+			model.addAttribute("seeCart", true);
+			session.setAttribute("cart", cart);
+			session.setAttribute("amount", cart.getAmount());
+		}
+		else
+			model.addAttribute("seeCart", false);
+		
+		
+		model.addAttribute("user", user);
+		model.addAttribute("firstName", user.getFirstName());
+		
+		
+		return "ecommerceHomePage";
+		
+	}
+	
 	@RequestMapping(value = "/ecommerce/buy", method = RequestMethod.POST)
 	public String postBuy(HttpSession session, Model model) {
 		//apro l'ordine		
@@ -58,7 +89,7 @@ public class ControllerEcommerceOrder {
 		
 		return "ecommerceConfirmOrder";
 	}
-	
+
 	@RequestMapping(value = "/ecommerce/confirmedOrder", method = RequestMethod.POST)
 	public String postConfirm(Model model, HttpSession session) {
 		
