@@ -1,9 +1,3 @@
-<%@page import="it.beije.ananke.ecommerce.User"%>
-<%@page import="org.hibernate.internal.build.AllowSysOut"%>
-<%@page import="it.beije.ananke.ecommerce.Order"%>
-<%@page import="it.beije.ananke.ecommerce.Product"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="java.util.List"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -11,8 +5,30 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Products</title>
+<title>Orders</title>
 <style>
+#order {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#order td, #order th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#order tr:nth-child(even){background-color: #f2f2f2;}
+
+#order tr:hover {background-color: #ddd;}
+
+#order th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #00b3b3;
+  color: white;
+}
 	ul {
   list-style-type: none;
   margin: 0;
@@ -37,24 +53,32 @@
 	li a:hover {
 	  background-color: #111;
 	}
-		
 </style>
 </head>
 <body>
 	<ul>
 	  <li><a href="products">Home</a></li>
-	  <li><a href="orders">My orders</a></li>
+	  <li><a href="">My orders</a></li>
 	  <li><a href="">Profile</a></li>
 	  <li style="float:right"><a class="active" href="login">Logout</a></li>
 	</ul>
+
+	<h3>Orders</h3>
 	
-	<h3>Products</h3>
-	 
-	<jsp:useBean id="orderBean" class="it.beije.ananke.ecommerce.Order" scope="session"/> 
-	
-	<c:forEach var = "product" items="${products}">
-		<a href="product-details?id=${product.id}">${product.name}</a><br>
-	</c:forEach>
+	<table id="order">
+		<tr>
+			<th>Order</th>
+			<th>State</th>
+			<th>Amount</th>
+			
+			<c:forEach var = "order" items="${orders}">
+				<tr>			
+					<td>${order.id}</td>
+	    			<td>${order.state}</td>
+					<td>${order.amount}</td>
+				</tr>
+			</c:forEach>		
+	</table>
 	
 </body>
 </html>

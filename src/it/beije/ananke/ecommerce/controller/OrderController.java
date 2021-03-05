@@ -39,6 +39,14 @@ public class OrderController {
 		return "order";
 	}
 	
+	@RequestMapping(value = "/orders", method = RequestMethod.GET)
+	public String orders(HttpSession session, Model model) {
+		User userBean = (User)session.getAttribute("userBean");
+		List<Order> orders = orderService.findByUserId(userBean.getId());
+		model.addAttribute("orders", orders);
+		return "orders";
+	}
+	
 //	@RequestMapping(value = "/order", method = RequestMethod.POST)
 //	public String order(@RequestParam int id, HttpSession session) {
 //		Order order = orderService.findById(id);

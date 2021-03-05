@@ -31,8 +31,42 @@
 </style>
 <meta charset="ISO-8859-1">
 <title>Order</title>
+<style>
+	ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+ background-color: #5C5C5E;
+	}
+
+	li {
+	  float: left;
+	}
+	
+	li a {
+	  display: block;
+	  color: white;
+	  text-align: center;
+	  padding: 14px 16px;
+	  text-decoration: none;
+	}
+	
+	/* Change the link color to #111 (black) on hover */
+	li a:hover {
+	  background-color: #111;
+	}
+</style>
 </head>
 <body>
+	
+	<ul>
+	  <li><a href="products">Home</a></li>
+	  <li><a href="orders">My orders</a></li>
+	  <li><a href="">Profile</a></li>
+	  <li style="float:right"><a class="active" href="login">Logout</a></li>
+	</ul>
+
 	<h3>Order</h3>
 	<table id="order">
 		<tr>
