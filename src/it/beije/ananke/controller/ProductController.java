@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,7 @@ import it.beije.ananke.entity.Product;
 import it.beije.ananke.service.ProductService;
 
 @Controller
+@CrossOrigin
 public class ProductController {
 	
 	// JPAManager managerJPA = new JPAManager();
@@ -23,13 +25,11 @@ public class ProductController {
 	private ProductService productService;
 	
 	@RequestMapping(value = "/prodotti", method = RequestMethod.GET)
-	public String listaProdotti(Model model) {
+	public String listaProdotti() {
 		
 		// List<Product> products = managerJPA.getProducts();
 		
 		List<Product> products = productService.findAll();
-		
-		model.addAttribute("products", products);
 		
 		System.out.println(products);
 		

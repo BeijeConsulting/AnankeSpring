@@ -16,7 +16,7 @@ public class OrderItem {
 	@Column(name = "id")
 	private int id;
 	
-	@Column(name = "order_id")
+	@Column(name = "orders_id")
 	private int order_id;
 	
 	@Column(name = "product_id")

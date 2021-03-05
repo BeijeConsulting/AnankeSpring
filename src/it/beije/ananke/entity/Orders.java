@@ -16,7 +16,6 @@ public class Orders {
 	@Column(name = "id")
 	private int id;
 	
-	
 	@Column(name = "user_id")
 	private int userId;
 	

@@ -30,6 +30,9 @@ public class RubricaController {
 		System.out.println("email : " + email);
 		
 		Contatto contatto = rubricaService.findByEmail(email);
+		/*
+		System.out.println(contatto.getNumeriTelefono().size());
+		*/
 		System.out.println(contatto);
 		
 		model.addAttribute("contatto", contatto);
@@ -51,5 +54,5 @@ public class RubricaController {
 		
 		return "datiContatto";
 	}
-
+	
 }

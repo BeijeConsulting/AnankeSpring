@@ -18,6 +18,10 @@ public class RubricaService {
 		return contattoRepository.save(contatto);
 	}
 
+	public Contatto getOne(Integer id) {
+		return contattoRepository.getOne(id);
+	}
+	
 	public Contatto findByEmail(String email) {
 		return findByEmail(email, false);
 	}
@@ -31,8 +35,9 @@ public class RubricaService {
 	}
 	
 	public Contatto checkAndSave(Contatto contatto) throws Exception {
-		if ((contatto.getTelephone() != null && contatto.getTelephone().length() > 0)
-				|| (contatto.getEmail() != null && contatto.getEmail().length() > 0)) {
+//		if ((contatto.getTelephone() != null && contatto.getTelephone().length() > 0)
+//				|| (contatto.getEmail() != null && contatto.getEmail().length() > 0)) {
+		if (contatto.getEmail() != null && contatto.getEmail().length() > 0) {
 			
 			return save(contatto);
 		}

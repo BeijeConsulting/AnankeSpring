@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Rubrica</title>
+<title>E-Commerce</title>
 </head>
 
 <head>
