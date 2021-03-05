@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import it.beije.ananke.ecommerce.model.Order;
 import it.beije.ananke.ecommerce.model.OrderItem;
 import it.beije.ananke.ecommerce.model.Product;
 import it.beije.ananke.ecommerce.repositories.OrderItemRepository;
@@ -52,6 +51,27 @@ public class OrderItemService {
 	
 	public List<Product> showOrderItems(Integer orderId) {
 		return productRepository.findItemsByOrderId(orderId);
+	}
+	
+	public double totalAmount(Integer orderId)
+	{
+		return orderItemRepository.totalAmount(orderId);
+	}
+	
+	public List<OrderItem> findByOrderId(Integer orderId)
+	{
+		return orderItemRepository.findByOrderId(orderId);
+		
+	}
+	
+	public void deleteByOrderId(Integer orderId)
+	{
+		List<OrderItem> items = orderItemRepository.findByOrderId(orderId);
+		
+		for(OrderItem el : items)
+		{
+			orderItemRepository.delete(el);
+		}
 	}
 
 }

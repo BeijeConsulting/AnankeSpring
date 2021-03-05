@@ -44,17 +44,17 @@ public class ProductController {
 		return "products";
 	}
 	
-	@RequestMapping(value = "/newProduct", method = RequestMethod.POST)
-	public String newProduct(@RequestParam String name, @RequestParam String description, 
-			@RequestParam Double price, HttpServletRequest request, Model model) {
-		productService.addProduct(name, description, price);
-		HttpSession session = request.getSession();
-		User user = (User) session.getAttribute("user");
-		model.addAttribute("userId", user.getId());
-		model.addAttribute("title", "admin");
-		return "home";
-	}
-	
+//	@RequestMapping(value = "/newProduct", method = RequestMethod.POST)
+//	public String newProduct(@RequestParam String name, @RequestParam String description, 
+//			@RequestParam Double price, HttpServletRequest request, Model model) {
+//		productService.addProduct(name, description, price);
+//		HttpSession session = request.getSession();
+//		User user = (User) session.getAttribute("user");
+//		model.addAttribute("userId", user.getId());
+//		model.addAttribute("title", "admin");
+//		return "home";
+//	}
+//	
 	@RequestMapping(value = "/newProduct", method = RequestMethod.GET)
 	public String newProduct(HttpServletRequest request) {
 		System.out.println("Inserting new product...");
