@@ -16,7 +16,6 @@ import it.beije.ananke.ecommerce.model.Order;
 import it.beije.ananke.ecommerce.model.OrderItem;
 import it.beije.ananke.ecommerce.model.Product;
 import it.beije.ananke.ecommerce.model.User;
-import it.beije.ananke.ecommerce.model.dao.JpaDao;
 import it.beije.ananke.ecommerce.repositories.OrderItemRepository;
 import it.beije.ananke.ecommerce.repositories.OrderRepository;
 import it.beije.ananke.ecommerce.repositories.ProductRepository;

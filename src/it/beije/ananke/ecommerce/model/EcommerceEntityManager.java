@@ -1,4 +1,4 @@
-package it.beije.ananke.ecommerce.model.dao;
+package it.beije.ananke.ecommerce.model;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

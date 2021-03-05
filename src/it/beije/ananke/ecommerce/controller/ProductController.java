@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import it.beije.ananke.ecommerce.model.Product;
 import it.beije.ananke.ecommerce.model.User;
-import it.beije.ananke.ecommerce.model.dao.JpaDao;
 import it.beije.ananke.ecommerce.repositories.ProductRepository;
 import it.beije.ananke.ecommerce.repositories.UserRepository;
 import it.beije.ananke.ecommerce.service.ProductService;
