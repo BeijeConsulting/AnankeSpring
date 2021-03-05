@@ -12,20 +12,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import it.beije.ananke.ecommerce.model.Chart;
 import it.beije.ananke.ecommerce.model.Order;
 import it.beije.ananke.ecommerce.model.OrderItem;
 import it.beije.ananke.ecommerce.model.Product;
 import it.beije.ananke.ecommerce.model.User;
 import it.beije.ananke.ecommerce.model.dao.JpaDao;
-import it.beije.ananke.ecommerce.repositories.ChartRepository;
 import it.beije.ananke.ecommerce.repositories.OrderItemRepository;
 import it.beije.ananke.ecommerce.repositories.OrderRepository;
 import it.beije.ananke.ecommerce.repositories.ProductRepository;
-import it.beije.ananke.ecommerce.service.ChartService;
 import it.beije.ananke.ecommerce.service.OrderItemService;
 import it.beije.ananke.ecommerce.service.OrderService;
 import it.beije.ananke.ecommerce.service.ProductService;
+import it.beije.ananke.ecommerce.service.UserService;
+import it.beije.ananke.ecommerce.util.OrderState;
 
 @Controller
 public class OrderController {
@@ -37,7 +36,7 @@ public class OrderController {
 	OrderItemService orderItemService;
 	
 	@Autowired
-	ChartService chartService;
+	UserService userService;
 	
 	@Autowired
 	OrderItemRepository orderItemRepository;
@@ -46,41 +45,15 @@ public class OrderController {
 	ProductRepository productRepository;
 	
 	@Autowired
-	ChartRepository chartRepository;
-
-	@RequestMapping(value = "/products", method = RequestMethod.POST)
-	public String addToChart(@RequestParam Integer id, @RequestParam Integer quantity, @RequestParam Double price,
-			@RequestParam String name, @RequestParam String description, HttpServletRequest request, Model model) {
-		HttpSession session = request.getSession();
-		User user = (User) session.getAttribute("user");
-		
-		model.addAttribute("userId", user);
-		model.addAttribute("products", productRepository.findAll());
-		
-		System.out.println(user==null);
-		System.out.println(user.getEmail());
-		
-		if(user!=null) {
-			Order order = orderService.openOrder(user);
-			
-			System.out.println(order == null);
-			System.out.println(order.getId());
-			
-			OrderItem orderItem = orderItemService.addToChart(order.getId(), id, quantity, price);
-			orderService.updatePrice(order, orderItem);
-			System.out.println("here");
-			Chart chart = chartService.addToChart(orderItem, name, description, user.getId());
-			chartRepository.save(chart);
-			System.out.println("fuori da chart");
-		}
-		return "products";
-	}
+	OrderRepository orderRepository;
 	
 	@RequestMapping(value = "/orders", method = RequestMethod.GET)
 	public String orders(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
-		
+		if(user == null) {
+			return "home";
+		}
 		List<Order> orders = orderService.findByUserId(user.getId());
 		model.addAttribute("orders", orders);
 		model.addAttribute("userId", user.getId());
@@ -88,16 +61,17 @@ public class OrderController {
 		return "orders";
 	}
 	
-//	@RequestMapping(value = "/orderItems", method = RequestMethod.POST)
-//	public String orderItems(@RequestParam Integer id, HttpServletRequest request, Model model) {
-//		HttpSession session = request.getSession();
-//		User user = (User) session.getAttribute("user");
-//		
-//		List<Product> orderItems = orderItemService.showOrderItems(id);
-//		model.addAttribute("orderItems", orderItems);
-//		model.addAttribute("userId", user.getId());
-//		return "orderItems";
-//	}
+	@RequestMapping(value = "/confirmOrder", method = RequestMethod.POST)
+	public String confirmOrder(@RequestParam Integer id, HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
+		model.addAttribute("userId", user.getId());
+		Order order = orderRepository.findById(id).get();
+		order.setState(OrderState.CLOSED);
+		orderRepository.save(order);
+//		chartRepository.deleteByOrderId(id);
+		return "orders";
+	}
 
 
 	

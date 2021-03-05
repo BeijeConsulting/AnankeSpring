@@ -23,6 +23,7 @@
 			<th>Order</th>
 			<th>Price</th>
 	 		<th>State</th>
+	 		<th></th>
 			</tr>
 			<c:forEach items="${orders}" var="orders">
 		        <tr>

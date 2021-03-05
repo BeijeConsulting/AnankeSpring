@@ -32,19 +32,28 @@
 				<td><c:out value = "${chart.description}"/></td>
 				<td><c:out value = "${chart.quantity}"/></td>
 				<td><c:out value = "${chart.amount}"/></td>
-					<td>
-						<form action="./removeOrderItem" method="post">
-							<input type="hidden" name="id" value="${chart.id}"/>
-							<input type="submit" value="Remove product"/>
-						</form>
-					</td>
+				<c:choose>
+					<c:when test = "${order.state.equals(\"open\")}">
+						<td>
+							<form action="./removeOrderItem" method="post">
+								<input type="hidden" name="id" value="${chart.id}"/>
+								<input type="submit" value="Remove product"/>
+							</form>
+						</td>
+					</c:when>
+				</c:choose>
 				</tr>
 	      	</c:forEach>
 		</table>
-		<form action="./confirmOrder" method="post">
-			<input type="hidden" name="id" value=""/>
-			<input type="submit" value="Confirm order"/>
-		</form>
+		<div>Total : ${order.amount}$</div>
+		<c:choose>
+			<c:when test = "${order.state.equals(\"open\")}">
+				<form action="./confirmOrder" method="post">
+					<input type="hidden" name="id" value="${orderId}"/>
+					<input type="submit" value="Confirm order"/>
+				</form>
+			</c:when>
+		</c:choose>
 			
 	</body>
 </html>

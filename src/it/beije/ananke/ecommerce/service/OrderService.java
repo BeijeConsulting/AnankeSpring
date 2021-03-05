@@ -10,17 +10,17 @@ import it.beije.ananke.ecommerce.model.OrderItem;
 import it.beije.ananke.ecommerce.model.User;
 import it.beije.ananke.ecommerce.repositories.OrderItemRepository;
 import it.beije.ananke.ecommerce.repositories.OrderRepository;
+import it.beije.ananke.ecommerce.util.OrderState;
 
 @Service
 public class OrderService {
-	public static final String OPEN = "open";
-	public static final String CLOSE = "close";
 	
 	@Autowired
 	OrderRepository orderRepository;
 	
 	public boolean checkOpenOrder(User user){
 		List<Order> orders = orderRepository.findByUserId(user.getId());
+		System.out.println(orders.toString());
 		if(!orders.isEmpty()) {
 			return true;
 		}
@@ -30,11 +30,18 @@ public class OrderService {
 	public Order openOrder(User user) {
 		Order order;
 		if(checkOpenOrder(user)) {
-			order = orderRepository.findByUserIdAndState(user.getId(), OPEN);
+			order = orderRepository.findByUserIdAndState(user.getId(), OrderState.OPEN);
+			if (order == null) {
+				order = new Order();
+				order.setUserId(user.getId());
+				order.setState(OrderState.OPEN);
+				order.setAmount(0.0);
+				orderRepository.save(order);
+			}
 		} else {
 			order = new Order();
 			order.setUserId(user.getId());
-			order.setState(OPEN);
+			order.setState(OrderState.OPEN);
 			order.setAmount(0.0);
 			orderRepository.save(order);
 		}

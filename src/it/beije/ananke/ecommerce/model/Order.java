@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import it.beije.ananke.ecommerce.util.OrderState;
+
 @Entity
 @Table(name="orders")
 public class Order {
@@ -23,7 +25,7 @@ public class Order {
 	private Double amount;
 	
 	@Column(name="state")
-	private String state;
+	private OrderState state;
 	
 	public Integer getId() {
 		return id;
@@ -49,11 +51,11 @@ public class Order {
 		this.amount = amount;
 	}
 	
-	public String getState() {
+	public OrderState getState() {
 		return state;
 	}
 	
-	public void setState(String state) {
+	public void setState(OrderState state) {
 		this.state = state;
 	}
 }
