@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -22,6 +23,7 @@ import it.beije.ananke.ecommerce.service.AuthenticationService;
 
 @Controller
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api")
 public class AuthenticationRestController {
 
@@ -39,11 +41,11 @@ public class AuthenticationRestController {
 	}
 	
 	@PostMapping(value = "/login")
-	public String login(String email, String password) {
-		User user = authService.findByEmailAndPassword(email, password);
+	public boolean login(@RequestBody User user) {
+		user = authService.findByEmailAndPassword(user.getEmail(), user.getPassword());
 		if(user != null) {			
-			return "Autenticazione avvenuta con successo";
+			return true;
 		}
-		return "Autenticazione fallita";
+		return false;
 	}
 }

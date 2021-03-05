@@ -24,7 +24,17 @@ public class Product {
 	private String desc;
 	@Column(name="price")
 	private double price;
+	@Column(name="image")
+	private String image;
 	
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
 	public Integer getId() {
 		return id;
 	}
