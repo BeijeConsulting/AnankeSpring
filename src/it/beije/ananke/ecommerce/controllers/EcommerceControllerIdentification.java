@@ -111,6 +111,8 @@ public class EcommerceControllerIdentification {
 	@RequestMapping(value = "/ecommerce/homePage", method = RequestMethod.POST)
 	public String postLogIn(User user, Model model, HttpSession session) {
 		
+		System.out.println("User: " + user);
+		
 		StringBuilder message = new StringBuilder();
 		
 		if((user.getEmail().length() != 0) && (user.getPassword().length() != 0)) {
@@ -132,9 +134,9 @@ public class EcommerceControllerIdentification {
 					
 					//guardo se l'utente ha un ordine in corso
 					List<Orders> orders = serviceOrder.findOpenOrder(user.getId());
-					//TODO: eh sti cazzi... se ne ho più di uno dovrei mandarlo in qualche altra pagina... 
-					//		dovrei fare in modo che non abbia più di un ordine aperto. 
-					//		però se ogni volta controllo, se lo trovo, gli butto quello e gli dico che deve
+					//TODO: eh sti cazzi... se ne ho piï¿½ di uno dovrei mandarlo in qualche altra pagina... 
+					//		dovrei fare in modo che non abbia piï¿½ di un ordine aperto. 
+					//		perï¿½ se ogni volta controllo, se lo trovo, gli butto quello e gli dico che deve
 					//		completare quello.
 					
 					model.addAttribute("seeCart", false);
