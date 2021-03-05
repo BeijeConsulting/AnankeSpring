@@ -1,6 +1,9 @@
-package it.beije.ananke.model;
+package it.beije.ananke.ecommerce;
 
 import java.util.List;
+
+import it.beije.ananke.model.Order;
+import it.beije.ananke.model.User;
 
 public class Cart {
 	private Order order;

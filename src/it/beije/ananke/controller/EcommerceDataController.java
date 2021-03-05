@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import it.beije.ananke.model.Cart;
+import it.beije.ananke.ecommerce.Cart;
 import it.beije.ananke.model.Order;
 import it.beije.ananke.model.Product;
 import it.beije.ananke.model.User;
@@ -39,28 +39,28 @@ public class EcommerceDataController {
 	
 	
 	
-	@RequestMapping(value = "/verifica", method = RequestMethod.POST)
-	public String verificaLogin(@RequestParam String email, @RequestParam String password, Model model, HttpServletRequest request) {
-		User user = userService.findByEmail(email);
-		
-		if(user == null) {
-			model.addAttribute("missing", "Utente non registrato");
-			return "home";
-		}else {
-			
-			if(password.equals(user.getPasword())) {
-				HttpSession session = request.getSession();
-				session.setAttribute("user", user);
-				model.addAttribute("errore", null);
-				model.addAttribute("correct", null);
-				model.addAttribute("list", pr.findAll());
-				return "schermataProdotti";
-			}else {
-				model.addAttribute("errore", "Autenticazione fallita");
-				return "login";
-			}
-		}
-	}
+//	@RequestMapping(value = "/verifica", method = RequestMethod.POST)
+//	public String verificaLogin(@RequestParam String email, @RequestParam String password, Model model, HttpServletRequest request) {
+//		User user = userService.findByEmail(email);
+//		
+//		if(user == null) {
+//			model.addAttribute("missing", "Utente non registrato");
+//			return "home";
+//		}else {
+//			
+//			if(password.equals(user.getPasword())) {
+//				HttpSession session = request.getSession();
+//				session.setAttribute("user", user);
+//				model.addAttribute("errore", null);
+//				model.addAttribute("correct", null);
+//				model.addAttribute("list", pr.findAll());
+//				return "schermataProdotti";
+//			}else {
+//				model.addAttribute("errore", "Autenticazione fallita");
+//				return "login";
+//			}
+//		}
+//	}
 	
 
 	@RequestMapping(value = "/signUp", method = RequestMethod.POST)
@@ -78,15 +78,15 @@ public class EcommerceDataController {
 	}
 	
 	
-	@RequestMapping(value = "/aggiungi", method = RequestMethod.POST)
-	public String aggiungiCarrello(@RequestParam String productId, Model model, HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		String userId = ((User) session.getAttribute("user")).getId() + "";
-		Cart cart = cartService.addToCart(userId, productId);
-		model.addAttribute("cart", cart);
-		return "carrello";
-	}
-	
+//	@RequestMapping(value = "/aggiungi", method = RequestMethod.POST)
+//	public String aggiungiCarrello(@RequestParam String productId, Model model, HttpServletRequest request) {
+//		HttpSession session = request.getSession();
+//		String userId = ((User) session.getAttribute("user")).getId() + "";
+//		Cart cart = cartService.addToCart(userId, productId);
+//		model.addAttribute("cart", cart);
+//		return "carrello";
+//	}
+//	
 	
 	@RequestMapping(value = "/mainShopping", method = RequestMethod.GET)
 	public String backToShopping(Model model) {
@@ -94,19 +94,19 @@ public class EcommerceDataController {
 		return "schermataProdotti";
 	}
 	
-	@RequestMapping(value = "/statoCarrello", method = RequestMethod.GET)
-	public String statoCarrello(Model model, HttpServletRequest request) {
-		User user = (User)request.getSession().getAttribute("user");
-		model.addAttribute("cart", cartService.showCart(user.getId() + ""));
-		return "carrello";
-	}
-	
-	@RequestMapping(value = "/rimuovi", method = RequestMethod.POST)
-	public String rimuoviDaCarrello(Model model, HttpServletRequest request, @RequestParam String orderItemId) {
-		User user = (User)request.getSession().getAttribute("user");
-		model.addAttribute("cart", cartService.removeFromCart(user.getId() + "", orderItemId));
-		return "carrello";
-	}
+//	@RequestMapping(value = "/statoCarrello", method = RequestMethod.GET)
+//	public String statoCarrello(Model model, HttpServletRequest request) {
+//		User user = (User)request.getSession().getAttribute("user");
+//		model.addAttribute("cart", cartService.showCart(user.getId() + ""));
+//		return "carrello";
+//	}
+//	
+//	@RequestMapping(value = "/rimuovi", method = RequestMethod.POST)
+//	public String rimuoviDaCarrello(Model model, HttpServletRequest request, @RequestParam String orderItemId) {
+//		User user = (User)request.getSession().getAttribute("user");
+//		model.addAttribute("cart", cartService.removeFromCart(user.getId() + "", orderItemId));
+//		return "carrello";
+//	}
 	
 	@RequestMapping(value = "/visualizzaOrdini", method = RequestMethod.GET)
 	public String listaOrdini(Model model){

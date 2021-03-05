@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import it.beije.ananke.model.Cart;
+import it.beije.ananke.ecommerce.Cart;
 import it.beije.ananke.model.Order;
 import it.beije.ananke.model.OrderItem;
 import it.beije.ananke.model.Product;
@@ -64,12 +64,12 @@ public class CommerceRestController {
 	}
 	
 	
-	@GetMapping("/cart/user/{id}")
-	public Cart cartState(@PathVariable Integer id) {
-		Cart cart = cartService.showCart(id + "");
-		return cart;
-	}
-	
+//	@GetMapping("/cart/user/{id}")
+//	public Cart cartState(@PathVariable Integer id) {
+//		Cart cart = cartService.showCart(id + "");
+//		return cart;
+//	}
+//	
 	
 //	@PostMapping("/cart/product/{id}")
 //	public Cart addToCart(@RequestBody User user, @PathVariable Integer id) {
@@ -78,17 +78,17 @@ public class CommerceRestController {
 //	}
 
 	
-	@PostMapping("cart/aggiungi/product/{id}")
-	public Cart addToCart(@PathVariable Integer id, HttpServletRequest request) {
-//		HttpSession session = request.getSession();
-//		User user = (User) session.getAttribute("user");
-		User user = userRepository.getOne(1);
-		
-		Cart cart =  cartService.addToCart(user.getId() + "", id + "");
-//		Cart cart =  cartService.addToCart(1 + "", id + "");
-		return cart;
-	}
-	
+//	@PostMapping("cart/aggiungi/product/{id}")
+//	public Cart addToCart(@PathVariable Integer id, HttpServletRequest request) {
+////		HttpSession session = request.getSession();
+////		User user = (User) session.getAttribute("user");
+//		User user = userRepository.getOne(1);
+//		
+//		Cart cart =  cartService.addToCart(user.getId() + "", id + "");
+////		Cart cart =  cartService.addToCart(1 + "", id + "");
+//		return cart;
+//	}
+//	
 	@GetMapping("/listaprodotti")
 	public List<Product> showList(){
 		List<Product> list = productRepository.findAll();
@@ -106,37 +106,37 @@ public class CommerceRestController {
 //	}
 	
 	
-	@PostMapping("cart/rimuovi/orderitem/{id}")
-	public Cart removeFromCart(@PathVariable Integer id, HttpServletRequest request) {
-//		HttpSession session = request.getSession();
-//		User user = (User) session.getAttribute("user");
-		User user = userRepository.getOne(1);
-		
-		Cart cart =  cartService.removeFromCart(user.getId() + "", id + "");
-//		Cart cart =  cartService.addToCart(1 + "", id + "");
-		return cart;
-	}
+//	@PostMapping("cart/rimuovi/orderitem/{id}")
+//	public Cart removeFromCart(@PathVariable Integer id, HttpServletRequest request) {
+////		HttpSession session = request.getSession();
+////		User user = (User) session.getAttribute("user");
+//		User user = userRepository.getOne(1);
+//		
+//		Cart cart =  cartService.removeFromCart(user.getId() + "", id + "");
+////		Cart cart =  cartService.addToCart(1 + "", id + "");
+//		return cart;
+//	}
 	
 	
-	@PostMapping("/users/signup")
-	public User addUser(@RequestBody User user) {
-		User temp = userRepository.findByEmail(user.getEmail());
-		if(temp != null) {
-			return null;
-		}else {
-			userRepository.save(user);
-			return user;
-		}
-	}
+//	@PostMapping("/users/signup")
+//	public User addUser(@RequestBody User user) {
+//		User temp = userRepository.findByEmail(user.getEmail());
+//		if(temp != null) {
+//			return null;
+//		}else {
+//			userRepository.save(user);
+//			return user;
+//		}
+//	}
 	
-	@GetMapping("/login")
-	public User login(@RequestBody User user) {
-		User temp = userRepository.findByEmail(user.getEmail());
-		if(temp.getPasword().equals(user.getPasword())) {
-			return temp;
-		}else {
-			return null;
-		}
-	}
-	
+//	@GetMapping("/login")
+//	public User login(@RequestBody User user) {
+//		User temp = userRepository.findByEmail(user.getEmail());
+//		if(temp.getPasword().equals(user.getPasword())) {
+//			return temp;
+//		}else {
+//			return null;
+//		}
+//	}
+//	
 }

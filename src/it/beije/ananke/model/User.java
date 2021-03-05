@@ -7,10 +7,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity 
-@Table(name="user")
+//@Entity 
+//@Table(name="user")
 public class User {
-	
+/*	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
@@ -60,5 +60,5 @@ public class User {
 		this.pasword = pasword;
 	}
 	
-	
+	*/
 }

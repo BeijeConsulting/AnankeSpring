@@ -4,9 +4,12 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Root Page</title>
+<title>Success</title>
 </head>
 <body>
-${saluto} ANANKE :-)
+<h3>Your order was successfully placed. <br>
+Check your email for further information.</h3>
+<br><br>
+<a href = "products"><button>Home</button></a>
 </body>
 </html>

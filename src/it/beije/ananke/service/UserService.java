@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
 public class UserService {
-
+/*
 	@Autowired
 	private UserRepository ur;
 	
@@ -31,4 +31,5 @@ public class UserService {
 			return user;
 		}
 	}
+	*/
 }

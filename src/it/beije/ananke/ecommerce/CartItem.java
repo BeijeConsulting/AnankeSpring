@@ -1,4 +1,4 @@
-package it.beije.ananke.model;
+package it.beije.ananke.ecommerce;
 
 public class CartItem {
 	

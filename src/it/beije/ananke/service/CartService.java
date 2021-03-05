@@ -6,9 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import it.beije.ananke.model.Cart;
-import it.beije.ananke.model.CartItem;
-import it.beije.ananke.model.Order;
+import it.beije.ananke.ecommerce.Cart;
+import it.beije.ananke.ecommerce.CartItem;
+import it.beije.ananke.ecommerce.Order;
 import it.beije.ananke.model.OrderItem;
 import it.beije.ananke.model.Product;
 import it.beije.ananke.repository.OrderItemRepository;
@@ -18,7 +18,7 @@ import it.beije.ananke.repository.UserRepository;
 
 @Service
 public class CartService {
-	
+/*	
 	@Autowired
 	private UserRepository userRepository;
 	
@@ -142,5 +142,5 @@ public class CartService {
 	}
 	
 	
-
+*/
 }

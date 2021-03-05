@@ -1,3 +1,4 @@
+
 package it.beije.ananke.controller;
 
 import java.util.Locale;
@@ -15,19 +16,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import it.beije.ananke.model.Contatto;
-import it.beije.ananke.repository.ContattoRepository;
-import it.beije.ananke.service.RubricaService;
 
 
-@Controller
+
 public class FirstController {
-	
+/*	
 	@Autowired
 	private RubricaService rubricaService;
 	
-
-/*	@RequestMapping(value = {"index", "pippopluto"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"index", "pippopluto"}, method = RequestMethod.GET)
 	public String index(HttpServletRequest request, Model model, Locale locale) {
 		System.out.println("sono nella index..." + request.getRequestURL() + " - locale " + locale.getDisplayCountry());
 		
