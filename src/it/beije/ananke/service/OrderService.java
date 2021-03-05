@@ -42,4 +42,13 @@ public class OrderService {
 		orderRepository.save(order);
 	}
 	
+	public Order findByUserIdAndOrderOpen(int id, String state)
+	{
+		return orderRepository.findByUserIdAndOrderOpen(id, state);
+	}
+	
+	public boolean ExistsById(int id)
+	{
+		return orderRepository.existsById(id);
+	}
 }

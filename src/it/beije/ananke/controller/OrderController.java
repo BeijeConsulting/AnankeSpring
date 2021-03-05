@@ -47,6 +47,24 @@ public class OrderController {
 		return "my_orders";
 	}
 	
+	@GetMapping(value = "/cart")
+	public String cart(HttpSession session, Model model)
+	{
+		User user = (User) session.getAttribute("user");	
+		Order order = orderService.findByUserIdAndOrderOpen(user.getId(), "open");
+		
+		if(order!=null)
+		{
+			session.setAttribute("order",order);
+			List<OrderItem> items = orderItemService.findAllByOrderId(order.getId());
+			model.addAttribute("items",items);
+			model.addAttribute("amount",orderItemService.totalAmount(order.getId()));
+			
+			return "carrello";
+		}
+		else  return "carrello";
+	}
+	
 	@GetMapping(value = "/purchase/{id}")
 	public String purchase(@PathVariable Integer id, HttpSession session, Model model )
 	{

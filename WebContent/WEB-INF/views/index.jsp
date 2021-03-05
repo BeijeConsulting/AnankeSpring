@@ -30,9 +30,12 @@ table, th, td {
   <a class="active" href="index">Home</a>
   <a href="./register">Registrati</a>
   <a href="./login">Accedi</a>
+  <!-- <a href="./products">Prodotti</a>-->
 </div><%}else{ %><div class="topnav">
   <a class="active" href="index">Home</a>
   <a href="./logout">Logout</a>
+  <!-- <a href="./products">Prodotti</a>-->
+  <a href="./cart">Carrello</a>
   <a href="./orderHistory">Ordini Effettuati</a>
 </div><%} %>
  

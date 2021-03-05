@@ -11,8 +11,8 @@ ID : ${contatto.id}<br>
 NOME : ${contatto.name}<br>
 COGNOME : ${contatto.surname}<br>
 EMAIL : ${contatto.email}<br>
-TELEFONO : ${contatto.telephone}<br>
-<%-- FULL NAME : ${contatto.fullname}<br> --%>
+<%-- TELEFONO : ${contatto.telephone}<br>
+FULL NAME : ${contatto.fullname}<br> --%>
 
 </body>
 </html>

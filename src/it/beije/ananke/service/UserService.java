@@ -28,4 +28,15 @@ public class UserService {
 	{
 		return userRepository.findAll();
 	}
+	
+	public boolean deleteById(int id)
+	{
+		userRepository.deleteById(id);
+		
+		if(userRepository.existsById(id))
+		{
+			return false;
+		}
+			return true;
+	}
 }
