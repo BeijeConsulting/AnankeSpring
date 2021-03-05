@@ -42,7 +42,7 @@ public class Cart {
 				index = items.indexOf(orderItem);
 				orderItem.setQuantity(orderItem.getQuantity() - item.getQuantity());
 				orderItem.setAmount(orderItem.getAmount() - item.getAmount());
-				if(orderItem.getQuantity() == 0)
+				if(orderItem.getQuantity().equals(0))
 					empty = true;
 				
 			}

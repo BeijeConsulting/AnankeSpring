@@ -6,9 +6,12 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,9 +22,11 @@ import it.beije.ananke.ecommerce.beans.Cart;
 import it.beije.ananke.ecommerce.beans.OrderItem;
 import it.beije.ananke.ecommerce.beans.Orders;
 import it.beije.ananke.ecommerce.beans.User;
+import it.beije.ananke.ecommerce.dto.OrderMessage;
 import it.beije.ananke.ecommerce.services.EcommerceServiceOrder;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api")
 public class EcommerceRestContollerOrder{
 	
@@ -58,7 +63,7 @@ public class EcommerceRestContollerOrder{
 	//FUNZIONA, ma prendi i singoli parametri
 //	@PostMapping("/ecommerce/addProduct/{productId}/{quantity}/{amount}")
 //	public Cart addProduc(@PathVariable Integer productId, @PathVariable Integer quantity, @PathVariable Integer amount, HttpSession session) {
-	@PostMapping("/ecommerce/addProduct/{productId}/{quantity}/{amount}")
+	@PutMapping("/ecommerce/addProduct/{productId}/{quantity}/{amount}")
 	public Cart addProduc(@PathVariable Integer productId, @PathVariable Integer quantity, @PathVariable Double amount, HttpSession session) {
 		
 		User user = (User) session.getAttribute("user");
@@ -75,7 +80,7 @@ public class EcommerceRestContollerOrder{
 		
 	}
 	
-	@PostMapping("/ecommerce/removeProduct{productId}{quantity}{amount}")
+	@DeleteMapping("/ecommerce/removeProduct{productId}{quantity}{amount}")
 	public Cart removeProduct(@PathVariable OrderItem item, HttpSession session) {
 		
 		User user = (User) session.getAttribute("user");
@@ -88,30 +93,34 @@ public class EcommerceRestContollerOrder{
 	}
 	
 	
-//	@PostMapping("/ecommerce/confirmedOrder")
-//	public String postConfirm(Model model, HttpSession session) {
-//		
-//		//nella session ho:
-//		//	utente
-//		//	carrello con
-//		//		lista degli orderItem
-//		//		totale da pagare
-//		User user = (User) session.getAttribute("user");
-//		Cart cart = (Cart) session.getAttribute("cart");
-//		Orders order = (Orders) session.getAttribute("order");
-//		
-//		//inserisco tutti gli orderItems
-//		serviceOrder.saveOrderItems(cart, order);
-//		
-//		order = serviceOrder.confirmOrder(user, cart, order);
-//
-//		serviceOrder.setAllProductToModel(model);
-//		model.addAttribute("firstName", user.getFirstName());
-//		model.addAttribute("seeCart", false);
-//		
-//		session.setAttribute("cart", null);
-//		
-//		return "ecommerceHomePage";
-//	}
+	@PostMapping("/ecommerce/confirmedOrder")
+	public OrderMessage postConfirm(Model model, HttpSession session) {
+		
+		//nella session ho:
+		//	utente
+		//	carrello con
+		//		lista degli orderItem
+		//		totale da pagare
+		User user = (User) session.getAttribute("user");
+		Cart cart = (Cart) session.getAttribute("cart");
+		Orders order = (Orders) session.getAttribute("order");
+		
+		//inserisco tutti gli orderItems
+		serviceOrder.saveOrderItems(cart, order);
+		
+		order = serviceOrder.confirmOrder(user, cart, order);
+		
+		OrderMessage message = new OrderMessage();
+		message.setOrder(order);
+		message.setMessage("orderClosed");
+
+		//serviceOrder.setAllProductToModel(model);
+		model.addAttribute("firstName", user.getFirstName());
+		model.addAttribute("seeCart", false);
+		
+		session.setAttribute("cart", null);
+		
+		return message;
+	}
 	
 }

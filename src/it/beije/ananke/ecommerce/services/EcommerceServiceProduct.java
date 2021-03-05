@@ -32,4 +32,11 @@ public class EcommerceServiceProduct {
 		
 	}
 	
+	public List<Product> findTopProducts(){
+		
+		List<Product> products = repoProduct.findAll();
+		
+		return products;
+	}
+	
 }

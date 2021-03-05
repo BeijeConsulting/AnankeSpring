@@ -70,7 +70,7 @@
 				<td><c:out value = "${item.quantity}"/><p></td>
 				<td><c:out value = "${item.amount} $"/><p></td>
 				<td>
-					<form action = "./removeProduct?productId=${item.id}&quantity=1&amount=${item.amount}" method = "post">
+					<form action = "./removeProduct?productId=${item.productId}&quantity=1&amount=${item.amount}" method = "post">
 						<input type = "submit" value = "RIMUOVI">
 					</form>
 				</td>
