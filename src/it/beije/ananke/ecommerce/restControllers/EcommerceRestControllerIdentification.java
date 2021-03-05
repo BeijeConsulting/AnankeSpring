@@ -18,6 +18,7 @@ import it.beije.ananke.ecommerce.beans.Product;
 import it.beije.ananke.ecommerce.beans.User;
 import it.beije.ananke.ecommerce.dto.HomeMessage;
 import it.beije.ananke.ecommerce.dto.LogInMessage;
+import it.beije.ananke.ecommerce.services.EcommerceServiceProduct;
 import it.beije.ananke.ecommerce.services.EcommerceServiceUser;
 
 @RestController
@@ -27,6 +28,9 @@ public class EcommerceRestControllerIdentification{
 
 	@Autowired
 	private EcommerceServiceUser serviceUser;
+	
+	@Autowired
+	private EcommerceServiceProduct serviceProduct;
 	
 	@GetMapping("/ecommerce/infoUser/{userId}")
 	public User getInfoUser(@PathVariable Integer userId){
@@ -100,6 +104,15 @@ public class EcommerceRestControllerIdentification{
 		
 		return message;
 		
+	}
+	
+	public List<Product> getProducts() {
+		
+		List<Product> products = serviceProduct.findAll();
+		
+		//model.addAttribute("orders", userOrders);
+		
+		return products;
 	}
 
 }
