@@ -1,6 +1,7 @@
 package it.beije.ananke.ecommerce.restControllers;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
@@ -153,6 +154,15 @@ public class EcommerceRestContollerOrder{
 		
 	}
 	
+	@GetMapping("/ecommerce/getItemsFromOrder/{orderId}")
+	public Set<OrderItem> getItemsFromOrder(@PathVariable Integer orderId){
+		
+		Orders order = serviceOrder.findById(orderId);
+		Set<OrderItem> items = order.getItems();
+		 
+		return items;
+	}
+	
 	@PostMapping("/ecommerce/confirmedOrder")
 	public List<Orders> postConfirm(Model model, HttpSession session) {
 		
@@ -162,7 +172,8 @@ public class EcommerceRestContollerOrder{
 		//		lista degli orderItem
 		//		totale da pagare
 		User user = (User) session.getAttribute("user");
-		Cart cart = (Cart) session.getAttribute("cart");
+		//Cart cart = (Cart) session.getAttribute("cart");
+		Cart cart = carrello; 
 		Orders order = (Orders) session.getAttribute("order");
 		
 		//inserisco tutti gli orderItems

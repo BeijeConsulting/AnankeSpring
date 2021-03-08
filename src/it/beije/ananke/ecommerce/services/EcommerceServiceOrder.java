@@ -99,6 +99,14 @@ public class EcommerceServiceOrder extends EcommerceService{
 		
 	}
 	
+	public Orders findById(Integer orderId) {
+		
+		Orders order = repoOrder.findById(orderId).get();
+		
+		return order;
+		
+	}
+	
 	public Orders confirmOrder(User user, Cart cart, Orders order) {
 		
 		Set<OrderItem> items = new HashSet<>(cart.getItems());
