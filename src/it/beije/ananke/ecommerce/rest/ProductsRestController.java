@@ -16,7 +16,7 @@ import it.beije.ananke.ecommerce.Product;
 import it.beije.ananke.ecommerce.service.ProductService;
 
 @Controller
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api")
 public class ProductsRestController {
