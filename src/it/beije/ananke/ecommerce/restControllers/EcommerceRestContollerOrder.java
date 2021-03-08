@@ -36,6 +36,8 @@ public class EcommerceRestContollerOrder{
 	
 	@Autowired
 	private EcommerceServiceProduct serviceProduct;
+	
+	private static Cart carrello = null;
 
 	@GetMapping("/ecommerce/myOrders/{userId}")
 	public List<Orders> getViewOrders(@PathVariable Integer userId) {
@@ -67,11 +69,13 @@ public class EcommerceRestContollerOrder{
 	//FUNZIONA, ma prendi i singoli parametri
 //	@PostMapping("/ecommerce/addProduct/{productId}/{quantity}/{amount}")
 //	public Cart addProduc(@PathVariable Integer productId, @PathVariable Integer quantity, @PathVariable Integer amount, HttpSession session) {
-	@PutMapping("/ecommerce/addProduct/{productId}/{quantity}/{amount}")
+	@PutMapping("/ecommerce/addProduct/{productId}/{quantity}")
 	public Cart addProduc(@PathVariable Integer productId, @PathVariable Integer quantity, HttpSession session) {
 		
 		User user = (User) session.getAttribute("user");
-		Cart cart = (Cart) session.getAttribute("cart");
+		//Cart cart = (Cart) session.getAttribute("cart");
+		
+		Cart cart = carrello;
 		
 		//risalgo all'amount andando a prendere il prezzo di un singolo prodotto avendo l'id
 		Double price = serviceProduct.findById(productId).getPrice();
@@ -83,20 +87,55 @@ public class EcommerceRestContollerOrder{
 		item.setAmount(amount);
 		
 		cart = serviceOrder.addProductToCart(cart, item);
+		System.out.println(cart);
+		
+		session.setAttribute("cart", cart);
+		carrello = cart;
 		
 		return cart;
 		
 	}
 	
-	@DeleteMapping("/ecommerce/removeProduct{productId}{quantity}{amount}")
-	public Cart removeProduct(@PathVariable OrderItem item, HttpSession session) {
+	@DeleteMapping("/ecommerce/removeProduct/{productId}/{quantity}")
+	public List<OrderItem> removeProduct(@PathVariable Integer productId, @PathVariable Integer quantity, HttpSession session) {
 		//TODO: togliere amount e metterlo nella logica (prendere il costo dal db.
 		User user = (User) session.getAttribute("user");
-		Cart cart = (Cart) session.getAttribute("cart");
+		//Cart cart = (Cart) session.getAttribute("cart");
+		Cart cart = carrello;
+		
+		Double price = serviceProduct.findById(productId).getPrice();
+		Double amount = quantity.intValue() * price.doubleValue();
+		
+		OrderItem item = new OrderItem();
+		item.setProductId(productId);
+		item.setQuantity(quantity);
+		item.setAmount(amount);
 		
 		cart = serviceOrder.removeProductToCart(cart, item);
 		
-		return cart;
+		session.setAttribute("cart", cart);
+		carrello = cart;
+		
+		return cart.getItems();
+		
+	}
+	
+	@DeleteMapping("/ecommerce/removeProduct/{productId}")
+	public List<OrderItem> removeItem(@PathVariable Integer productId, HttpSession session) {
+		//TODO: togliere amount e metterlo nella logica (prendere il costo dal db.
+		User user = (User) session.getAttribute("user");
+		//Cart cart = (Cart) session.getAttribute("cart");
+		Cart cart = carrello;
+		
+		OrderItem item = new OrderItem();
+		item.setProductId(productId);
+		
+		cart = serviceOrder.removeProductToCart(cart, item);
+		
+		session.setAttribute("cart", cart);
+		carrello = cart;
+		
+		return cart.getItems();
 		
 	}
 	
@@ -105,6 +144,10 @@ public class EcommerceRestContollerOrder{
 		
 		//prendo il carrello dalla sessione
 		Cart cart = (Cart) session.getAttribute("cart");
+		
+		cart = carrello;
+		
+		System.out.println(cart);
 		//ritorno la lista degli orderItem dal carrello
 		return cart.getItems();
 		
@@ -137,7 +180,7 @@ public class EcommerceRestContollerOrder{
 		
 		session.setAttribute("cart", null);
 		
-		//per comodità una volta confermato l'ordine ridò sottoforma di json tutta 
+		//per comoditï¿½ una volta confermato l'ordine ridï¿½ sottoforma di json tutta 
 		//la lista degli ordini
 		List<Orders> userOrders = serviceOrder.findByUserId(user.getId());
 		
