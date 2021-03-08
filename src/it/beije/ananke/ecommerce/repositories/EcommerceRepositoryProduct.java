@@ -22,6 +22,6 @@ public interface EcommerceRepositoryProduct extends JpaRepository<Product, Integ
 			    + "GROUP BY product_id"
 			    + "ORDER BY "
 			    + "COUNT(*)", nativeQuery = true)
-	public List<Product> findTopProduct();
-	
+	public List<Product> findTopProducts();
+	//TODO:riguardare
 }

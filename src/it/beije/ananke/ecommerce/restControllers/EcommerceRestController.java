@@ -1,5 +1,6 @@
 package it.beije.ananke.ecommerce.restControllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,12 +37,19 @@ public class EcommerceRestController {
 		return products;
 	}
 	
-//	@GetMapping("/ecommerce/getTop")
-//	public List<Product> getTopProducts(){
-//		
-//		List<Product> products = serviceProduct.findTopProducts();
-//		
-//		return products;
-//	}
+	@GetMapping("/ecommerce/getTop")
+	public List<Product> getTopProducts(){
+		
+		List<Product> products = serviceProduct.findTopProducts();
+		
+		List<Product> topProducts = new ArrayList<>();
+		
+		topProducts.add(products.get(0));
+		topProducts.add(products.get(1));
+		topProducts.add(products.get(2));
+		topProducts.add(products.get(3));
+		
+		return topProducts;
+	}
 	
 }

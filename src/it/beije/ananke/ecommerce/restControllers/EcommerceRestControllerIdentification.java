@@ -18,6 +18,8 @@ import it.beije.ananke.ecommerce.beans.Product;
 import it.beije.ananke.ecommerce.beans.User;
 import it.beije.ananke.ecommerce.dto.HomeMessage;
 import it.beije.ananke.ecommerce.dto.LogInMessage;
+import it.beije.ananke.ecommerce.dto.LogOutMessage;
+import it.beije.ananke.ecommerce.dto.OrderMessage;
 import it.beije.ananke.ecommerce.services.EcommerceServiceProduct;
 import it.beije.ananke.ecommerce.services.EcommerceServiceUser;
 
@@ -68,6 +70,12 @@ public class EcommerceRestControllerIdentification{
 				
 				//per agevolare i controller mettiamo comunque le cose nella sessionHTTP
 				session.setAttribute("user", userDB);
+				
+				//TODO: far vedere l'ordine in corso
+				//		i counters dei prodotti li setti a zero
+				//		ma quando setti il contatore in alto del robo
+				//		fai partire una fetch che ti richiede l'ordine in corso
+				
 //				message.setUser(userDB);
 //				message.setMessage("logged");
 //				return message;
@@ -101,6 +109,29 @@ public class EcommerceRestControllerIdentification{
 		
 		message.setProducts(products);
 		message.setMessage("welcome");
+		
+		return message;
+		
+	}
+	
+	@GetMapping("/ecommerce/logOut")
+	public LogOutMessage getLogOut(HttpSession session) {
+		
+		//tolgo tutto il toglibile dalla sessione
+		session.invalidate();
+		
+		LogOutMessage message = new LogOutMessage();
+		message.setMessage("utente disconnesso");
+		
+		return message;
+				
+	}
+	
+	//TODO:da finire nel caso si riesca a far vedere gli ordini aperti
+	@GetMapping("/ecommerce/getOpenOrder")
+	public OrderMessage getOpenedOrder(HttpSession session) {
+		
+		OrderMessage message = new OrderMessage();
 		
 		return message;
 		

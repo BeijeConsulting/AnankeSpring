@@ -34,7 +34,7 @@ public class EcommerceServiceProduct {
 	
 	public List<Product> findTopProducts(){
 		
-		List<Product> products = repoProduct.findAll();
+		List<Product> products = repoProduct.findTopProducts();
 		
 		return products;
 	}

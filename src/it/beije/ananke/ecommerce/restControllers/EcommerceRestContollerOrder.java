@@ -24,6 +24,7 @@ import it.beije.ananke.ecommerce.beans.Orders;
 import it.beije.ananke.ecommerce.beans.User;
 import it.beije.ananke.ecommerce.dto.OrderMessage;
 import it.beije.ananke.ecommerce.services.EcommerceServiceOrder;
+import it.beije.ananke.ecommerce.services.EcommerceServiceProduct;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -32,6 +33,9 @@ public class EcommerceRestContollerOrder{
 	
 	@Autowired
 	private EcommerceServiceOrder serviceOrder;
+	
+	@Autowired
+	private EcommerceServiceProduct serviceProduct;
 
 	@GetMapping("/ecommerce/myOrders/{userId}")
 	public List<Orders> getViewOrders(@PathVariable Integer userId) {
@@ -64,10 +68,14 @@ public class EcommerceRestContollerOrder{
 //	@PostMapping("/ecommerce/addProduct/{productId}/{quantity}/{amount}")
 //	public Cart addProduc(@PathVariable Integer productId, @PathVariable Integer quantity, @PathVariable Integer amount, HttpSession session) {
 	@PutMapping("/ecommerce/addProduct/{productId}/{quantity}/{amount}")
-	public Cart addProduc(@PathVariable Integer productId, @PathVariable Integer quantity, @PathVariable Double amount, HttpSession session) {
+	public Cart addProduc(@PathVariable Integer productId, @PathVariable Integer quantity, HttpSession session) {
 		
 		User user = (User) session.getAttribute("user");
 		Cart cart = (Cart) session.getAttribute("cart");
+		
+		//risalgo all'amount andando a prendere il prezzo di un singolo prodotto avendo l'id
+		Double price = serviceProduct.findById(productId).getPrice();
+		Double amount = quantity.intValue() * price.doubleValue();
 		
 		OrderItem item = new OrderItem();
 		item.setProductId(productId);
@@ -82,7 +90,7 @@ public class EcommerceRestContollerOrder{
 	
 	@DeleteMapping("/ecommerce/removeProduct{productId}{quantity}{amount}")
 	public Cart removeProduct(@PathVariable OrderItem item, HttpSession session) {
-		
+		//TODO: togliere amount e metterlo nella logica (prendere il costo dal db.
 		User user = (User) session.getAttribute("user");
 		Cart cart = (Cart) session.getAttribute("cart");
 		
@@ -92,9 +100,18 @@ public class EcommerceRestContollerOrder{
 		
 	}
 	
+	@GetMapping("/ecommerce/getOrderItems")
+	public List<OrderItem> getItems(HttpSession session){
+		
+		//prendo il carrello dalla sessione
+		Cart cart = (Cart) session.getAttribute("cart");
+		//ritorno la lista degli orderItem dal carrello
+		return cart.getItems();
+		
+	}
 	
 	@PostMapping("/ecommerce/confirmedOrder")
-	public OrderMessage postConfirm(Model model, HttpSession session) {
+	public List<Orders> postConfirm(Model model, HttpSession session) {
 		
 		//nella session ho:
 		//	utente
@@ -120,7 +137,12 @@ public class EcommerceRestContollerOrder{
 		
 		session.setAttribute("cart", null);
 		
-		return message;
+		//per comodità una volta confermato l'ordine ridò sottoforma di json tutta 
+		//la lista degli ordini
+		List<Orders> userOrders = serviceOrder.findByUserId(user.getId());
+		
+		return userOrders;
+		
 	}
 	
 }
