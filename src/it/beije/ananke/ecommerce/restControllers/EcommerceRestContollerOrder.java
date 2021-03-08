@@ -13,10 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.beije.ananke.ecommerce.beans.Cart;
@@ -26,6 +23,7 @@ import it.beije.ananke.ecommerce.beans.User;
 import it.beije.ananke.ecommerce.dto.OrderMessage;
 import it.beije.ananke.ecommerce.services.EcommerceServiceOrder;
 import it.beije.ananke.ecommerce.services.EcommerceServiceProduct;
+import it.beije.ananke.ecommerce.services.EcommerceServiceUser;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -36,9 +34,14 @@ public class EcommerceRestContollerOrder{
 	private EcommerceServiceOrder serviceOrder;
 	
 	@Autowired
+	private EcommerceServiceUser serviceUser;
+	
+	@Autowired
 	private EcommerceServiceProduct serviceProduct;
 	
 	private static Cart carrello = null;
+	
+	private static Orders ordine = null;
 
 	@GetMapping("/ecommerce/myOrders/{userId}")
 	public List<Orders> getViewOrders(@PathVariable Integer userId) {
@@ -53,15 +56,18 @@ public class EcommerceRestContollerOrder{
 		return userOrders;
 	}
 	
-	@PostMapping("/ecommerce/openOrder")
-	public Orders openOrder(HttpSession session) {
+	@PostMapping("/ecommerce/openOrder/{userId}")
+	public Orders openOrder(@PathVariable Integer userId, HttpSession session) {
 		//apro l'ordine		
-		User user = (User) session.getAttribute("user");
+		//User user = (User) session.getAttribute("user");
+		
+		User user = serviceUser.findById(userId);
 		
 		Orders order = serviceOrder.openNewOrder(user);
-		
+
 		//metto l'ordine nella sessione
 		session.setAttribute("order", order);
+		ordine = order;
 		
 		return order;
 		
@@ -175,18 +181,21 @@ public class EcommerceRestContollerOrder{
 		return items;
 	}
 	
-	@PostMapping("/ecommerce/confirmedOrder")
-	public List<Orders> postConfirm(Model model, HttpSession session) {
+	@PostMapping("/ecommerce/confirmedOrder/{userId}")
+	public List<Orders> postConfirm(@PathVariable Integer userId, Model model, HttpSession session) {
 		
 		//nella session ho:
 		//	utente
 		//	carrello con
 		//		lista degli orderItem
 		//		totale da pagare
-		User user = (User) session.getAttribute("user");
+		//User user = (User) session.getAttribute("user");
+		User user = serviceUser.findById(userId);
+		
 		//Cart cart = (Cart) session.getAttribute("cart");
 		Cart cart = carrello; 
-		Orders order = (Orders) session.getAttribute("order");
+		//Orders order = (Orders) session.getAttribute("order");
+		Orders order = ordine;
 		
 		//inserisco tutti gli orderItems
 		serviceOrder.saveOrderItems(cart, order);
@@ -202,6 +211,9 @@ public class EcommerceRestContollerOrder{
 		model.addAttribute("seeCart", false);
 		
 		session.setAttribute("cart", null);
+		
+		carrello = null;
+		ordine = null;
 		
 		//per comodit� una volta confermato l'ordine rid� sottoforma di json tutta 
 		//la lista degli ordini

@@ -32,7 +32,7 @@ public class EcommerceServiceOrder extends EcommerceService{
 		
 		if(cart == null) {
 			//creo un nuovo carrello che poi ritorner al metodo del contrller
-			//e che verrà messo in sessione
+			//e che verrï¿½ messo in sessione
 			cart = new Cart();
 			
 		}
