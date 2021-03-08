@@ -114,12 +114,7 @@ public class ControllerREST {
 	}
 	
 	//ORDER UTILITY CONTROLLER
-	
-	@GetMapping(value = "/products")
-	public @ResponseBody List<Product> showProducts()
-	{
-		return productService.findAll();
-	}
+
 	
 	@GetMapping(value ="/orderHistory/{id}")
 	public  @ResponseBody List<Order> myOrders(@PathVariable int id)

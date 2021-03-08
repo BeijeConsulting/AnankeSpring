@@ -13,15 +13,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import it.beije.ananke.ecommerce.model.Order;
-import it.beije.ananke.ecommerce.model.OrderItem;
-import it.beije.ananke.ecommerce.model.Product;
 import it.beije.ananke.ecommerce.model.User;
 import it.beije.ananke.ecommerce.repositories.OrderItemRepository;
 import it.beije.ananke.ecommerce.repositories.OrderRepository;
 import it.beije.ananke.ecommerce.repositories.ProductRepository;
 import it.beije.ananke.ecommerce.service.OrderItemService;
 import it.beije.ananke.ecommerce.service.OrderService;
-import it.beije.ananke.ecommerce.service.ProductService;
 import it.beije.ananke.ecommerce.service.UserService;
 import it.beije.ananke.ecommerce.util.OrderState;
 
