@@ -11,4 +11,7 @@ import it.beije.ananke.ecommerce.Order;
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Integer>{
 	public List<Order> findByUserId(Integer userId);
+	
+	public List<Order> findByStateAndUserId(String state, Integer userId);
+	
 }

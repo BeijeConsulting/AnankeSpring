@@ -32,7 +32,11 @@ public class AuthenticationRestController {
 	
 	@PostMapping(value = "/register")
 	public User register(@RequestBody User user) {
-		return authService.save(user);
+		if(authService.alreadyThere(user.getEmail())) {
+			return new User();
+		}else {
+			return authService.save(user);
+		}
 	}
 	
 	@DeleteMapping(value ="/delete")

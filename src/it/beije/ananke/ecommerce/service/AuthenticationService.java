@@ -28,4 +28,13 @@ public class AuthenticationService {
 		userRepository.deleteById(id);
 		return !userRepository.existsById(id);
 	}
+	
+	public boolean alreadyThere(String email) {
+		User user = userRepository.findByEmail(email);
+		if(user == null) {
+			return false;
+		}else {
+			return true;
+		}
+	}
 }
