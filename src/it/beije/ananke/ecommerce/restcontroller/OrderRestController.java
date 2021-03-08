@@ -1,7 +1,13 @@
 package it.beije.ananke.ecommerce.restcontroller;
 
 import it.beije.ananke.ecommerce.model.Order;
+import it.beije.ananke.ecommerce.model.User;
 import it.beije.ananke.ecommerce.repositories.OrderRepository;
+
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,5 +31,14 @@ public class OrderRestController {
         System.out.println(o);
 
         return o;
+    }
+    
+    @GetMapping("/cart")
+    public List getCart(HttpSession session)
+    {
+    	User utente = (User) session.getAttribute("user");
+    	Order ord = orderRepository.findByUserIdAndState(utente.getId(), "OPEN");
+    	
+    	return orderRepository.getCart(ord.getId());
     }
 }
