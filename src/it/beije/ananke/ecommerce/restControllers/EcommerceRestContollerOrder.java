@@ -117,7 +117,11 @@ public class EcommerceRestContollerOrder{
 		session.setAttribute("cart", cart);
 		carrello = cart;
 		
-		return cart.getItems();
+		if (cart != null) {
+			
+			return cart.getItems();
+			
+		} else return null;
 		
 	}
 	
@@ -136,7 +140,11 @@ public class EcommerceRestContollerOrder{
 		session.setAttribute("cart", cart);
 		carrello = cart;
 		
-		return cart.getItems();
+		if (cart != null) {
+			
+			return cart.getItems();
+			
+		} else return null;
 		
 	}
 	
@@ -150,7 +158,11 @@ public class EcommerceRestContollerOrder{
 		
 		System.out.println(cart);
 		//ritorno la lista degli orderItem dal carrello
-		return cart.getItems();
+		if (cart != null) {
+			
+			return cart.getItems();
+			
+		} else return null;
 		
 	}
 	
