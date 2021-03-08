@@ -45,11 +45,11 @@ public class AuthenticationRestController {
 	}
 	
 	@PostMapping(value = "/login")
-	public boolean login(@RequestBody User user) {
+	public User login(@RequestBody User user) {
 		user = authService.findByEmailAndPassword(user.getEmail(), user.getPassword());
 		if(user != null) {			
-			return true;
+			return user;
 		}
-		return false;
+		return new User();
 	}
 }
