@@ -1,7 +1,5 @@
 package it.beije.ananke.ecommerce.model;
 
-import java.awt.Image;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,7 +26,7 @@ public class Product {
 	private Double price;
 	
 	@Column(name="img")
-	private Image image;
+	private String image;
 	
 	public Integer getId() {
 		return id;
@@ -62,11 +60,11 @@ public class Product {
 		this.price = price;
 	}
 
-	public Image getImage() {
+	public String getImage() {
 		return image;
 	}
 
-	public void setImage(Image image) {
+	public void setImage(String image) {
 		this.image = image;
 	}
 	
