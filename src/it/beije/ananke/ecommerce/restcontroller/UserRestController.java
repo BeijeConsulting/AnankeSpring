@@ -23,6 +23,7 @@ public class UserRestController {
 	@Autowired
 	UserRepository userRepository;
 	
+	@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping("/user/{id}") // /api/contatto/{id}
 	public User getContatto(@PathVariable Integer id) {
 		System.out.println("api getUser id : " + id);
@@ -33,13 +34,14 @@ public class UserRestController {
 		return u;		
 	}
 	
+	@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping("/session") // /api/contatto/{id}
 	public User getSession(HttpSession session) {
 		System.out.println(session);
 		return (User) session.getAttribute("user");		
 	}
 	
-	
+	@CrossOrigin(origins = "http://localhost:3000")
 	@PostMapping("/login")
 	public User login(@RequestBody User requestedUser, HttpSession session) {
 		System.out.println("sto chiamando login");
