@@ -56,7 +56,7 @@ public class EcommerceControllerOrder {
 		User user = (User) session.getAttribute("user");
 		Cart cart = (Cart) session.getAttribute("cart");
 		
-		cart = serviceOrder.removeProductToCart(cart, item);
+		cart = serviceOrder.removeProductFromCart(cart, item);
 	
 		serviceOrder.setAllProductToModel(model);
 		

@@ -97,7 +97,7 @@ public class EcommerceRestContollerOrder{
 	}
 	
 	@DeleteMapping("/ecommerce/removeProduct/{productId}/{quantity}")
-	public List<OrderItem> removeProduct(@PathVariable Integer productId, @PathVariable Integer quantity, HttpSession session) {
+	public List<OrderItem> removeItem(@PathVariable Integer productId, @PathVariable Integer quantity, HttpSession session) {
 		//TODO: togliere amount e metterlo nella logica (prendere il costo dal db.
 		User user = (User) session.getAttribute("user");
 		//Cart cart = (Cart) session.getAttribute("cart");
@@ -111,7 +111,7 @@ public class EcommerceRestContollerOrder{
 		item.setQuantity(quantity);
 		item.setAmount(amount);
 		
-		cart = serviceOrder.removeProductToCart(cart, item);
+		cart = serviceOrder.removeProductFromCart(cart, item);
 		
 		session.setAttribute("cart", cart);
 		carrello = cart;
@@ -121,7 +121,7 @@ public class EcommerceRestContollerOrder{
 	}
 	
 	@DeleteMapping("/ecommerce/removeProduct/{productId}")
-	public List<OrderItem> removeItem(@PathVariable Integer productId, HttpSession session) {
+	public List<OrderItem> removeProduct(@PathVariable Integer productId, HttpSession session) {
 		//TODO: togliere amount e metterlo nella logica (prendere il costo dal db.
 		User user = (User) session.getAttribute("user");
 		//Cart cart = (Cart) session.getAttribute("cart");
@@ -130,7 +130,7 @@ public class EcommerceRestContollerOrder{
 		OrderItem item = new OrderItem();
 		item.setProductId(productId);
 		
-		cart = serviceOrder.removeProductToCart(cart, item);
+		cart = serviceOrder.removeItemFromCart(cart, item);
 		
 		session.setAttribute("cart", cart);
 		carrello = cart;

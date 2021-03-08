@@ -60,6 +60,31 @@ public class Cart {
 		
 	}
 	
+	public void removeProduct(OrderItem item) {
+		
+		//tolgo tutti gli item di quel prodotto
+		int index = -1;
+		
+		for (OrderItem orderItem : items) {
+			
+			if(orderItem.getProductId().equals(item.getProductId())) {
+				
+				item = orderItem;
+				index = items.indexOf(orderItem);
+				
+			}
+			
+		}
+		
+		if(index >= 0) {
+			
+			amount = amount - item.getAmount();
+			items.remove(index);	
+			
+		}
+		
+	}
+	
 	public Double getAmount() {
 		return amount;
 	}
