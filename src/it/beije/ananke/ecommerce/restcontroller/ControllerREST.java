@@ -179,7 +179,7 @@ public class ControllerREST {
 		Order ord = orderService.findById(order.getId());
 				
 		ord.setAmount(orderItemService.totalAmount(order.getId()));
-		ord.setState(OrderState.CLOSED);
+		ord.setState("OPEN");
 		
 		orderService.save(ord);
 		

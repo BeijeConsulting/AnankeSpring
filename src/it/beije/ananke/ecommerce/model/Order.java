@@ -25,7 +25,7 @@ public class Order {
 	private Double amount;
 	
 	@Column(name="state")
-	private OrderState state;
+	private String state;
 	
 	public Integer getId() {
 		return id;
@@ -51,11 +51,11 @@ public class Order {
 		this.amount = amount;
 	}
 	
-	public OrderState getState() {
+	public String getState() {
 		return state;
 	}
 	
-	public void setState(OrderState state) {
+	public void setState(String state) {
 		this.state = state;
 	}
 	

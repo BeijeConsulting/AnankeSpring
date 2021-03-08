@@ -31,18 +31,18 @@ public class OrderService {
 	public Order openOrder(User user) {
 		Order order;
 		if(checkOpenOrder(user)) {
-			order = orderRepository.findByUserIdAndState(user.getId(), OrderState.OPEN);
+			order = orderRepository.findByUserIdAndState(user.getId(), "OPEN");
 			if (order == null) {
 				order = new Order();
 				order.setUserId(user.getId());
-				order.setState(OrderState.OPEN);
+				order.setState("OPEN");
 				order.setAmount(0.0);
 				orderRepository.save(order);
 			}
 		} else {
 			order = new Order();
 			order.setUserId(user.getId());
-			order.setState(OrderState.OPEN);
+			order.setState("OPEN");
 			order.setAmount(0.0);
 			orderRepository.save(order);
 		}
@@ -74,8 +74,12 @@ public class OrderService {
 	{
 		Order order = orderRepository.findById(id).get();
 		
-		order.setState(OrderState.DELETED);
+		order.setState("DELETED");
 		
 		orderRepository.save(order);
+	}
+	
+	public Order findByUserIdAndState(Integer id, String state) {
+		return orderRepository.findByUserIdAndState(id, state);
 	}
 }

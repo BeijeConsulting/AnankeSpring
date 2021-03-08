@@ -27,7 +27,12 @@ public class OrderItemService {
 	@Autowired
 	ProductRepository productRepository;
 	
-	public OrderItem addToChart(Integer orderId, Integer productId, Integer quantity, Double price) {
+	public OrderItem save(OrderItem orderItem) {
+		orderItemRepository.save(orderItem);
+		return orderItem;
+	}
+	
+	public OrderItem addToCart(Integer orderId, Integer productId, Integer quantity, Double price) {
 		
 		OrderItem orderItem = orderItemRepository.findByOrderIdAndProductId(orderId, productId);
 		if(orderItem != null) {

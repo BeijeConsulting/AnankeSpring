@@ -63,7 +63,7 @@ public class OrderController {
 		User user = (User) session.getAttribute("user");
 		model.addAttribute("userId", user.getId());
 		Order order = orderRepository.findById(id).get();
-		order.setState(OrderState.CLOSED);
+		order.setState("CLOSED");
 		orderRepository.save(order);
 //		chartRepository.deleteByOrderId(id);
 		return "orders";
