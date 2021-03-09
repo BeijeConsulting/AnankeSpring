@@ -1,0 +1,26 @@
+.showSingleProduct{
+    width: fit-content;
+    height: fit-content;
+    padding: 10px;
+    background-color: white;
+}
+
+.ul-products {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
+    }
+  
+.li-left {
+     float: left;
+ }
+      
+.li-product{
+    margin: 10px;
+}
+
+p{
+    color: black;
+    text-align: center;
+}
