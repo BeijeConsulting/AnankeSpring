@@ -162,7 +162,6 @@ public class EcommerceRestContollerOrder{
 		
 		cart = carrello;
 		
-		System.out.println(cart);
 		//ritorno la lista degli orderItem dal carrello
 		if (cart != null) {
 			
