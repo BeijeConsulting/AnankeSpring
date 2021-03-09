@@ -18,9 +18,6 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 	public Order findByUserIdAndState(Integer userId, String state);
 	
 	
-	@Query(nativeQuery = true, value="SELECT product.name,product.price,order_item.quantity,order_item.amount\r\n"
-			+ "FROM product JOIN order_item ON order_item.product_id = product.id\r\n"
-			+ "WHERE order_id =:orderId;")
-	public List getCart(@Param("ordId")Integer orderId);
+	
 	
 }

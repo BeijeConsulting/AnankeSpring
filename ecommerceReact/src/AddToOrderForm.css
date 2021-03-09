@@ -1,0 +1,38 @@
+.chartButton {
+    width: 15px;
+    height: 15px;
+}
+
+.number {
+    size:4;
+}
+
+.submit{
+    box-sizing: content-box;
+}
+
+/* -- quantity box -- */
+
+.quantity {
+    display: inline-block; 
+}
+   
+.quantity .input-text.qty {
+    width: 35px;
+    height: 20px;
+    padding: 0 5px;
+    text-align: left;
+    background-color: transparent;
+    border: 1px solid #827878;
+    border-radius: 5px;
+}
+   
+
+   
+
+
+   
+
+
+   
+   

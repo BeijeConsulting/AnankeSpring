@@ -16,4 +16,5 @@ public interface OrderItemRepository extends JpaRepository<OrderItem, Integer> {
 
 	@Query(nativeQuery = true, value ="SELECT SUM(amount) FROM order_item WHERE order_id LIKE :orderId")
 	public double totalAmount(@Param("orderId") Integer orderId);
+
 }

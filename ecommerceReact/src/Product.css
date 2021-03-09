@@ -1,0 +1,25 @@
+.Product{
+    box-sizing: content-box;
+    position: relative;
+    border: 1px solid purple;
+    margin: 10px;
+    width: 80%;
+
+}
+
+.image {
+    align-content: center;
+    width: 150px;
+    height: 150px;
+}
+.name {
+    font-size-adjust: inherit;
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+.price {
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}

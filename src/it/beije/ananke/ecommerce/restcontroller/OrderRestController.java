@@ -1,7 +1,9 @@
 package it.beije.ananke.ecommerce.restcontroller;
 
 import it.beije.ananke.ecommerce.model.Order;
+import it.beije.ananke.ecommerce.model.OrderItem;
 import it.beije.ananke.ecommerce.model.User;
+import it.beije.ananke.ecommerce.repositories.OrderItemRepository;
 import it.beije.ananke.ecommerce.repositories.OrderRepository;
 
 import java.util.List;
@@ -22,6 +24,9 @@ public class OrderRestController {
 
     @Autowired
     OrderRepository orderRepository;
+    
+    @Autowired
+    OrderItemRepository orderItemRepository;
 
     @GetMapping("/order/{id}") // /api/contatto/{id}
     public Order getOrder(@PathVariable Integer id) {
@@ -34,11 +39,11 @@ public class OrderRestController {
     }
     
     @GetMapping("/cart")
-    public List getCart(HttpSession session)
+    public List<OrderItem> getCart(HttpSession session)
     {
     	User utente = (User) session.getAttribute("user");
-    	Order ord = orderRepository.findByUserIdAndState(utente.getId(), "OPEN");
+    	Order order = orderRepository.findByUserIdAndState(utente.getId(), "OPEN");
     	
-    	return orderRepository.getCart(ord.getId());
+    	return orderItemRepository.findByOrderId(order.getId());
     }
 }
